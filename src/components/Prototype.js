@@ -24,7 +24,10 @@ export default class Prototype extends React.Component {
                     placeholder="Search shows and movies"
                     value={this.state.search_query}
                     onChange={e => this.setState({search_query: e.target.value})}/>
-                <button onClick={() => this.findMovies(this.state.search_query)}>Search</button>
+                <button
+                    onClick={() => this.findMovies(this.state.search_query)}>
+                        <i className="fa fa-search"> </i>
+                </button>
                 {console.log(this.state.movies)}
             </div>
         )
