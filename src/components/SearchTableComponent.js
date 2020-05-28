@@ -11,7 +11,7 @@ export default class SearchTableComponent
                     <table className="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th className="wbdv-header wbdv-title">
+                            <th>
                                 <label>Results
                                 </label>
                             </th>
@@ -21,7 +21,7 @@ export default class SearchTableComponent
                         {
                             this.props.movies.map(movie =>
                                 <SearchRowComponent
-                                    key={movie.ids.trakt}  movie={movie}/>
+                                    key={movie.movie.ids.trakt} movie={movie.movie}/>
                             )
                         }
                         </tbody>

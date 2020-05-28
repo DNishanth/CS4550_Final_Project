@@ -9,6 +9,7 @@ export default class SearchRowComponent extends React.Component {
             <tr key={this.props.movie.key}>
                 <td>
                     {this.props.movie.title}
+                    {console.log(this.props.movie.title)}
                 </td>
             </tr>
         )
