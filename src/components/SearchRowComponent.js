@@ -3,15 +3,12 @@ import {Link} from "react-router-dom";
 import PrototypeService from "../services/PrototypeService";
 
 export default class SearchRowComponent extends React.Component {
-    state = {
-        movie: this.props.movie
-    }
 
     render() {
         return (
-            <tr key={this.state.movie._id}>
+            <tr key={this.props.movie.key}>
                 <td>
-                    {this.state.movie.title}
+                    {this.props.movie.title}
                 </td>
             </tr>
         )

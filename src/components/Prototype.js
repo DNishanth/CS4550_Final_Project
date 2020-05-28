@@ -34,7 +34,6 @@ export default class Prototype extends React.Component {
                 <button
                     onClick={() =>
                         this.findMovies(this.state.search_query)}>
-                    }>
                         <i className="fa fa-search"> </i>
                 </button>
                 <SearchTableComponent movies={this.state.movies}/>
