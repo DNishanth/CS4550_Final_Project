@@ -2,9 +2,12 @@ import React from "react";
 import PrototypeService from "../services/PrototypeService";
 
 export default class Prototype extends React.Component {
-    state = {
-        movies: []
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            search_query: ""
+        };
+      }
 
     findMovies = (query) => {
         PrototypeService.findMovies(query)
@@ -16,7 +19,12 @@ export default class Prototype extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.findMovies('batman')}>Search Batman</button>
+                <input 
+                    type="form-control"
+                    placeholder="Search shows and movies"
+                    value={this.state.search_query}
+                    onChange={e => this.setState({search_query: e.target.value})}/>
+                <button onClick={() => this.findMovies(this.state.search_query)}>Search</button>
                 {console.log(this.state.movies)}
             </div>
         )
