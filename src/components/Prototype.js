@@ -11,10 +11,15 @@ export default class Prototype extends React.Component {
 
     findMovies = (query) => {
         PrototypeService.findMovies(query)
-            .then(movies =>
-                this.setState( {
-                    movies: movies
-                }))}
+            .then(movies => {
+                this.setState(
+                    { 
+                        movies: movies
+                    }
+                )
+                console.log(this.state.movies)}
+            )
+    }
 
     render() {
         return (
@@ -25,10 +30,12 @@ export default class Prototype extends React.Component {
                     value={this.state.search_query}
                     onChange={e => this.setState({search_query: e.target.value})}/>
                 <button
-                    onClick={() => this.findMovies(this.state.search_query)}>
+                    onClick={() => {
+                        this.findMovies(this.state.search_query)
+                        }
+                    }>
                         <i className="fa fa-search"> </i>
                 </button>
-                {console.log(this.state.movies)}
             </div>
         )
     }
