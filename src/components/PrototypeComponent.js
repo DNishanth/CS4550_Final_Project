@@ -2,7 +2,7 @@ import React from "react";
 import PrototypeService from "../services/PrototypeService";
 import SearchTableComponent from "./SearchTableComponent";
 
-export default class Prototype extends React.Component {
+export default class PrototypeComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
