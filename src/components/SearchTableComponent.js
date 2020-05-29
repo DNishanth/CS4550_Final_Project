@@ -19,9 +19,9 @@ export default class SearchTableComponent
                         </thead>
                         <tbody>
                         {
-                            this.props.movies.map(movie =>
+                            this.props.shows.map(show =>
                                 <SearchRowComponent
-                                    key={movie.movie.ids.trakt} movie={movie.movie}/>
+                                    key={show.ids.trakt} show={show}/>
                             )
                         }
                         </tbody>
