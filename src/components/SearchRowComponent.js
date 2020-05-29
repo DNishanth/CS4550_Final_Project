@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import PrototypeService from "../services/PrototypeService";
 
 export default class SearchRowComponent extends React.Component {
 
