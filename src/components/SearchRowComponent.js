@@ -6,7 +6,7 @@ export default class SearchRowComponent extends React.Component {
     render() {
         return (
             <tr key={this.props.show.key}>
-                <td>
+                <td className="text-md-left">
                 <Link to={`/result/${this.props.show.ids.imdb}`}>
                     {this.props.show.title}
                 </Link>

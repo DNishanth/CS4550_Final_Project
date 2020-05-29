@@ -48,16 +48,23 @@ export default class PrototypeComponent extends React.Component {
     render() {
         return (
             <div>
-                <input 
-                    type="form-control"
-                    placeholder="Search shows and movies"
-                    value={this.state.search_query}
-                    onChange={e => this.setState({search_query: e.target.value})}/>
-                <button
-                    onClick={() =>
-                        this.findMovies(this.state.search_query)}>
+                <div className="input-group mb-3">
+                    <input
+                        className="form-control"
+                        type="form-control"
+                        placeholder="Search shows and movies"
+                        value={this.state.search_query}
+                        onChange={e => this.setState({search_query: e.target.value})}/>
+                    <div className="input-group-append">
+                        <button
+                            className="btn btn-outline-success"
+                        onClick={() =>
+                            this.findMovies(this.state.search_query)}>
                         <i className="fa fa-search"/>
-                </button>
+                    </button>
+                    </div>
+                </div>
+
                 <SearchTableComponent shows={this.state.shows}/>
             </div>
         )

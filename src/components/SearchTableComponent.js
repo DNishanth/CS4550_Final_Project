@@ -6,12 +6,16 @@ export default class SearchTableComponent
     extends React.Component {
     render() {
         return (
-            <div>
-                <div className="container">
-                    <table className="table table-striped table-hover">
+            <div /*className="row"*/>
+                {/*<div className="col-3">*/}
+                {/*    <div style={{height: 1000 }} className="border">Maybe the filter stuff</div>*/}
+                {/*</div>*/}
+                <div /*className="col-9"*/>
+                    <table className="table table-striped table-hover
+                table-bordered">
                         <thead>
                         <tr>
-                            <th>
+                            <th className="text-md-left">
                                 <label>Results
                                 </label>
                             </th>
@@ -28,6 +32,7 @@ export default class SearchTableComponent
                     </table>
                 </div>
             </div>
+
         )
     }
 }
