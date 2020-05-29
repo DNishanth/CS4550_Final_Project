@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Prototype from "./components/Prototype";
+import ResultInfoComponent from './components/ResultInfoComponent';
 
 function App() {
   return (
     <div className="App">
-      <Prototype/>
+      <ResultInfoComponent/>
     </div>
   );
 }
