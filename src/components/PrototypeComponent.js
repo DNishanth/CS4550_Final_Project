@@ -42,6 +42,7 @@ export default class PrototypeComponent extends React.Component {
         this.setState({
             shows: trimmedMovieJSON.concat(trimmedSeriesJSON)
         })
+
         // console.log(this.state.shows)
     }
 
@@ -52,7 +53,7 @@ export default class PrototypeComponent extends React.Component {
                     <input
                         className="form-control"
                         type="form-control"
-                        placeholder="Search shows and movies"
+                        placeholder="Search for shows"
                         value={this.state.search_query}
                         onChange={e => this.setState({search_query: e.target.value})}/>
                     <div className="input-group-append">

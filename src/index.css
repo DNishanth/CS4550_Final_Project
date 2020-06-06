@@ -12,6 +12,30 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
+
+
+body {
+  padding-top: 80px;
+}
+
+.wbdv-site-nav-bar {
+  padding: 8px;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.navbar-nav > li {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.wbdv-favorite-genre-tag {
+  margin-right: 5px;
+}
+
 
