@@ -40,9 +40,9 @@ const NavBarComponent = () =>
                     </li>
 
                     <li className="nav-item">
-                        <a className="btn btn-outline-success my-2 my-sm-0" type="submit"
-                           href="/login">Login
-                        </a>
+                        <Link to="/login" className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            Login
+                        </Link>
                     </li>
                 </ul>
             </div>

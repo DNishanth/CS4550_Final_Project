@@ -1,8 +1,14 @@
 import React from "react";
+import ShowPosterComponent from "./ShowPosterComponent";
 
 export default class WatchlistComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
     render() {
-        return(
+        return (
             <div>
                 <h1>Watchlist</h1>
                 <div className="input-group mb-3">
@@ -18,34 +24,11 @@ export default class WatchlistComponent extends React.Component {
                     </div>
                 </div>
 
-                <div className="row container">
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <a href="#"><img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid img-responsive"/></a>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
-                    <div className="card" style={{width: 135, marginRight: 10, marginBottom:10}}>
-                        <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
-                    </div>
+                <div className="row container ml-0 p-0">
+                    {this.props.shows.map(show =>
+                        <ShowPosterComponent
+                            key={show.movie.ids.imdb}
+                            _id={show.movie.ids.imdb}/>)}
                 </div>
             </div>
         )

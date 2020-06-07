@@ -22,9 +22,9 @@ export default class ResultInfoComponent extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div>
-                <h1> 
+                <h1>
                     {this.state.result.title}
                     {" (" + this.state.result.release_date + ")"}
                 </h1>
@@ -32,7 +32,7 @@ export default class ResultInfoComponent extends React.Component {
                 <h4>
                     {this.state.result.vote_average}
                 </h4>
-                <p> 
+                <p>
                     {this.state.result.overview}
                 </p>
             </div>

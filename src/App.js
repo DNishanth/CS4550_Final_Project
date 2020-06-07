@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import PrototypeComponent from "./components/PrototypeComponent";
+import SearchComponent from "./components/SearchComponent";
 import ResultInfoComponent from './components/ResultInfoComponent';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import ProfileComponent from "./components/ProfileComponent";
+import ProfileComponent from "./containers/ProfileComponent";
 import NavBarComponent from "./components/NavBarComponent";
 
 function App() {
@@ -14,14 +14,18 @@ function App() {
           <Route
           path={"/"}
           exact={true}
-          component={PrototypeComponent}/>
+          component={SearchComponent}/>
         <Route
           path={"/result/:imdb_id"}
           exact={true}
           component={ResultInfoComponent}/>
         <Route
           path={"/profile"}
-          // exact={true}
+          exact={true}
+          component={ProfileComponent}/>
+        <Route
+          path={"/profile/:showId"}
+          exact={true}
           component={ProfileComponent}/>
       </div>
   </Router>

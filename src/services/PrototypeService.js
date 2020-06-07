@@ -20,7 +20,12 @@ const findSeries = (query) =>
     })
         .then(response => response.json())
 
+const getIMDBDetails = (imdbId) =>
+    fetch(`https://api.themoviedb.org/3/find/${imdbId}?api_key=54fa45f317f011fa4fd57c4d1840485c&language=en-US&external_source=imdb_id`)
+        .then(response => response.json())
+
 export default {
     findMovies,
-    findSeries
+    findSeries,
+    getIMDBDetails
 }

@@ -1,45 +1,52 @@
 import React from "react";
+import ProgressComponent from "./ProgressComponent";
+import PrototypeService from "../services/PrototypeService";
 
-const SummaryCardComponent = (props) =>
-    <div className="card position-fixed" style={{width: 425, height: 450}}>
+class SummaryCardComponent extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            poster: "",
+            title: "",
+            description: ""
+        }
+    }
 
-        <div className="card-body" style={{top: 0}}>
+    componentDidMount() {
+        PrototypeService.getIMDBDetails(this.props._id)
+            .then(details =>
+                this.setState({
+                    poster: `https://image.tmdb.org/t/p/w200${details.movie_results[0].poster_path}`,
+                    title: details.movie_results[0].title,
+                    description: details.movie_results[0].overview
+                })
+            )
+    }
 
-            <div className="form-row">
-                <div className="col">
-                    <h5 className="card-title">{props.title}</h5>
-                    <p className="card-text">The story of the Joestar family,
-                        who are possessed with intense psychic strength,
-                        and the adventures each member encounters throughout their lives.</p>
-                </div>
-                <div className="col">
-                    <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>
+    render() {
+        return (
+            <div className="card position-fixed w-25 ml-5">
+
+                <div className="card-body" style={{top: 0}}>
+                    <div className="form-row">
+                        {/*<div className="col-lg-6">*/}
+                        <h5 className="card-title">{this.state.title}</h5>
+                        <p className="card-text">{this.state.description}</p>
+                        {/*</div>*/}
+                        {/*<div className="col-lg-6">*/}
+                        {/*    <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>*/}
+                        {/*</div>*/}
+                    </div>
+
+                    <a href={`/discussions/${this.props._id}`}
+                       className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a>
+
+                    <ProgressComponent/>
+                    {/*<button className="btn btn-outline-warning">Start Watching</button>*/}
                 </div>
             </div>
-
-            <br/>
-            <a href="#" className="card-link btn btn-primary btn-block">{`Go to ${props.title}'s Discussion Board`}</a>
-
-            <br/>
-            <div className="form-row">
-                <div className="col-8">
-                    <h5 className="text-left">Progress</h5>
-                </div>
-                <div className="col-4">
-                    <h6 className="text-right text-muted">156 Episodes</h6>
-                </div>
-            </div>
-
-            <div className="progress"
-                 style={{height: 30}}>
-                <div className="progress-bar progress-bar-striped bg-info progress-bar-animated w-25"
-                     role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                    <h6>Episode 32</h6>
-                </div>
-            </div>
-
-            <button className="btn btn-sm btn-outline-danger float-right">Update Progress</button>
-        </div>
-    </div>
+        )
+    }
+}
 
 export default SummaryCardComponent
