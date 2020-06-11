@@ -1,5 +1,5 @@
 import React from "react";
-import WatchlistComponent from "../components/WatchlistComponent";
+import ShowListComponent from "../components/ShowListComponent";
 import SummaryCardComponent from "../components/SummaryCardComponent";
 import ProfileTabsComponent from "../components/ProfileTabsComponent";
 import PrototypeService from "../services/PrototypeService";
@@ -19,7 +19,7 @@ export default class ProfileComponent extends React.Component {
                 favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
             // },
             showId: this.props.match.params.showId,
-            layout: ""
+            layout: this.props.match.params.layout
         };
     }
 
@@ -45,6 +45,11 @@ export default class ProfileComponent extends React.Component {
                 showId: this.props.match.params.showId
             })
         }
+        if (prevProps.match.params.layout !== this.props.match.params.layout) {
+            this.setState({
+                layout: this.props.match.params.layout
+            })
+        }
     }
 
     saveLists() {
@@ -56,43 +61,62 @@ export default class ProfileComponent extends React.Component {
             <div className="container">
                 <div className="row">
 
-                    <div className="col-md-2 col-sm-1">
-                        <i className="fa fa-user-circle-o" style={{fontSize: 100}}/>
+                    <div className="col-lg-2 col-md-2 col-sm-2">
+                        <i className="fa fa-user-circle-o mt-2" style={{fontSize: 80}}/>
                     </div>
 
-                    <div className="col-md-10 col-sm-11">
-                        <div className="d-flex justify-content-between">
+                    <div className="col-lg-10 col-md-10 col-sm-10">
+                        <div className="d-flex {/*justify-content-between*/}">
                             <h2>User Name</h2>
+                            <a href={`/profile/edit`}>
+                                <button
+                                        // onClick={() => this.saveLists()}
+                                        className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
+                                    Edit Profile
+                                </button>
+                            </a>
                         </div>
-                        <p style={{margin: 0}}>Top 5 Genres</p>
-                        <div className="row" style={{paddingLeft: 15}}>
+                        <p className="m-0">Top 5 Genres</p>
+                        <div className="row pl-3">
                             {this.state.favoriteGenres.map(genre => <GenreBadgesComponent genre={genre}/>)}
                         </div>
                     </div>
+                </div>
 
-                    <button style={{width: 100, marginLeft: 15}}
-                            onClick={() => this.saveLists()}
-                            className="btn btn-outline-info btn-sm">
-                        Edit Profile
-                    </button>
-
-
-                    <div className="col-12">
-                        <br/>
-                        <ProfileTabsComponent/>
+                <div className="row">
+                    <div className="col-12 mt-3">
+                        <ProfileTabsComponent layout={this.state.layout}/>
                     </div>
+                </div>
 
-                    <div className="col-md-7">
-                        <br/>
-                        <WatchlistComponent shows={this.state.watchlist}/>
-                        {/*<WishlistComponent shows={this.state.wishlist}/>*/}
-                    </div>
+                <div className="row">
+                    <div className="col-lg-7">
+                            <br/>
+                            {this.state.layout === "watchlist" &&
+                                <ShowListComponent
+                                    {...this.props}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
+                            }
 
-                    <div className="col-md-5">
-                        <SummaryCardComponent
-                            _id={this.state.showId}
-                            key={this.state.showId}/>
-                    </div>
+                            {this.state.layout === "wishlist" &&
+                                <ShowListComponent
+                                    {...this.props}
+                                    layout={this.state.layout}
+                                    shows={this.state.wishlist}/>
+                            }
+                        </div>
+
+                        <div className="col-lg-5">
+                            {
+                                this.state.showId &&
+                                <SummaryCardComponent
+                                    {...this.props}
+                                    layout={this.state.layout}
+                                    _id={this.state.showId}
+                                    key={this.state.showId}/>
+                            }
+                        </div>
                 </div>
             </div>
         );

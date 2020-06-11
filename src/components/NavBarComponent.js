@@ -3,34 +3,32 @@ import {Link} from "react-router-dom";
 
 const NavBarComponent = () =>
     <div>
-        <nav
-            className="nav navbar-light bg-light justify-content-between fixed-top wbdv-site-nav-bar">
-            <Link to={'/'}>
-                <h1 className="navbar-brand">What Are We Watching?</h1>
-            </Link>
+        <nav className="nav navbar-light bg-white justify-content-between fixed-top wbdv-site-nav-bar">
+            <div className="navbar-header">
+                <a className="navbar-brand" href="/">What Are We Watching</a>
+            </div>
 
-            <div>
-                <ul className="nav navbar-nav">
+            <ul className="nav nav-pills d-none d-sm-flex">
                     <li className="nav-item">
                         <Link to="/" className="nav-link" role="button" aria-haspopup="true"
                               aria-expanded="false">
-                            Search
-                        </Link>
-                    </li>
-
-                    <li className="nav-item">
-                        <Link to="/profile" className="nav-link" role="button" aria-haspopup="true"
-                              aria-expanded="false">
-                            Profile
+                            <i className="fa fa-search"/>
                         </Link>
                     </li>
 
                     <li className="nav-item dropdown">
                         <Link to="/discussions/home" className="nav-link" role="button" aria-haspopup="true"
                               aria-expanded="false">
-                            Discussions
+                            <i className="fa fa-commenting"/>
                         </Link>
                     </li>
+
+                <li className="nav-item">
+                    <Link to="/profile/watchlist" className="nav-link" role="button" aria-haspopup="true"
+                          aria-expanded="false">
+                        <i className="fa fa-user"/>
+                    </Link>
+                </li>
 
                     <li className="nav-item">
                         <Link to="/registration" className="nav-link" role="button" aria-haspopup="true"
@@ -41,12 +39,20 @@ const NavBarComponent = () =>
 
                     <li className="nav-item">
                         <Link to="/login" className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            {/*<i className="fa fa-sign-in"></i>*/}
                             Login
                         </Link>
                     </li>
                 </ul>
-            </div>
         </nav>
+
+        <div className="container nav-2 d-sm-none d-flex justify-content-center">
+            <ul className="nav nav-pills nav-fill">
+                <li className="active"><a href="#">Search</a></li>
+                <li className=""><a href="#">Discussions</a></li>
+                <li className=""><a href="#">Profile</a></li>
+            </ul>
+        </div>
     </div>
 
 export default NavBarComponent

@@ -7,7 +7,7 @@ const ProgressComponent = (props) =>
                 <h5 className="text-left">Progress</h5>
             </div>
             <div className="col-4">
-                <h6 style={{marginTop: 5}} className="text-right text-muted">156 Episodes</h6>
+                <h6 className="text-right text-muted mt-2">156 Episodes</h6>
             </div>
         </div>
         <div className="progress"
@@ -18,7 +18,10 @@ const ProgressComponent = (props) =>
             </div>
         </div>
 
-        <button style={{marginTop: 10}} className="btn btn-sm btn-outline-danger float-right">Update Progress</button>
+        <div>
+            <button className="mt-3 btn btn-sm btn-outline-success float-left">Update Progress</button>
+            <button className="mt-3 btn btn-sm btn-outline-danger float-right">Remove Show</button>
+        </div>
     </div>
 
 export default ProgressComponent

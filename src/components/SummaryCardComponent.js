@@ -1,14 +1,16 @@
 import React from "react";
 import ProgressComponent from "./ProgressComponent";
 import PrototypeService from "../services/PrototypeService";
+import {Link} from "react-router-dom";
 
 class SummaryCardComponent extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             poster: "",
             title: "",
-            description: ""
+            description: "",
+            view: this.props.match.params.view
         }
     }
 
@@ -27,22 +29,29 @@ class SummaryCardComponent extends React.Component {
         return (
             <div className="card position-fixed w-25 ml-5">
 
-                <div className="card-body" style={{top: 0}}>
-                    <div className="form-row">
-                        {/*<div className="col-lg-6">*/}
+                <div className="card-body">
+                    <div className="d-flex justify-content-between">
                         <h5 className="card-title">{this.state.title}</h5>
-                        <p className="card-text">{this.state.description}</p>
-                        {/*</div>*/}
-                        {/*<div className="col-lg-6">*/}
-                        {/*    <img src={require('../assets/GoldenWind-Promo.png')} className="img-fluid"/>*/}
-                        {/*</div>*/}
+                        <Link to={`/profile/${this.props.layout}/${this.state.view}`}>
+                            <i className={"fa fa-times text-danger"}/>
+                        </Link>
                     </div>
 
+                    <p className="card-text">{this.state.description}</p>
                     <a href={`/discussions/${this.props._id}`}
                        className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a>
 
-                    <ProgressComponent/>
-                    {/*<button className="btn btn-outline-warning">Start Watching</button>*/}
+                    {this.state.view === "search" && <ProgressComponent/>}
+
+                    {
+                        this.props.layout === "wishlist" &&
+                        <button className="btn btn-outline-warning">Start Watching</button>
+                    }
+
+                    {
+                        this.state.view === "add" &&
+                        <button className="btn btn-outline-warning">Start Watching</button>
+                    }
                 </div>
             </div>
         )
