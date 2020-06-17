@@ -37,6 +37,7 @@ export default class ShowListComponent extends React.Component {
                         {
                             this.props.shows.map(show =>
                                 <ShowPosterComponent
+                                    mobileView={this.props.mobileView}
                                     view={this.state.searchBar}
                                     layout={this.props.layout}
                                     key={show.movie.ids.imdb}

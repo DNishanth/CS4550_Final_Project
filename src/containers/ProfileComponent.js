@@ -5,6 +5,7 @@ import ProfileTabsComponent from "../components/ProfileTabsComponent";
 import PrototypeService from "../services/PrototypeService";
 import GenreBadgesComponent from "../components/GenreBadgesComponent";
 import UserService from "../services/UserService";
+import MediaQuery from "react-responsive";
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -14,10 +15,6 @@ export default class ProfileComponent extends React.Component {
                 {
                     username: '',
                     password: '',
-                    role: '',
-                    firstname: '',
-                    lastName: '',
-                    email: ''
                 },
 
 
@@ -67,6 +64,8 @@ export default class ProfileComponent extends React.Component {
                         }
                     })
             })
+
+
     }
 
     logout = () => {
@@ -138,20 +137,48 @@ export default class ProfileComponent extends React.Component {
 
                 <div className="row">
                     <div className="col-lg-7">
-                            <br/>
-                            {this.state.layout === "watchlist" &&
+                        <br/>
+
+                        <MediaQuery query='(min-width: 1024px)'>
+                            <div>
+                                {this.state.layout === "watchlist" &&
                                 <ShowListComponent
                                     {...this.props}
+                                    mobileView={false}
                                     layout={this.state.layout}
                                     shows={this.state.watchlist}/>
-                            }
+                                }
 
-                            {this.state.layout === "wishlist" &&
+                                {this.state.layout === "wishlist" &&
                                 <ShowListComponent
                                     {...this.props}
+                                    mobileView={false}
                                     layout={this.state.layout}
                                     shows={this.state.wishlist}/>
-                            }
+                                }
+                            </div>
+                        </MediaQuery>
+                        <MediaQuery query='(max-width: 1023px)'>
+                            <div>
+                                {this.state.layout === "watchlist" &&
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={true}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
+                                }
+
+                                {this.state.layout === "wishlist" &&
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={true}
+                                    layout={this.state.layout}
+                                    shows={this.state.wishlist}/>
+                                }
+                            </div>
+                        </MediaQuery>
+
+
                         </div>
 
                         <div className="col-lg-5">

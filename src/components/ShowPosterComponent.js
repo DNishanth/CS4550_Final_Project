@@ -2,8 +2,8 @@ import React from "react";
 import PrototypeService from "../services/PrototypeService";
 
 class ShowPosterComponent extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             poster: "",
             title: "",
@@ -24,7 +24,11 @@ class ShowPosterComponent extends React.Component {
     }
 
     setSelected() {
-        this.props.history.push(`/profile/${this.props.layout}/${this.props._id}`)
+        if (this.props.mobileView) {
+            this.props.history.push(`/result/${this.props._id}`)
+        } else {
+            this.props.history.push(`/profile/${this.props.layout}/${this.props._id}`)
+        }
     }
 
     render() {
@@ -33,7 +37,7 @@ class ShowPosterComponent extends React.Component {
                  id="foundShowContainer"
                  style={{width: 135, marginRight: 10, marginBottom: 10}}>
 
-                <a href={`/profile/${this.props.layout}/${this.props._id}`}>
+                <a href={this.props.mobileView ? `/result/${this.props._id}` : `/profile/${this.props.layout}/${this.props._id}`}>
                     <img src={this.state.poster}
                          className="img-fluid img-responsive image"
                          alt={this.state.title}
