@@ -31,25 +31,25 @@ function App() {
               exact={true}
               component={ResultInfoComponent}/>
               <Route
-              path={["/profile/:layout", "/profile/:profileId/:layout"]}
+              path={"/profile/:layout"}
               exact={true}
               component={ProfileComponent}/>
               <Route
-              path={["/profile/:layout/:showId", "/profile/:profileId/:layout/:showId"]}
+              path={"/profile/:layout/:showId"}
               exact={true}
               component={ProfileComponent}/>
               <Route
               path={"/profile/settings"}
               exact={true}
               component={ProfileSettingsComponent}/>
-                <Route
-                  path={"/login"}
-                  exact={true}
-                  component={LoginComponent} />
-                <Route
-                  path={"/registration"}
-                  exact={true}
-                  component={RegisterComponent} />
+            <Route
+              path={"/login"}
+              exact={true}
+              component={LoginComponent} />
+            <Route
+              path={"/registration"}
+              exact={true}
+              component={RegisterComponent} />
           <Route
               path={"/discussions"}
               // exact={true}
