@@ -10,7 +10,6 @@ class SummaryCardComponent extends React.Component {
             poster: "",
             title: "",
             description: "",
-            view: this.props.match.params.view
         }
     }
 
@@ -32,7 +31,7 @@ class SummaryCardComponent extends React.Component {
                 <div className="card-body">
                     <div className="d-flex justify-content-between">
                         <h5 className="card-title">{this.state.title}</h5>
-                        <Link to={`/profile/${this.props.layout}/${this.state.view}`}>
+                        <Link to={`/profile/${this.props.layout}`}>
                             <i className={"fa fa-times text-danger"}/>
                         </Link>
                     </div>
@@ -41,15 +40,10 @@ class SummaryCardComponent extends React.Component {
                     <a href={`/discussions/${this.props._id}`}
                        className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a>
 
-                    {this.state.view === "search" && <ProgressComponent/>}
+                    {this.props.layout === "watchlist" && <ProgressComponent/>}
 
                     {
                         this.props.layout === "wishlist" &&
-                        <button className="btn btn-outline-warning">Start Watching</button>
-                    }
-
-                    {
-                        this.state.view === "add" &&
                         <button className="btn btn-outline-warning">Start Watching</button>
                     }
                 </div>

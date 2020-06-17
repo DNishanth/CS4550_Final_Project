@@ -6,15 +6,15 @@ export default class Register extends React.Component {
         username: '',
         password: '',
         role: '',
-        firstname: '',
+        firstName: '',
         lastName: '',
         email: ''
     }
     register = () => {
         fetch("https://wbdv-team18-final-project.herokuapp.com/api/register", {
-            body: JSON.stringify({ 
-                username: this.state.username, password: this.state.password, 
-                role: this.state.role, firstname: this.state.firstname, 
+            body: JSON.stringify({
+                username: this.state.username, password: this.state.password,
+                role: this.state.role, firstName: this.state.firstName,
                 lastName: this.state.lastName, email: this.state.email }),
             headers: {
                 'content-type': 'application/json'
@@ -22,7 +22,7 @@ export default class Register extends React.Component {
             method: 'POST',
             credentials: "include"
         }).then(response => response.json())
-            .then(currentUser => this.props.history.push("/profile"))
+            .then(currentUser => this.props.history.push("/profile/watchlist"))
     }
     render() {
         return (
@@ -37,14 +37,21 @@ export default class Register extends React.Component {
                     placeholder="Password"
                     onChange={(e) => this.setState({ password: e.target.value })}
                     className="form-control" />
-                {/* switch to radio buttons for role */}
-                <input
-                    placeholder="Role"
+                <select
                     onChange={(e) => this.setState({ role: e.target.value })}
-                    className="form-control" />
+                    value={this.state.role}
+                    className="custom-select custom-select">
+                    <option selected disabled> Choose User Role</option>
+                    <option value="LEADER">
+                        Group Leader
+                    </option>
+                    <option value="MEMBER">
+                        Member
+                    </option>
+                </select>
                 <input
                     placeholder="First Name"
-                    onChange={(e) => this.setState({ firstname: e.target.value })}
+                    onChange={(e) => this.setState({ firstName: e.target.value })}
                     className="form-control" />
                 <input
                     placeholder="Last Name"
@@ -58,7 +65,7 @@ export default class Register extends React.Component {
                     onClick={this.register}
                     className="btn btn-primary">
                     Register
-        </button>
+                </button>
                 <Link to="/login">Sign in</Link>
             </div>
         )

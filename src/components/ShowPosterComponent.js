@@ -24,7 +24,7 @@ class ShowPosterComponent extends React.Component {
     }
 
     setSelected() {
-        this.props.history.push(`/profile/${this.props.layout}/${this.props.view}/${this.props._id}`)
+        this.props.history.push(`/profile/${this.props.layout}/${this.props._id}`)
     }
 
     render() {
@@ -33,7 +33,7 @@ class ShowPosterComponent extends React.Component {
                  id="foundShowContainer"
                  style={{width: 135, marginRight: 10, marginBottom: 10}}>
 
-                <a href={`/profile/${this.props.layout}/${this.props.view}/${this.props._id}`}>
+                <a href={`/profile/${this.props.layout}/${this.props._id}`}>
                     <img src={this.state.poster}
                          className="img-fluid img-responsive image"
                          alt={this.state.title}

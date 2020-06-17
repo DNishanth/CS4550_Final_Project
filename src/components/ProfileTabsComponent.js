@@ -7,12 +7,12 @@ const ProfileTabsComponent = (props) =>
             props.layout === "watchlist" &&
             <ul className="nav nav-tabs flex-column flex-sm-row block">
                 <li className="nav-item">
-                    <Link to="/profile/watchlist/search" className="nav-link active">
+                    <Link to="/profile/watchlist" className="nav-link active">
                         Watchlist
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/wishlist/search" className="nav-link">
+                    <Link to="/profile/wishlist" className="nav-link">
                         Wishlist
                     </Link>
                 </li>
@@ -27,12 +27,12 @@ const ProfileTabsComponent = (props) =>
             props.layout === "wishlist" &&
             <ul className="nav nav-tabs flex-column flex-sm-row block">
                 <li className="nav-item">
-                    <Link to="/profile/watchlist/search" className="nav-link">
+                    <Link to="/profile/watchlist" className="nav-link">
                         Watchlist
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/wishlist/search" className="nav-link active">
+                    <Link to="/profile/wishlist" className="nav-link active">
                         Wishlist
                     </Link>
                 </li>
@@ -47,12 +47,12 @@ const ProfileTabsComponent = (props) =>
             props.layout === "groups" &&
             <ul className="nav nav-tabs flex-column flex-sm-row block">
                 <li className="nav-item">
-                    <Link to="/profile/watchlist/search" className="nav-link">
+                    <Link to="/profile/watchlist" className="nav-link">
                         Watchlist
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/wishlist/search" className="nav-link">
+                    <Link to="/profile/wishlist" className="nav-link">
                         Wishlist
                     </Link>
                 </li>

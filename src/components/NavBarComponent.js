@@ -10,7 +10,7 @@ const NavBarComponent = () =>
 
             <ul className="nav nav-pills d-none d-sm-flex">
                     <li className="nav-item">
-                        <Link to="/" className="nav-link" role="button" aria-haspopup="true"
+                        <Link to="/search" className="nav-link" role="button" aria-haspopup="true"
                               aria-expanded="false">
                             <i className="fa fa-search"/>
                         </Link>

@@ -10,6 +10,17 @@ export default class ProfileComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userDetails:
+                {
+                    username: '',
+                    password: '',
+                    role: '',
+                    firstname: '',
+                    lastName: '',
+                    email: ''
+                },
+
+
             // user: {
                 watchlist: [],
                 wishlist: [],
@@ -36,6 +47,35 @@ export default class ProfileComponent extends React.Component {
                     wishlist: wishlist
                 })
             })
+
+        fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
+            method: 'POST',
+            credentials: "include"
+        })
+            .then(response => {
+                console.log(response)
+                return response.json()
+            })
+            .catch(e => {
+                this.props.history.push("/")
+            })
+            .then(user => {
+                if(user)
+                    this.setState({
+                        userDetails: {
+                            username: user.username, password: user.password
+                        }
+                    })
+            })
+    }
+
+    logout = () => {
+        fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
+            method: 'POST',
+            credentials: "include"
+        })
+            .then(response => this.props.history.push("/"))
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -67,14 +107,21 @@ export default class ProfileComponent extends React.Component {
 
                     <div className="col-lg-10 col-md-10 col-sm-10">
                         <div className="d-flex {/*justify-content-between*/}">
-                            <h2>User Name</h2>
-                            <a href={`/profile/edit`}>
-                                <button
-                                        // onClick={() => this.saveLists()}
-                                        className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
-                                    Edit Profile
-                                </button>
-                            </a>
+                            <h2>{this.state.userDetails.username}</h2>
+                            {
+                                this.props.match.params.layout !== "settings" &&
+                                <a href={`/profile/settings`}>
+                                    <button
+                                            className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
+                                        Edit Profile
+                                    </button>
+                                </a>
+                            }
+                            <button
+                                onClick={this.logout}
+                                className="btn btn-sm btn-outline-danger w-auto h-75 ml-2 mt-2">
+                                Logout
+                            </button>
                         </div>
                         <p className="m-0">Top 5 Genres</p>
                         <div className="row pl-3">
