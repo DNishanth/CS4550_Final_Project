@@ -2,7 +2,6 @@ import React from "react";
 import ShowListComponent from "../components/ShowListComponent";
 import SummaryCardComponent from "../components/SummaryCardComponent";
 import ProfileTabsComponent from "../components/ProfileTabsComponent";
-import PrototypeService from "../services/PrototypeService";
 import GenreBadgesComponent from "../components/GenreBadgesComponent";
 import UserService from "../services/UserService";
 import MediaQuery from "react-responsive";
@@ -11,40 +10,20 @@ export default class ProfileComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userDetails:
-                {
-                    username: '',
-                    password: '',
-                },
+            username: '',
+            password: '',
+            watchlist: [],
+            userId: '',
 
-
-            // user: {
-                watchlist: [],
-                wishlist: [],
-                groups: [
-                    {name: "fmop", members: []}
-                ],
-                favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
-            // },
+            wishlist: [],
+            groups: [],
+            favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
             showId: this.props.match.params.showId,
             layout: this.props.match.params.layout
         };
     }
 
     componentDidMount() {
-        PrototypeService.findMovies("")
-            .then(watchlist => {
-                this.setState({
-                    watchlist: watchlist
-                })
-            })
-        PrototypeService.findMovies("Spiderman")
-            .then(wishlist => {
-                this.setState({
-                    wishlist: wishlist
-                })
-            })
-
         fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
             method: 'POST',
             credentials: "include"
@@ -57,14 +36,23 @@ export default class ProfileComponent extends React.Component {
                 this.props.history.push("/")
             })
             .then(user => {
-                if(user)
+                if(user) {
                     this.setState({
-                        userDetails: {
-                            username: user.username, password: user.password
-                        }
+                        username: user.username,
+                        password: user.password,
+                        userId: user.id
                     })
-            })
-
+                    {console.log(user)}
+                }
+            }).then(status =>
+            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                .then(response => response.json())
+                .then(watchlist => this.setState({
+                    watchlist: watchlist
+                })).then(status =>
+                console.log(this.state.watchlist)
+            )
+        )
 
     }
 
@@ -78,7 +66,6 @@ export default class ProfileComponent extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-
         if (prevProps.match.params.showId !== this.props.match.params.showId) {
             this.setState({
                 showId: this.props.match.params.showId
@@ -89,10 +76,6 @@ export default class ProfileComponent extends React.Component {
                 layout: this.props.match.params.layout
             })
         }
-    }
-
-    saveLists() {
-        UserService.createUser(this.state).then(r => alert("created user"))
     }
 
     render() {
@@ -106,7 +89,7 @@ export default class ProfileComponent extends React.Component {
 
                     <div className="col-lg-10 col-md-10 col-sm-10">
                         <div className="d-flex {/*justify-content-between*/}">
-                            <h2>{this.state.userDetails.username}</h2>
+                            <h2>{this.state.username}</h2>
                             {
                                 this.props.match.params.layout !== "settings" &&
                                 <a href={`/profile/settings`}>
@@ -140,6 +123,7 @@ export default class ProfileComponent extends React.Component {
                         <br/>
 
                         <MediaQuery query='(min-width: 1024px)'>
+                            {console.log(this.state.watchlist)}
                             <div>
                                 {this.state.layout === "watchlist" &&
                                 <ShowListComponent

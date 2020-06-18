@@ -34,14 +34,15 @@ export default class ShowListComponent extends React.Component {
                 </div>
 
                     <div className="row container ml-0 p-0">
+                        {/*{console.log(this.props.shows)}*/}
                         {
                             this.props.shows.map(show =>
                                 <ShowPosterComponent
                                     mobileView={this.props.mobileView}
                                     view={this.state.searchBar}
                                     layout={this.props.layout}
-                                    key={show.movie.ids.imdb}
-                                    _id={show.movie.ids.imdb}/>)
+                                    key={show.imdbId}
+                                    _id={show.imdbId}/>)
                         }
                     </div>
             </div>
