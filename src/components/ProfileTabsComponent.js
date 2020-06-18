@@ -21,6 +21,11 @@ const ProfileTabsComponent = (props) =>
                         Groups
                     </Link>
                 </li>
+                <li className="nav-item">
+                    <Link to="/profile/posts" className="nav-link">
+                        Posts
+                    </Link>
+                </li>
             </ul>
         }
         {
@@ -41,6 +46,11 @@ const ProfileTabsComponent = (props) =>
                         Groups
                     </Link>
                 </li>
+                <li className="nav-item">
+                    <Link to="/profile/posts" className="nav-link">
+                        Posts
+                    </Link>
+                </li>
             </ul>
         }
         {
@@ -59,6 +69,36 @@ const ProfileTabsComponent = (props) =>
                 <li className="nav-item">
                     <Link to="/profile/groups" className="nav-link active">
                         Groups
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/profile/posts" className="nav-link">
+                        Posts
+                    </Link>
+                </li>
+            </ul>
+        }
+        {
+            props.layout === "posts" &&
+            <ul className="nav nav-tabs flex-column flex-sm-row block">
+                <li className="nav-item">
+                    <Link to="/profile/watchlist" className="nav-link">
+                        Watchlist
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/profile/wishlist" className="nav-link">
+                        Wishlist
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/profile/groups" className="nav-link">
+                        Groups
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/profile/posts" className="nav-link active">
+                        Posts
                     </Link>
                 </li>
             </ul>

@@ -5,6 +5,8 @@ import ProfileTabsComponent from "../components/ProfileTabsComponent";
 import GenreBadgesComponent from "../components/GenreBadgesComponent";
 import UserService from "../services/UserService";
 import MediaQuery from "react-responsive";
+import PostListComponent from "../components/PostListComponent";
+import GroupsComponent from "../components/GroupsComponent";
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -12,12 +14,14 @@ export default class ProfileComponent extends React.Component {
         this.state = {
             username: '',
             password: '',
-            watchlist: [],
             userId: '',
 
+            favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
+            watchlist: [],
             wishlist: [],
             groups: [],
-            favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
+            posts: [],
+
             showId: this.props.match.params.showId,
             layout: this.props.match.params.layout
         };
@@ -91,8 +95,8 @@ export default class ProfileComponent extends React.Component {
                         <div className="d-flex {/*justify-content-between*/}">
                             <h2>{this.state.username}</h2>
                             {
-                                this.props.match.params.layout !== "settings" &&
-                                <a href={`/profile/settings`}>
+                                this.props.match.params.layout !== "info" &&
+                                <a href={`/profile/info`}>
                                     <button
                                             className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
                                         Edit Profile
@@ -161,8 +165,6 @@ export default class ProfileComponent extends React.Component {
                                 }
                             </div>
                         </MediaQuery>
-
-
                         </div>
 
                         <div className="col-lg-5">
@@ -176,6 +178,18 @@ export default class ProfileComponent extends React.Component {
                             }
                         </div>
                 </div>
+                {
+                    this.state.layout === "groups" &&
+                    <span>
+                                <GroupsComponent/>
+                            </span>
+                }
+                {
+                    this.state.layout === "posts" &&
+                    <span>
+                        <PostListComponent/>
+                    </span>
+                }
             </div>
         );
     }

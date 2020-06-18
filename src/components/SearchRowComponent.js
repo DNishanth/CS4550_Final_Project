@@ -25,7 +25,7 @@ export default class SearchRowComponent extends React.Component {
                 // this.props.history.push("/")
             })
             .then(user => {
-                if(user) {
+                if (user) {
                     let showId = this.props.show.ids.imdb
                     let userId = user.id
                     this.setState({
@@ -52,14 +52,15 @@ export default class SearchRowComponent extends React.Component {
         return (
             <tr key={this.props.show.key}>
                 <td className="text-md-left">
-                <Link to={`/result/${this.props.show.ids.imdb}`}>
-                    {this.props.show.title}
-                </Link>
-                <div className="float-right">
-                    <button
-                        onClick={this.addShow}
-                        className="btn btn-outline-primary" type="button">Add Show</button>
-                </div>
+                    <Link to={`/result/${this.props.show.ids.imdb}`}>
+                        {this.props.show.title}
+                    </Link>
+                    <div className="float-right">
+                        <button
+                            onClick={this.addShow}
+                            className="btn btn-outline-primary" type="button">Add Show
+                        </button>
+                    </div>
                 </td>
             </tr>
         )

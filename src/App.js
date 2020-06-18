@@ -8,7 +8,6 @@ import NavBarComponent from "./components/NavBarComponent";
 import ProfileSettingsComponent from "./components/ProfileSettingsComponent";
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
-import ProfileComponentTemp from "./components/ProfileComponentTemp";
 import DiscussionBoardComponent from "./components/DiscussionBoardComponent";
 import HomePageComponent from "./components/HomePageComponent";
 
@@ -39,7 +38,7 @@ function App() {
               exact={true}
               component={ProfileComponent}/>
               <Route
-              path={"/profile/settings"}
+              path={"/profile/info"}
               exact={true}
               component={ProfileSettingsComponent}/>
             <Route

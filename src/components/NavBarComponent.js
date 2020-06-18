@@ -9,19 +9,19 @@ const NavBarComponent = () =>
             </div>
 
             <ul className="nav nav-pills d-none d-sm-flex">
-                    <li className="nav-item">
-                        <Link to="/search" className="nav-link" role="button" aria-haspopup="true"
-                              aria-expanded="false">
-                            <i className="fa fa-search"/>
-                        </Link>
-                    </li>
+                <li className="nav-item">
+                    <Link to="/search" className="nav-link" role="button" aria-haspopup="true"
+                          aria-expanded="false">
+                        <i className="fa fa-search"/>
+                    </Link>
+                </li>
 
-                    <li className="nav-item dropdown">
-                        <Link to="/discussions/home" className="nav-link" role="button" aria-haspopup="true"
-                              aria-expanded="false">
-                            <i className="fa fa-commenting"/>
-                        </Link>
-                    </li>
+                <li className="nav-item dropdown">
+                    <Link to="/discussions/home" className="nav-link" role="button" aria-haspopup="true"
+                          aria-expanded="false">
+                        <i className="fa fa-commenting"/>
+                    </Link>
+                </li>
 
                 <li className="nav-item">
                     <Link to="/profile/watchlist" className="nav-link" role="button" aria-haspopup="true"
@@ -30,20 +30,20 @@ const NavBarComponent = () =>
                     </Link>
                 </li>
 
-                    <li className="nav-item">
-                        <Link to="/registration" className="nav-link" role="button" aria-haspopup="true"
-                              aria-expanded="false">
-                            Register
-                        </Link>
-                    </li>
+                <li className="nav-item">
+                    <Link to="/registration" className="nav-link" role="button" aria-haspopup="true"
+                          aria-expanded="false">
+                        Register
+                    </Link>
+                </li>
 
-                    <li className="nav-item">
-                        <Link to="/login" className="btn btn-outline-success my-2 my-sm-0" type="submit">
-                            {/*<i className="fa fa-sign-in"></i>*/}
-                            Login
-                        </Link>
-                    </li>
-                </ul>
+                <li className="nav-item">
+                    <Link to="/login" className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        {/*<i className="fa fa-sign-in"></i>*/}
+                        Login
+                    </Link>
+                </li>
+            </ul>
         </nav>
 
         <div className="container nav-2 d-sm-none d-flex justify-content-center">

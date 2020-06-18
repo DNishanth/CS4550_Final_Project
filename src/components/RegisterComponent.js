@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default class Register extends React.Component {
     state = {
@@ -15,7 +15,8 @@ export default class Register extends React.Component {
             body: JSON.stringify({
                 username: this.state.username, password: this.state.password,
                 role: this.state.role, firstName: this.state.firstName,
-                lastName: this.state.lastName, email: this.state.email }),
+                lastName: this.state.lastName, email: this.state.email
+            }),
             headers: {
                 'content-type': 'application/json'
             },
@@ -24,6 +25,7 @@ export default class Register extends React.Component {
         }).then(response => response.json())
             .then(currentUser => this.props.history.push("/profile/watchlist"))
     }
+
     render() {
         return (
             <div>
@@ -31,14 +33,14 @@ export default class Register extends React.Component {
                 <h1>Register</h1>
                 <input
                     placeholder="Username"
-                    onChange={(e) => this.setState({ username: e.target.value })}
-                    className="form-control" />
+                    onChange={(e) => this.setState({username: e.target.value})}
+                    className="form-control"/>
                 <input
                     placeholder="Password"
-                    onChange={(e) => this.setState({ password: e.target.value })}
-                    className="form-control" />
+                    onChange={(e) => this.setState({password: e.target.value})}
+                    className="form-control"/>
                 <select
-                    onChange={(e) => this.setState({ role: e.target.value })}
+                    onChange={(e) => this.setState({role: e.target.value})}
                     value={this.state.role}
                     className="custom-select custom-select">
                     <option selected disabled> Choose User Role</option>
@@ -51,16 +53,16 @@ export default class Register extends React.Component {
                 </select>
                 <input
                     placeholder="First Name"
-                    onChange={(e) => this.setState({ firstName: e.target.value })}
-                    className="form-control" />
+                    onChange={(e) => this.setState({firstName: e.target.value})}
+                    className="form-control"/>
                 <input
                     placeholder="Last Name"
-                    onChange={(e) => this.setState({ lastName: e.target.value })}
-                    className="form-control" />
+                    onChange={(e) => this.setState({lastName: e.target.value})}
+                    className="form-control"/>
                 <input
                     placeholder="Email"
-                    onChange={(e) => this.setState({ email: e.target.value })}
-                    className="form-control" />
+                    onChange={(e) => this.setState({email: e.target.value})}
+                    className="form-control"/>
                 <button
                     onClick={this.register}
                     className="btn btn-primary">

@@ -4,8 +4,7 @@ import ShowPosterComponent from "./ShowPosterComponent";
 export default class ShowListComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
     capitalize = (s) => {
@@ -33,18 +32,18 @@ export default class ShowListComponent extends React.Component {
                     </div>
                 </div>
 
-                    <div className="row container ml-0 p-0">
-                        {/*{console.log(this.props.shows)}*/}
-                        {
-                            this.props.shows.map(show =>
-                                <ShowPosterComponent
-                                    mobileView={this.props.mobileView}
-                                    view={this.state.searchBar}
-                                    layout={this.props.layout}
-                                    key={show.imdbId}
-                                    _id={show.imdbId}/>)
-                        }
-                    </div>
+                <div className="row container ml-0 p-0">
+                    {/*{console.log(this.props.shows)}*/}
+                    {
+                        this.props.shows.map(show =>
+                            <ShowPosterComponent
+                                mobileView={this.props.mobileView}
+                                view={this.state.searchBar}
+                                layout={this.props.layout}
+                                key={show.imdbId}
+                                _id={show.imdbId}/>)
+                    }
+                </div>
             </div>
         )
     }
