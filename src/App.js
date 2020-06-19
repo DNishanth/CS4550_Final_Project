@@ -50,9 +50,12 @@ function App() {
               exact={true}
               component={RegisterComponent} />
           <Route
-              path={"/discussions"}
-              // exact={true}
-              component={DiscussionBoardComponent} />
+              path={"/discussions/:discId"}
+              exact render={({match}) => <DiscussionBoardComponent match={match}/>}/>
+          {/* <Route
+              path={"/discussions/:discId"}
+              exact={true}
+              component={DiscussionBoardComponent} /> */}
       </div>
     </Router>
   );

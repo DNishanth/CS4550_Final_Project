@@ -1,7 +1,8 @@
 import React from "react";
 import ProgressComponent from "./ProgressComponent";
 import PrototypeService from "../services/PrototypeService";
-import {Link} from "react-router-dom";
+import { findShowByImdb } from "../services/DiscussionService";
+import { Link } from "react-router-dom";
 
 class SummaryCardComponent extends React.Component {
     constructor(props) {
@@ -11,9 +12,19 @@ class SummaryCardComponent extends React.Component {
             title: "",
             description: "",
         }
+
+        this.findDiscussionId = this.findDiscussionId.bind(this);
     }
 
+    findDiscussionId = () => findShowByImdb(this.props._id).then(show => {
+        this.setState({
+            discussionId: show.id
+        });
+        // alert(this.state.discussionId);
+    });
+
     componentDidMount() {
+        this.findDiscussionId();
         PrototypeService.getIMDBDetails(this.props._id)
             .then(details =>
                 this.setState({
@@ -32,15 +43,20 @@ class SummaryCardComponent extends React.Component {
                     <div className="d-flex justify-content-between">
                         <h5 className="card-title">{this.state.title}</h5>
                         <Link to={`/profile/${this.props.layout}`}>
-                            <i className={"fa fa-times text-danger"}/>
+                            <i className={"fa fa-times text-danger"} />
                         </Link>
                     </div>
 
                     <p className="card-text">{this.state.description}</p>
-                    <a href={`/discussions/${this.props._id}`}
-                       className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a>
+                    <Link to={`/discussions/${this.state.discussionId}`}>
+                        <button className="btn btn-primary btn-block mt-2 mb-3">
+                            Go to Discussion Board
+                        </button>
+                    </Link>
+                    {/* <a href={`/discussions/${this.props._id}`}
+                        className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a> */}
 
-                    {this.props.layout === "watchlist" && <ProgressComponent/>}
+                    {this.props.layout === "watchlist" && <ProgressComponent />}
 
                     {
                         this.props.layout === "wishlist" &&

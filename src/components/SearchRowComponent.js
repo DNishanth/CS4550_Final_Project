@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {createShowDiscussion} from "../services/DiscussionService";
 import PrototypeService from "../services/PrototypeService";
 
 export default class SearchRowComponent extends React.Component {
@@ -9,7 +10,11 @@ export default class SearchRowComponent extends React.Component {
             userId: '',
             show: {imdbId: '', userId: ''}
         }
+
+        this.createNewDiscussion = this.createNewDiscussion.bind(this);
     }
+
+    createNewDiscussion = () => createShowDiscussion(this.state.show);
 
     componentDidMount() {
         fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
@@ -43,9 +48,11 @@ export default class SearchRowComponent extends React.Component {
             headers: {
                 'content-type': 'application/json'
             }
-        }).then(response => response.json())
+        }).then(response => response.json());
+        
+        this.createNewDiscussion();
 
-        console.log(this.state.watchlist)
+        console.log(this.state.watchlist);
     }
 
     render() {
