@@ -8,7 +8,8 @@ export default class SearchRowComponent extends React.Component {
         super(props);
         this.state = {
             userId: '',
-            show: {imdbId: '', userId: ''}
+            show: {imdbId: '', userId: ''},
+            loggedOut: true
         }
 
         this.createNewDiscussion = this.createNewDiscussion.bind(this);
@@ -26,7 +27,7 @@ export default class SearchRowComponent extends React.Component {
                 return response.json()
             })
             .catch(e => {
-                alert(e)
+                // alert(e)
                 // this.props.history.push("/")
             })
             .then(user => {
@@ -36,6 +37,10 @@ export default class SearchRowComponent extends React.Component {
                     this.setState({
                         userId: user.id,
                         show: {imdbId: showId, userId: userId}
+                    })
+                } else {
+                    this.setState({
+                        loggedOut: true
                     })
                 }
             })
@@ -62,12 +67,16 @@ export default class SearchRowComponent extends React.Component {
                     <Link to={`/result/${this.props.show.ids.imdb}`}>
                         {this.props.show.title}
                     </Link>
-                    <div className="float-right">
-                        <button
-                            onClick={this.addShow}
-                            className="btn btn-outline-primary" type="button">Add Show
-                        </button>
-                    </div>
+
+                    {
+                        !this.state.loggedOut &&
+                        <div className="float-right">
+                            <button
+                                onClick={this.addShow}
+                                className="btn btn-outline-primary" type="button">Add Show
+                            </button>
+                        </div>
+                    }
                 </td>
             </tr>
         )

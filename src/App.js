@@ -3,13 +3,14 @@ import './App.css';
 import SearchComponent from "./components/SearchComponent";
 import ResultInfoComponent from './components/ResultInfoComponent';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import ProfileComponent from "./containers/ProfileComponent";
+import ProfileComponent from "./components/ProfileComponent";
 import NavBarComponent from "./components/NavBarComponent";
 import ProfileSettingsComponent from "./components/ProfileSettingsComponent";
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import DiscussionBoardComponent from "./components/DiscussionBoardComponent";
 import HomePageComponent from "./components/HomePageComponent";
+import GroupComponent from "./components/GroupComponent";
 
 
 function App() {
@@ -44,18 +45,19 @@ function App() {
             <Route
               path={"/login"}
               exact={true}
-              component={LoginComponent} />
+              component={LoginComponent}/>
             <Route
               path={"/registration"}
               exact={true}
-              component={RegisterComponent} />
+              component={RegisterComponent}/>
           <Route
               path={"/discussions/:discId"}
               exact render={({match}) => <DiscussionBoardComponent match={match}/>}/>
-          {/* <Route
-              path={"/discussions/:discId"}
+              component={DiscussionBoardComponent}/>
+          <Route
+              path={"/groups/:groupId"}
               exact={true}
-              component={DiscussionBoardComponent} /> */}
+              component={GroupComponent}/>
       </div>
     </Router>
   );

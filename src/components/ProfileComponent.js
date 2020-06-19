@@ -1,12 +1,11 @@
 import React from "react";
-import ShowListComponent from "../components/ShowListComponent";
-import SummaryCardComponent from "../components/SummaryCardComponent";
-import ProfileTabsComponent from "../components/ProfileTabsComponent";
-import GenreBadgesComponent from "../components/GenreBadgesComponent";
-import UserService from "../services/UserService";
+import ShowListComponent from "./ShowListComponent";
+import SummaryCardComponent from "./SummaryCardComponent";
+import ProfileTabsComponent from "./ProfileTabsComponent";
+import GenreBadgesComponent from "./GenreBadgesComponent";
 import MediaQuery from "react-responsive";
-import PostListComponent from "../components/PostListComponent";
-import GroupsComponent from "../components/GroupsComponent";
+import PostListComponent from "./PostListComponent";
+import GroupsTabComponent from "./GroupsTabComponent";
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -46,7 +45,6 @@ export default class ProfileComponent extends React.Component {
                         password: user.password,
                         userId: user.id
                     })
-                    {console.log(user)}
                 }
             }).then(status =>
             fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
@@ -54,9 +52,13 @@ export default class ProfileComponent extends React.Component {
                 .then(watchlist => this.setState({
                     watchlist: watchlist
                 })).then(status =>
-                console.log(this.state.watchlist)
+            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/groups`)
+                .then(response => response.json())
+                .then(groups => this.setState({
+                    groups: groups
+                })).then(status => console.log(this.state.groups)
             )
-        )
+        ))
 
     }
 
@@ -168,28 +170,31 @@ export default class ProfileComponent extends React.Component {
                         </div>
 
                         <div className="col-lg-5">
-                            {
-                                this.state.showId &&
-                                <SummaryCardComponent
-                                    {...this.props}
-                                    layout={this.state.layout}
-                                    _id={this.state.showId}
-                                    key={this.state.showId}/>
-                            }
+                        {
+                            this.state.showId &&
+                            <SummaryCardComponent
+                                {...this.props}
+                                layout={this.state.layout}
+                                _id={this.state.showId}
+                                key={this.state.showId}/>
+                        }
                         </div>
-                </div>
-                {
-                    this.state.layout === "groups" &&
-                    <span>
-                                <GroupsComponent/>
-                            </span>
-                }
-                {
-                    this.state.layout === "posts" &&
-                    <span>
-                        <PostListComponent/>
-                    </span>
-                }
+            </div>
+            {
+                this.state.layout === "groups" &&
+                <span>
+                    <GroupsTabComponent
+                        {...this.props}
+                        userId={this.state.userId}
+                        groups={this.state.groups}/>
+                </span>
+            }
+            {
+                this.state.layout === "posts" &&
+                <span>
+                    <PostListComponent/>
+                </span>
+            }
             </div>
         );
     }
