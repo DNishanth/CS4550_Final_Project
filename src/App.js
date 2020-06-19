@@ -53,7 +53,6 @@ function App() {
           <Route
               path={"/discussions/:discId"}
               exact render={({match}) => <DiscussionBoardComponent match={match}/>}/>
-              component={DiscussionBoardComponent}/>
           <Route
               path={"/groups/:groupId"}
               exact={true}
