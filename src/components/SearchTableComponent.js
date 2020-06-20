@@ -14,20 +14,20 @@ export default class SearchTableComponent
                     <table className="table table-striped table-hover
                 table-bordered">
                         <thead>
-                        <tr>
-                            <th className="text-md-left">
-                                <label>Results
+                            <tr>
+                                <th className="text-md-left">
+                                    <label>Results
                                 </label>
-                            </th>
-                        </tr>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {
-                            this.props.shows.map(show =>
-                                <SearchRowComponent
-                                    key={show.ids.trakt} show={show} currentUser={this.props.currentUser}/>
-                            )
-                        }
+                            {
+                                this.props.shows.map(show =>
+                                    <SearchRowComponent
+                                        key={show.ids.trakt} show={show} currentUser={this.props.currentUser} />
+                                )
+                            }
                         </tbody>
                     </table>
                 </div>

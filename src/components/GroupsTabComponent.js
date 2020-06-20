@@ -1,8 +1,8 @@
 import React from "react";
 import GroupCardComponent from "./GroupCardComponent";
-import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class GroupsTabComponent extends React.Component {
     constructor(props) {
@@ -36,19 +36,21 @@ class GroupsTabComponent extends React.Component {
                         user: user
                     })
                     fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${user.id}/group`)
-                        .then(response => response.json()).catch(e=> {}).then(group => {
+                        .then(response => response.json()).catch(e => { }).then(group => {
                             if (group != null) {
-                            this.setState({
-                                watchGroup: group,
-                                hasGroup: true,
-                                groupLeaderId: group.leaderId
-                            })
-                            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/groups/${group.id}/users`)
-                                .then(response => response.json()).then(members => {
                                 this.setState({
-                                    members: members
-                                })})}
-                    })
+                                    watchGroup: group,
+                                    hasGroup: true,
+                                    groupLeaderId: group.leaderId
+                                })
+                                fetch(`https://wbdv-team18-final-project.herokuapp.com/api/groups/${group.id}/users`)
+                                    .then(response => response.json()).then(members => {
+                                        this.setState({
+                                            members: members
+                                        })
+                                    })
+                            }
+                        })
                 }
             })
     }
@@ -59,20 +61,22 @@ class GroupsTabComponent extends React.Component {
             body: JSON.stringify(user),
             headers: {
                 'content-type': 'application/json'
-            }}).then(response => response.json()).then(watchGroup => {
-                fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/group`, {
-                    method: 'PUT',
-                    body: JSON.stringify(watchGroup),
-                    headers: {
-                        'content-type': 'application/json'
-                    }})
-                    .then(response => response.json()).then(watchGroup => {
-                        this.setState({
-                            watchGroup: watchGroup,
-                            hasGroup: true,
-                            groupLeaderId: userId
-                        })
+            }
+        }).then(response => response.json()).then(watchGroup => {
+            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/group`, {
+                method: 'PUT',
+                body: JSON.stringify(watchGroup),
+                headers: {
+                    'content-type': 'application/json'
+                }
             })
+                .then(response => response.json()).then(watchGroup => {
+                    this.setState({
+                        watchGroup: watchGroup,
+                        hasGroup: true,
+                        groupLeaderId: userId
+                    })
+                })
         })
     }
 
@@ -81,7 +85,8 @@ class GroupsTabComponent extends React.Component {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
-            }}).then(response => response.json()).then(newUser => {
+            }
+        }).then(response => response.json()).then(newUser => {
             fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${queryId}/group`, {
                 method: 'PUT',
                 body: JSON.stringify(this.state.watchGroup),
@@ -111,7 +116,7 @@ class GroupsTabComponent extends React.Component {
                                 this.state.groupLeaderId === this.state.user.id &&
                                 <button
                                     className="btn ml-1">
-                                    <i className="fa fa-pencil"/>
+                                    <i className="fa fa-pencil" />
                                 </button>
                             }
                         </div>
@@ -125,8 +130,8 @@ class GroupsTabComponent extends React.Component {
                                         placeholder="Enter User ID"
                                         value={this.state.userQuery}
                                         onChange={e => this.setState(
-                                            {userQuery: e.target.value})
-                                        }/>
+                                            { userQuery: e.target.value })
+                                        } />
                                     <div className="input-group-append">
                                         <a href="/profile/group">
                                             <button
@@ -138,7 +143,7 @@ class GroupsTabComponent extends React.Component {
                                     </div>
                                 </div>
                             }
-                            </div>
+                        </div>
 
                         <div className="col-5">
                             <h6>Group Members</h6>
@@ -153,14 +158,14 @@ class GroupsTabComponent extends React.Component {
                                                     member.id === this.state.groupLeaderId ? `Group Leader: ` : `Member: `
                                                 }
                                                 {
-                                                        member.id === this.state.user.id ?
+                                                    member.id === this.state.user.id ?
                                                         `(You) ${member.username}` : member.username
-                                                    }
+                                                }
                                             </Link>
                                             {
                                                 this.state.groupLeaderId === this.state.user.id &&
                                                 <button className="btn btn-danger btn-sm float-right">
-                                                    <i className="fa fa-user-times"/>
+                                                    <i className="fa fa-user-times" />
                                                 </button>
                                             }
 

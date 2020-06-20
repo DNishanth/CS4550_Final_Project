@@ -40,8 +40,6 @@ class DiscussionBoardComponent extends React.Component {
         });
     });
 
-    // onPost = e => alert(new Date());
-
     onPost = e => createPost(this.discussionId, this.state.user.id, {
         message: this.state.commentText,
         date: new Date()

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class LoginComponent extends React.Component {
     state = {
@@ -34,11 +34,11 @@ export default class LoginComponent extends React.Component {
             <div>
                 <h1>Login</h1>
                 <input
-                    onChange={(e) => this.setState({username: e.target.value})}
-                    className="form-control"/>
+                    onChange={(e) => this.setState({ username: e.target.value })}
+                    className="form-control" />
                 <input
-                    onChange={(e) => this.setState({password: e.target.value})}
-                    className="form-control"/>
+                    onChange={(e) => this.setState({ password: e.target.value })}
+                    className="form-control" />
                 <button
                     onClick={this.login}
                     className="btn btn-primary">

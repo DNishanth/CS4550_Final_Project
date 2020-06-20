@@ -11,10 +11,10 @@ const ProgressComponent = (props) =>
             </div>
         </div>
         <div className="progress"
-             style={{height: 25}}>
+            style={{ height: 25 }}>
             <div className="progress-bar progress-bar-striped bg-info progress-bar-animated w-25"
-                 role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                <h6 style={{marginTop: 5}}>Episode 32</h6>
+                role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <h6 style={{ marginTop: 5 }}>Episode 32</h6>
             </div>
         </div>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavBarComponent = () =>
     <div>
@@ -11,8 +11,8 @@ const NavBarComponent = () =>
             <ul className="nav nav-pills d-none d-sm-flex">
                 <li className="nav-item">
                     <Link to="/search" className="nav-link" role="button" aria-haspopup="true"
-                          aria-expanded="false">
-                        <i className="fa fa-search"/>
+                        aria-expanded="false">
+                        <i className="fa fa-search" />
                     </Link>
                 </li>
 
@@ -25,14 +25,14 @@ const NavBarComponent = () =>
 
                 <li className="nav-item">
                     <a href="/profile/watchlist" className="nav-link" role="button" aria-haspopup="true"
-                          aria-expanded="false">
-                        <i className="fa fa-user"/>
+                        aria-expanded="false">
+                        <i className="fa fa-user" />
                     </a>
                 </li>
 
                 <li className="nav-item">
                     <Link to="/registration" className="nav-link" role="button" aria-haspopup="true"
-                          aria-expanded="false">
+                        aria-expanded="false">
                         Register
                     </Link>
                 </li>

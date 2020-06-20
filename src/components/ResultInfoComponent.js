@@ -28,7 +28,7 @@ export default class ResultInfoComponent extends React.Component {
                     {this.state.result.title}
                     {" (" + this.state.result.release_date + ")"}
                 </h1>
-                <img src={this.state.poster_path} alt="Poster"/>
+                <img src={this.state.poster_path} alt="Poster" />
                 <h4>
                     {this.state.result.vote_average}
                 </h4>

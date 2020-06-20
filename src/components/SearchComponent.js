@@ -71,7 +71,7 @@ export default class SearchComponent extends React.Component {
         console.log(this.state.shows)
     }
 
-    render() {     
+    render() {
         return (
             <div>
                 <div className="input-group mb-3">
@@ -102,7 +102,7 @@ export default class SearchComponent extends React.Component {
                     </Link>
                 </div>
 
-                <SearchTableComponent shows={this.state.shows} currentUser={this.state.user}/>
+                <SearchTableComponent shows={this.state.shows} currentUser={this.state.user} />
             </div>
         )
     }

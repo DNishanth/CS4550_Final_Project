@@ -25,7 +25,7 @@ export default class ProfileComponent extends React.Component {
 
     componentDidMount() {
         fetch("http://localhost:8080/api/profile", {
-        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
+            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
             method: 'POST',
             credentials: "include"
         })
@@ -37,21 +37,21 @@ export default class ProfileComponent extends React.Component {
                 this.props.history.push("/")
             })
             .then(user => {
-                if(user) {
+                if (user) {
                     this.setState({
                         userId: user.id,
                         userRole: user.role
                     })
                 }
             }).then(status =>
-            // fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
-                .then(response => response.json())
-                .then(watchlist => this.setState({
-                    watchlist: watchlist
-                })
+                // fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
+                fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                    .then(response => response.json())
+                    .then(watchlist => this.setState({
+                        watchlist: watchlist
+                    })
+                    )
             )
-        )
 
     }
 

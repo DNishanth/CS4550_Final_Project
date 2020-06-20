@@ -34,27 +34,27 @@ export default class ProfileComponent extends React.Component {
                 userId: this.state.layout,
             })
             fetch(`http://localhost:8080/api/users/${this.state.layout}`)
-            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
+                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
                 .catch(e => console.log(e)).then(response => response.json())
-                .then(user => this.setState({username: user.username}))
+                .then(user => this.setState({ username: user.username }))
                 .then(status =>
                     fetch(`http://localhost:8080/api/users/${this.state.layout}/shows`)
-                    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
+                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
                         .then(response => response.json())
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         })).then(status =>
-                        fetch(`http://localhost:8080/api/users/${this.state.layout}/groups`)
-                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
-                            .then(response => response.json())
-                            .then(groups => this.setState({
-                                groups: groups
-                            })).then(status => console.log(this.state.groups)
-                        )
-                    ))
+                            fetch(`http://localhost:8080/api/users/${this.state.layout}/groups`)
+                                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
+                                .then(response => response.json())
+                                .then(groups => this.setState({
+                                    groups: groups
+                                })).then(status => console.log(this.state.groups)
+                                )
+                        ))
         } else {
             // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-                fetch("http://localhost:8080/api/profile", {
+            fetch("http://localhost:8080/api/profile", {
                 method: 'POST',
                 credentials: "include"
             })
@@ -76,22 +76,22 @@ export default class ProfileComponent extends React.Component {
                         })
                     }
                 }).then(status =>
-                fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
-                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
-                    .then(response => response.json())
-                    .then(watchlist => this.setState({
-                        watchlist: watchlist
-                    }))
-                //TODO: come back to this
-                //     .then(status =>
-                //     // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
-                //     fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/group`)
-                //         .then(response => response.json())
-                //         .then(groups => this.setState({
-                //             groups: groups
-                //         })).then(status => console.log(this.state.groups)
-                //     )
-                // )
+                    fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
+                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                        .then(response => response.json())
+                        .then(watchlist => this.setState({
+                            watchlist: watchlist
+                        }))
+                    //TODO: come back to this
+                    //     .then(status =>
+                    //     // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
+                    //     fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/group`)
+                    //         .then(response => response.json())
+                    //         .then(groups => this.setState({
+                    //             groups: groups
+                    //         })).then(status => console.log(this.state.groups)
+                    //     )
+                    // )
 
                 )
         }
@@ -100,7 +100,7 @@ export default class ProfileComponent extends React.Component {
 
     logout = () => {
         fetch("http://localhost:8080/api/logout", {
-        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
+            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
             method: 'POST',
             credentials: "include"
         })
@@ -127,7 +127,7 @@ export default class ProfileComponent extends React.Component {
                 <div className="row">
 
                     <div className="col-lg-2 col-md-2 col-sm-2">
-                        <i className="fa fa-user-circle-o mt-2" style={{fontSize: 80}}/>
+                        <i className="fa fa-user-circle-o mt-2" style={{ fontSize: 80 }} />
                     </div>
 
                     <div className="col-lg-10 col-md-10 col-sm-10">
@@ -138,7 +138,7 @@ export default class ProfileComponent extends React.Component {
                                 !this.state.visiting &&
                                 <a href={`/profile/info`}>
                                     <button
-                                            className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
+                                        className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
                                         Edit Profile
                                     </button>
                                 </a>
@@ -154,86 +154,86 @@ export default class ProfileComponent extends React.Component {
                         </div>
                         <p className="m-0">Top 5 Genres</p>
                         <div className="row pl-3">
-                            {this.state.favoriteGenres.map(genre => <GenreBadgesComponent genre={genre}/>)}
+                            {this.state.favoriteGenres.map(genre => <GenreBadgesComponent genre={genre} />)}
                         </div>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-12 mt-3">
-                        <ProfileTabsComponent layout={this.state.layout}/>
+                        <ProfileTabsComponent layout={this.state.layout} />
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-lg-7">
-                        <br/>
+                        <br />
 
                         <MediaQuery query='(min-width: 1024px)'>
                             {/*{console.log(this.state.watchlist)}*/}
                             <div>
                                 {this.state.layout === "watchlist" &&
-                                <ShowListComponent
-                                    {...this.props}
-                                    mobileView={false}
-                                    layout={this.state.layout}
-                                    shows={this.state.watchlist}/>
+                                    <ShowListComponent
+                                        {...this.props}
+                                        mobileView={false}
+                                        layout={this.state.layout}
+                                        shows={this.state.watchlist} />
                                 }
                                 {this.state.visiting &&
-                                <ShowListComponent
-                                    {...this.props}
-                                    mobileView={true}
-                                    layout={this.state.layout}
-                                    shows={this.state.watchlist}/>
+                                    <ShowListComponent
+                                        {...this.props}
+                                        mobileView={true}
+                                        layout={this.state.layout}
+                                        shows={this.state.watchlist} />
                                 }
                             </div>
                         </MediaQuery>
                         <MediaQuery query='(max-width: 1023px)'>
                             <div>
                                 {this.state.layout === "watchlist" &&
-                                <ShowListComponent
-                                    {...this.props}
-                                    mobileView={true}
-                                    layout={this.state.layout}
-                                    shows={this.state.watchlist}/>
+                                    <ShowListComponent
+                                        {...this.props}
+                                        mobileView={true}
+                                        layout={this.state.layout}
+                                        shows={this.state.watchlist} />
                                 }
                                 {this.state.visiting &&
-                                <ShowListComponent
-                                    {...this.props}
-                                    mobileView={true}
-                                    layout={this.state.layout}
-                                    shows={this.state.watchlist}/>
+                                    <ShowListComponent
+                                        {...this.props}
+                                        mobileView={true}
+                                        layout={this.state.layout}
+                                        shows={this.state.watchlist} />
                                 }
                             </div>
                         </MediaQuery>
-                        </div>
+                    </div>
 
-                        <div className="col-lg-5">
+                    <div className="col-lg-5">
                         {
                             this.state.showId &&
                             <SummaryCardComponent
                                 {...this.props}
                                 layout={this.state.layout}
                                 _id={this.state.showId}
-                                key={this.state.showId}/>
+                                key={this.state.showId} />
                         }
-                        </div>
-            </div>
-            {
-                this.state.layout === "group" &&
-                <span>
-                    {/* <GroupsTabComponent
+                    </div>
+                </div>
+                {
+                    this.state.layout === "group" &&
+                    <span>
+                        {/* <GroupsTabComponent
                         {...this.props}
                         userId={this.state.userId}
                         groups={this.state.groups}/> */}
-                </span>
-            }
-            {
-                this.state.layout === "posts" &&
-                <span>
-                    <PostListComponent userId={this.state.userId}/>
-                </span>
-            }
+                    </span>
+                }
+                {
+                    this.state.layout === "posts" &&
+                    <span>
+                        <PostListComponent userId={this.state.userId} />
+                    </span>
+                }
             </div>
         );
     }

@@ -41,7 +41,7 @@ export default class ShowListComponent extends React.Component {
                                 mobileView={this.props.mobileView}
                                 layout={this.props.layout}
                                 key={show.imdbId}
-                                _id={show.imdbId}/>)
+                                _id={show.imdbId} />)
                     }
                 </div>
             </div>
