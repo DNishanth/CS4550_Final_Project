@@ -83,6 +83,7 @@ export default class SearchComponent extends React.Component {
                         onChange={e => this.setState(
                             { search_query: e.target.value })}
                         onKeyPress={e => {
+                            console.log(e.key);
                             if (e.key === "Enter") {
                                 this.props.history.push(`/search/${this.state.search_query}`);
                                 this.findMovies(this.state.search_query)
