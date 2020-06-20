@@ -13,7 +13,12 @@ export default class SearchComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.findMovies(this.props.match.params.query)
+        if (this.props.match.params.query) {
+            this.findMovies(this.props.match.params.query)
+        }
+        else {
+            this.findMovies("")
+        }
     }
 
     findMovies = (query) => {
@@ -60,13 +65,21 @@ export default class SearchComponent extends React.Component {
                         type="form-control"
                         placeholder="Search for shows"
                         value={this.state.search_query}
-                        onChange={e => this.setState({ search_query: e.target.value })} />
+                        onChange={e => this.setState(
+                            { search_query: e.target.value })}
+                        onKeyPress={e => {
+                            if (e.key === "Enter") {
+                                this.props.history.push(`/search/${this.state.search_query}`);
+                                this.findMovies(this.state.search_query)
+                            }
+                        }} />
                     <Link to={`/search/${this.state.search_query}`}>
                         <div className="input-group-append">
                             <button
                                 className="btn btn-outline-success"
-                                onClick={() =>
-                                    this.findMovies(this.state.search_query)}>
+                                onClick={() => {
+                                    this.findMovies(this.state.search_query)
+                                }}>
                                 <i className="fa fa-search" />
                             </button>
                         </div>

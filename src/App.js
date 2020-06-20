@@ -17,46 +17,50 @@ function App() {
   return (
     <Router>
       <div className={"container"}>
-          <NavBarComponent/>
-              <Route
-              path={"/"}
-              exact={true}
-              component={HomePageComponent}/>
-              <Route
-              path={"/search"}
-              exact={true}
-              component={SearchComponent}/>
-              <Route
-              path={"/result/:imdb_id"}
-              exact={true}
-              component={ResultInfoComponent}/>
-              <Route
-              path={"/profile/:layout"}
-              exact={true}
-              component={ProfileComponent}/>
-              <Route
-              path={"/profile/:layout/:showId"}
-              exact={true}
-              component={ProfileComponent}/>
-              <Route
-              path={"/profile/info"}
-              exact={true}
-              component={ProfileSettingsComponent}/>
-            <Route
-              path={"/login"}
-              exact={true}
-              component={LoginComponent}/>
-            <Route
-              path={"/registration"}
-              exact={true}
-              component={RegisterComponent}/>
-          <Route
-              path={"/discussions/:discId"}
-              exact render={({match}) => <DiscussionBoardComponent match={match}/>}/>
-          <Route
-              path={"/groups/:groupId"}
-              exact={true}
-              component={GroupComponent}/>
+        <NavBarComponent />
+        <Route
+          path={"/"}
+          exact={true}
+          component={HomePageComponent} />
+        <Route
+          path={"/search"}
+          exact={true}
+          component={SearchComponent} />
+        <Route
+          path={"/search/:query"}
+          exact={true}
+          component={SearchComponent} />
+        <Route
+          path={"/result/:imdb_id"}
+          exact={true}
+          component={ResultInfoComponent} />
+        <Route
+          path={"/profile/:layout"}
+          exact={true}
+          component={ProfileComponent} />
+        <Route
+          path={"/profile/:layout/:showId"}
+          exact={true}
+          component={ProfileComponent} />
+        <Route
+          path={"/profile/info"}
+          exact={true}
+          component={ProfileSettingsComponent} />
+        <Route
+          path={"/login"}
+          exact={true}
+          component={LoginComponent} />
+        <Route
+          path={"/registration"}
+          exact={true}
+          component={RegisterComponent} />
+        <Route
+          path={"/discussions/:discId"}
+          exact render={({ match }) => <DiscussionBoardComponent match={match} />} />
+        <Route
+          path={"/groups/:groupId"}
+          exact={true}
+          component={GroupComponent} />
       </div>
     </Router>
   );
