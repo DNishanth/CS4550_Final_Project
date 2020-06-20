@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 
 import { findPostsForDiscussion, createPost } from "../services/DiscussionService";
+import "./DiscussionBoard.css"
 import UserService from "../services/UserService";
 
 class DiscussionBoardComponent extends React.Component {
@@ -22,17 +23,13 @@ class DiscussionBoardComponent extends React.Component {
 
         this.findPosts = this.findPosts.bind(this);
 
-        console.log("getting current user");
         this.getCurrentUser();
-        console.log("done current user");
     }
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
         this.setState({
             user: response
         })
-        console.log("state user below");
-        console.log(this.state.user.id);
     });
 
     onCommentChange = e => this.setState({ commentText: e.target.value });
@@ -40,7 +37,7 @@ class DiscussionBoardComponent extends React.Component {
     findPosts = () => findPostsForDiscussion(this.props.match.params.discId).then(discussion => {
         this.setState({
             posts: discussion
-        })
+        });
     });
 
     // onPost = e => alert(new Date());
@@ -87,17 +84,17 @@ class DiscussionBoardComponent extends React.Component {
                 {this.state.posts.map((post) => {
                     return (
                         <div key={post.id}>
-                            <div className="card">
+                            <div className="card wbdv-post-card">
                                 <div className="card-header">
-                                    {post.date}
+                                    <Link to={`/profile/${post.user.id}`}>
+                                        {post.user.firstName + " " + post.user.lastName}
+                                    </Link>
                                 </div>
                                 <div className="card-body">
-                                    <div className="card-text">
-                                        {post.message}
-                                    </div>
-                                    <button className="btn btn-primary">
-                                        Reply
-                                    </button>
+                                    <blockquote class="blockquote mb-0">
+                                        <p> {post.message} </p>
+                                        <footer className="blockquote-footer"> {post.date} </footer>
+                                    </blockquote>
                                 </div>
                             </div>
                         </div>)
