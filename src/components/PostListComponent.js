@@ -35,7 +35,7 @@ class PostListComponent extends React.Component {
                         <div key={post.id}>
                             <div className="card">
                                 <div className="card-header">
-                                    Username Here
+                                    {post.date}
                                 </div>
                                 <div className="card-body">
                                     <div className="card-text">

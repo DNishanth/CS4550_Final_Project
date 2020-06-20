@@ -51,7 +51,7 @@ class DiscussionBoardComponent extends React.Component {
     }).then(response => {
         this.findPosts();
     });
-    
+
     // onPost = e => createPost(this.discussionId, {
     //     message: this.state.commentText,
     //     date: new Date(),
@@ -89,7 +89,7 @@ class DiscussionBoardComponent extends React.Component {
                         <div key={post.id}>
                             <div className="card">
                                 <div className="card-header">
-                                    Username Here
+                                    {post.date}
                                 </div>
                                 <div className="card-body">
                                     <div className="card-text">
@@ -98,7 +98,6 @@ class DiscussionBoardComponent extends React.Component {
                                     <button className="btn btn-primary">
                                         Reply
                                     </button>
-                                    {/* todo: pull in date from post */}
                                 </div>
                             </div>
                         </div>)
