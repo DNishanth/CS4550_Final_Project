@@ -16,12 +16,12 @@ const NavBarComponent = () =>
                     </Link>
                 </li>
 
-                <li className="nav-item dropdown">
+                {/* <li className="nav-item dropdown">
                     <Link to="/discussions/home" className="nav-link" role="button" aria-haspopup="true"
                           aria-expanded="false">
                         <i className="fa fa-commenting"/>
                     </Link>
-                </li>
+                </li> */}
 
                 <li className="nav-item">
                     <Link to="/profile/watchlist" className="nav-link" role="button" aria-haspopup="true"
