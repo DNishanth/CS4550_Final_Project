@@ -1,7 +1,6 @@
 import React from "react";
 import { findPostsForUser } from "../services/DiscussionService";
 import "./DiscussionBoard.css"
-import { Link } from 'react-router-dom';
 
 class PostListComponent extends React.Component {
     constructor(props) {
@@ -35,9 +34,7 @@ class PostListComponent extends React.Component {
                         <div key={post.id}>
                             <div className="card wbdv-post-card">
                                 <div className="card-header">
-                                    <Link to={`/profile/${post.user.id}`}>
                                         {post.user.firstName + " " + post.user.lastName}
-                                    </Link>
                                 </div>
                                 <div className="card-body">
                                     <blockquote className="blockquote mb-0">
