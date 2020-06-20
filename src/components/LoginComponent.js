@@ -8,6 +8,7 @@ export default class LoginComponent extends React.Component {
     }
     login = () => {
         fetch("https://wbdv-team18-final-project.herokuapp.com/api/login", {
+        // fetch("http://localhost:8080/api/login", {
             body: JSON.stringify({
                 username: this.state.username,
                 password: this.state.password

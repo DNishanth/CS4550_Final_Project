@@ -9,6 +9,7 @@ class GroupsTabComponent extends React.Component {
     }
 
     createGroup(userId) {
+        // fetch(`http://localhost:8080/api/groups`, {
         fetch(`https://wbdv-team18-final-project.herokuapp.com/api/groups`, {
             method: 'POST',
             body: JSON.stringify({leaderId: userId, name: "New Group"}),

@@ -15,6 +15,7 @@ class ProfileSettingsComponent extends React.Component {
     }
 
     componentDidMount() {
+        // fetch("http://localhost:8080/api/profile", {
         fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
             method: 'POST',
             credentials: "include"
@@ -37,6 +38,7 @@ class ProfileSettingsComponent extends React.Component {
     }
 
     update = () => {
+        // fetch("http://localhost:8080/api/profile", {
         fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
             body: JSON.stringify({
                 username: this.state.username, password: this.state.password,

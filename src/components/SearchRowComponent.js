@@ -15,47 +15,54 @@ export default class SearchRowComponent extends React.Component {
         this.createNewDiscussion = this.createNewDiscussion.bind(this);
     }
 
-    createNewDiscussion = () => createShowDiscussion(this.state.show);
+    createNewDiscussion = () => createShowDiscussion({
+        imdbId: this.props.show.ids.imdb
+        // ,
+        // userId: ''
+    });
 
     componentDidMount() {
-        fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-            method: 'POST',
-            credentials: "include"
-        })
-            .then(response => {
-                console.log(response)
-                return response.json()
-            })
-            .catch(e => {
-                // alert(e)
-                // this.props.history.push("/")
-            })
-            .then(user => {
-                if (user) {
-                    let showId = this.props.show.ids.imdb
-                    let userId = user.id
-                    this.setState({
-                        userId: user.id,
-                        show: {imdbId: showId, userId: userId}
-                    })
-                } else {
-                    this.setState({
-                        loggedOut: true
-                    })
-                }
-            })
+        // fetch("http://localhost:8080/api/profile", {
+        //     method: 'POST',
+        //     credentials: "include"
+        // })
+        //     .then(response => {
+        //         console.log(response)
+        //         return response.json()
+        //     })
+        //     .catch(e => {
+        //         // alert(e)
+        //         // this.props.history.push("/")
+        //     })
+        //     .then(user => {
+        //         if (user) {
+        //             let showId = this.props.show.ids.imdb
+        //             let userId = user.id
+        //             this.setState({
+        //                 userId: user.id,
+        //                 show: {imdbId: showId, userId: userId}
+        //             })
+        //         } else {
+        //             this.setState({
+        //                 loggedOut: true
+        //             })
+        //         }
+        //     })
     }
 
     addShow = () => {
-        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`, {
+        // fetch(`http://localhost:8080/api/users/${this.props.currentUser.id}/shows`, {   
+        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.props.currentUser.id}/shows`, {   
             method: 'POST',
-            body: JSON.stringify(this.state.show),
+            body: JSON.stringify({
+                imdbId: this.props.show.ids.imdb
+            }),
             headers: {
                 'content-type': 'application/json'
             }
         }).then(response => response.json());
         
-        this.createNewDiscussion();
+        // this.createNewDiscussion();
 
         console.log(this.state.watchlist);
     }
@@ -69,7 +76,7 @@ export default class SearchRowComponent extends React.Component {
                     </Link>
 
                     {
-                        !this.state.loggedOut &&
+                        this.props.currentUser &&
                         <div className="float-right">
                             <button
                                 onClick={this.addShow}

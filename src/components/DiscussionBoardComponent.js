@@ -2,21 +2,31 @@ import React from "react";
 import { Link } from 'react-router-dom';
 
 import { findPostsForDiscussion, createPost } from "../services/DiscussionService";
+import UserService from "../services/UserService";
 
 class DiscussionBoardComponent extends React.Component {
     constructor(props) {
         super(props);
         this.discussionId = this.props.match.params.discId;
-
         this.state = {
             commentText: "",
             posts: []
         }
 
+        // this.getCurrentUser = this.getCurrentUser.bind(this);
+
         this.onCommentChange = this.onCommentChange.bind(this);
 
         this.findPosts = this.findPosts.bind(this);
+
+        // console.log("getting current user");
+        // this.getCurrentUser();
+        // console.log("done current user");
     }
+
+    // getCurrentUser = () => UserService.getCurrentUser().then(response => {
+    //     console.log(response);
+    // });
 
     onCommentChange = e => this.setState({ commentText: e.target.value });
 

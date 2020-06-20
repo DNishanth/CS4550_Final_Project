@@ -20,7 +20,7 @@ class SummaryCardComponent extends React.Component {
         this.setState({
             discussionId: show.id
         });
-        // alert(this.state.discussionId);
+        // alert(this.props._id);
     });
 
     componentDidMount() {
@@ -48,7 +48,7 @@ class SummaryCardComponent extends React.Component {
                     </div>
 
                     <p className="card-text">{this.state.description}</p>
-                    <Link to={`/discussions/${this.state.discussionId}`}>
+                    <Link to={`/discussions/${this.props._id}`}>
                         <button className="btn btn-primary btn-block mt-2 mb-3">
                             Go to Discussion Board
                         </button>
