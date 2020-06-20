@@ -14,10 +14,12 @@ export default class ProfileComponent extends React.Component {
             username: '',
             password: '',
             userId: '',
+            visiting: this.props.match.params.layout !== "watchlist" &&
+                this.props.match.params.layout !== "group" &&
+                this.props.match.params.layout !== "posts",
 
             favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
             watchlist: [],
-            wishlist: [],
             groups: [],
             posts: [],
 
@@ -27,43 +29,66 @@ export default class ProfileComponent extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-        // fetch("http://localhost:8080/api/profile", {
-            method: 'POST',
-            credentials: "include"
-        })
-            .then(response => {
-                console.log("profile comp response below")
-                console.log(response)
-                return response.json()
+        if (this.state.visiting) {
+            this.setState({
+                userId: this.state.layout,
             })
-            .catch(e => {
-                this.props.history.push("/")
+            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
+                .catch(e => console.log(e)).then(response => response.json())
+                .then(user => this.setState({username: user.username}))
+                .then(status =>
+                    fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
+                        .then(response => response.json())
+                        .then(watchlist => this.setState({
+                            watchlist: watchlist
+                        })).then(status =>
+                        // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
+                        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
+                            .then(response => response.json())
+                            .then(groups => this.setState({
+                                groups: groups
+                            })).then(status => console.log(this.state.groups)
+                        )
+                    ))
+        } else {
+            fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
+                // fetch("http://localhost:8080/api/profile", {
+                method: 'POST',
+                credentials: "include"
             })
-            .then(user => {
-                if(user) {
-                    console.log("entered conditional")
-                    this.setState({
-                        username: user.username,
-                        password: user.password,
-                        userId: user.id,
-                    })
-                }
-            }).then(status =>
-            // fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
-                .then(response => response.json())
-                .then(watchlist => this.setState({
-                    watchlist: watchlist
-                })).then(status =>
-            // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/groups`)
-                .then(response => response.json())
-                .then(groups => this.setState({
-                    groups: groups
-                })).then(status => console.log(this.state.groups)
-            )
-        ))
+                .then(response => {
+                    console.log("profile comp response below")
+                    console.log(response)
+                    return response.json()
+                })
+                .catch(e => {
+                    this.props.history.push("/")
+                })
+                .then(user => {
+                    if (user) {
+                        console.log("entered conditional")
+                        this.setState({
+                            username: user.username,
+                            password: user.password,
+                            userId: user.id,
+                        })
+                    }
+                }).then(status =>
+                // fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
+                fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                    .then(response => response.json())
+                    .then(watchlist => this.setState({
+                        watchlist: watchlist
+                    })).then(status =>
+                    // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
+                    fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/group`)
+                        .then(response => response.json())
+                        .then(groups => this.setState({
+                            groups: groups
+                        })).then(status => console.log(this.state.groups)
+                    )
+                ))
+        }
 
     }
 
@@ -104,6 +129,7 @@ export default class ProfileComponent extends React.Component {
                             <h2>{this.state.username}</h2>
                             {
                                 this.props.match.params.layout !== "info" &&
+                                !this.state.visiting &&
                                 <a href={`/profile/info`}>
                                     <button
                                             className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
@@ -111,11 +137,14 @@ export default class ProfileComponent extends React.Component {
                                     </button>
                                 </a>
                             }
-                            <button
-                                onClick={this.logout}
-                                className="btn btn-sm btn-outline-danger w-auto h-75 ml-2 mt-2">
-                                Logout
-                            </button>
+                            {
+                                !this.state.visiting &&
+                                <button
+                                    onClick={this.logout}
+                                    className="btn btn-sm btn-outline-danger w-auto h-75 ml-2 mt-2">
+                                    Logout
+                                </button>
+                            }
                         </div>
                         <p className="m-0">Top 5 Genres</p>
                         <div className="row pl-3">
@@ -144,11 +173,25 @@ export default class ProfileComponent extends React.Component {
                                     layout={this.state.layout}
                                     shows={this.state.watchlist}/>
                                 }
+                                {this.state.visiting &&
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={true}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
+                                }
                             </div>
                         </MediaQuery>
                         <MediaQuery query='(max-width: 1023px)'>
                             <div>
                                 {this.state.layout === "watchlist" &&
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={true}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
+                                }
+                                {this.state.visiting &&
                                 <ShowListComponent
                                     {...this.props}
                                     mobileView={true}

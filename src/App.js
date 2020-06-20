@@ -11,6 +11,7 @@ import RegisterComponent from "./components/RegisterComponent";
 import DiscussionBoardComponent from "./components/DiscussionBoardComponent";
 import HomePageComponent from "./components/HomePageComponent";
 import GroupComponent from "./components/GroupComponent";
+import VisitingProfileComponent from "./components/VisitingProfileComponent";
 
 
 function App() {
@@ -34,14 +35,6 @@ function App() {
           path={"/result/:imdb_id"}
           exact={true}
           component={ResultInfoComponent} />
-        {/*<Route*/}
-        {/*    path={"/profile/:profileId/:layout"}*/}
-        {/*    exact={true}*/}
-        {/*    component={ProfileComponent} />*/}
-        {/*<Route*/}
-        {/*    path={"/profile/:profileId/:layout/:showId"}*/}
-        {/*    exact={true}*/}
-        {/*    component={ProfileComponent} />*/}
         <Route
           path={"/profile/:layout"}
           exact={true}

@@ -148,7 +148,7 @@ class GroupsTabComponent extends React.Component {
                                         <li className="list-group-item">
                                             <Link
                                                 to={member.id === this.state.user.id ?
-                                                    `/profile/watchlist` : `/profile/${member.id}/watchlist`}>
+                                                    `/profile/watchlist` : `/profile/${member.id}`}>
                                                 {
                                                     member.id === this.state.groupLeaderId ? `Group Leader: ` : `Member: `
                                                 }
