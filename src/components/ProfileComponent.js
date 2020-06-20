@@ -231,7 +231,7 @@ export default class ProfileComponent extends React.Component {
             {
                 this.state.layout === "posts" &&
                 <span>
-                    <PostListComponent/>
+                    <PostListComponent userId={this.state.userId}/>
                 </span>
             }
             </div>

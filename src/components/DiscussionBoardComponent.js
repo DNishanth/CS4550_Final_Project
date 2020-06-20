@@ -11,7 +11,9 @@ class DiscussionBoardComponent extends React.Component {
         this.state = {
             commentText: "",
             posts: [],
-            user: {id: 10}
+            user: {
+                id: 10,
+            }
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
