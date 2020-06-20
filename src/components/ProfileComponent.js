@@ -32,6 +32,7 @@ export default class ProfileComponent extends React.Component {
             credentials: "include"
         })
             .then(response => {
+                console.log("profile response below")
                 console.log(response)
                 return response.json()
             })
@@ -40,6 +41,7 @@ export default class ProfileComponent extends React.Component {
             })
             .then(user => {
                 if(user) {
+                    console.log("entered conditional")
                     this.setState({
                         username: user.username,
                         password: user.password,
