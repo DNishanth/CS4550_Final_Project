@@ -18,7 +18,6 @@ export default class ProfileComponent extends React.Component {
             favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
             watchlist: [],
             wishlist: [],
-            groups: [],
             posts: [],
 
             showId: this.props.match.params.showId,
@@ -43,22 +42,14 @@ export default class ProfileComponent extends React.Component {
                     this.setState({
                         username: user.username,
                         password: user.password,
-                        userId: user.id
+                        userId: user.id,
                     })
-                }
-            }).then(status =>
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
-                .then(response => response.json())
-                .then(watchlist => this.setState({
-                    watchlist: watchlist
-                })).then(status =>
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/groups`)
-                .then(response => response.json())
-                .then(groups => this.setState({
-                    groups: groups
-                })).then(status => console.log(this.state.groups)
-            )
-        ))
+                    fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${user.id}/shows`)
+                        .then(response => response.json())
+                        .then(watchlist => this.setState({
+                            watchlist: watchlist }))
+                }}
+        )
 
     }
 
@@ -129,7 +120,7 @@ export default class ProfileComponent extends React.Component {
                         <br/>
 
                         <MediaQuery query='(min-width: 1024px)'>
-                            {console.log(this.state.watchlist)}
+                            {/*{console.log(this.state.watchlist)}*/}
                             <div>
                                 {this.state.layout === "watchlist" &&
                                 <ShowListComponent
@@ -185,8 +176,7 @@ export default class ProfileComponent extends React.Component {
                 <span>
                     <GroupsTabComponent
                         {...this.props}
-                        userId={this.state.userId}
-                        groups={this.state.groups}/>
+                        userId={this.state.userId}/>
                 </span>
             }
             {

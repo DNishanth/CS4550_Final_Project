@@ -47,7 +47,6 @@ export default class ProfileComponent extends React.Component {
             credentials: "include"
         })
             .then(response => this.props.history.push("/"))
-
     }
 
     render() {
