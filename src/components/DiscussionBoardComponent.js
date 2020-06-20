@@ -49,15 +49,6 @@ class DiscussionBoardComponent extends React.Component {
         this.findPosts();
     });
 
-    // onPost = e => createPost(this.discussionId, {
-    //     message: this.state.commentText,
-    //     date: new Date(),
-    //     user: this.state.currentUser
-    // }).then(response => {
-    //     this.findPosts();
-    // });
-
-
     componentDidMount() {
         this.findPosts();
     }
