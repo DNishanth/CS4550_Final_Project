@@ -17,8 +17,6 @@ export default class SearchRowComponent extends React.Component {
 
     createNewDiscussion = () => createShowDiscussion({
         imdbId: this.props.show.ids.imdb
-        // ,
-        // userId: ''
     });
 
     componentDidMount() {
@@ -61,8 +59,6 @@ export default class SearchRowComponent extends React.Component {
                 'content-type': 'application/json'
             }
         }).then(response => response.json());
-        
-        // this.createNewDiscussion();
     }
 
     render() {

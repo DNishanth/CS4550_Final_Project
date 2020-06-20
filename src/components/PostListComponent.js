@@ -1,6 +1,7 @@
 import React from "react";
 import { findPostsForUser } from "../services/DiscussionService";
-
+import "./DiscussionBoard.css"
+import { Link } from 'react-router-dom';
 
 class PostListComponent extends React.Component {
     constructor(props) {
@@ -24,7 +25,6 @@ class PostListComponent extends React.Component {
 
     componentDidMount() {
         this.findPostsForUser();
-        // console.log(this.state.posts);
     }
 
     render() {
@@ -33,14 +33,17 @@ class PostListComponent extends React.Component {
                 {this.state.posts.map((post) => {
                     return (
                         <div key={post.id}>
-                            <div className="card">
+                            <div className="card wbdv-post-card">
                                 <div className="card-header">
-                                    {post.date}
+                                    <Link to={`/profile/${post.user.id}`}>
+                                        {post.user.firstName + " " + post.user.lastName}
+                                    </Link>
                                 </div>
                                 <div className="card-body">
-                                    <div className="card-text">
-                                        {post.message}
-                                    </div>
+                                    <blockquote className="blockquote mb-0">
+                                        <p> {post.message} </p>
+                                        <footer className="blockquote-footer"> {post.date} </footer>
+                                    </blockquote>
                                 </div>
                             </div>
                         </div>)

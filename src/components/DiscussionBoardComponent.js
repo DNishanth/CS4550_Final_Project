@@ -91,7 +91,7 @@ class DiscussionBoardComponent extends React.Component {
                                     </Link>
                                 </div>
                                 <div className="card-body">
-                                    <blockquote class="blockquote mb-0">
+                                    <blockquote className="blockquote mb-0">
                                         <p> {post.message} </p>
                                         <footer className="blockquote-footer"> {post.date} </footer>
                                     </blockquote>
