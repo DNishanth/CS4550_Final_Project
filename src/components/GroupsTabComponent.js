@@ -91,9 +91,9 @@ class GroupsTabComponent extends React.Component {
             }).then(response => response.json()).then(watchGroup => {
                 this.setState({
                     watchGroup: watchGroup,
+                    userQuery: ""
                 })
-                this.forceUpdate()
-            })
+            }).finally(this.props.history.push("/profile/group"))
         })
     }
 
@@ -103,37 +103,43 @@ class GroupsTabComponent extends React.Component {
                 {
                     this.state.hasGroup &&
                     <div className="row">
-                        {console.log(this.state)}
                         <div className="col-6">
                             <div className="float-left">
                                 <h4>{this.state.watchGroup.name}</h4>
                             </div>
-                            <button
-                                className="btn ml-1">
-                                <i className="fa fa-pencil"/>
-                            </button>
-                        </div>
-                        <div className="input-group mb-3 col-6">
-                            <input
-                                className="form-control"
-                                type="form-control"
-                                placeholder="Enter User ID"
-                                value={this.state.userQuery}
-                                onChange={e => this.setState(
-                                    { userQuery: e.target.value })}
-                                onKeyPress={e => {
-                                    if (e.key === "Enter") {
-                                        this.findUser(this.state.userQuery)
-                                    }}
-                                }/>
-                            <div className="input-group-append">
+                            {
+                                this.state.groupLeaderId === this.state.user.id &&
                                 <button
-                                    onClick={() => this.findUser(this.state.userQuery)}
-                                    className="btn btn-outline-success">
-                                    Add Member
+                                    className="btn ml-1">
+                                    <i className="fa fa-pencil"/>
                                 </button>
-                            </div>
+                            }
                         </div>
+                        <div className="col-6">
+                            {
+                                this.state.groupLeaderId === this.state.user.id &&
+                                <div className="input-group mb-3">
+                                    <input
+                                        className="form-control"
+                                        type="form-control"
+                                        placeholder="Enter User ID"
+                                        value={this.state.userQuery}
+                                        onChange={e => this.setState(
+                                            {userQuery: e.target.value})
+                                        }/>
+                                    <div className="input-group-append">
+                                        <a href="/profile/group">
+                                            <button
+                                                onClick={() => this.findUser(this.state.userQuery)}
+                                                className="btn btn-outline-success">
+                                                Add Member
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+
                         <div className="col-5">
                             <h6>Group Members</h6>
                             <ul className="list-group list-group-flush">
@@ -143,18 +149,21 @@ class GroupsTabComponent extends React.Component {
                                             <Link
                                                 to={member.id === this.state.user.id ?
                                                     `/profile/watchlist` : `/profile/${member.id}/watchlist`}>
-                                                    {
+                                                {
+                                                    member.id === this.state.groupLeaderId ? `Group Leader: ` : `Member: `
+                                                }
+                                                {
                                                         member.id === this.state.user.id ?
                                                         `(You) ${member.username}` : member.username
                                                     }
-                                                {
-                                                    member.id === this.state.groupLeaderId ? ` Group Leader` : ` Member`
-                                                }
                                             </Link>
+                                            {
+                                                this.state.groupLeaderId === this.state.user.id &&
+                                                <button className="btn btn-danger btn-sm float-right">
+                                                    <i className="fa fa-user-times"/>
+                                                </button>
+                                            }
 
-                                            <button className="btn btn-danger btn-sm float-right">
-                                                <i className="fa fa-user-times"/>
-                                            </button>
                                         </li>
                                     )
                                 }
