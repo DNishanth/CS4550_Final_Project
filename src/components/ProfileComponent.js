@@ -33,16 +33,18 @@ export default class ProfileComponent extends React.Component {
             this.setState({
                 userId: this.state.layout,
             })
+            // fetch(`http://localhost:8080/api/users/${this.state.layout}`)
             fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
                 .catch(e => console.log(e)).then(response => response.json())
                 .then(user => this.setState({username: user.username}))
                 .then(status =>
+                    // fetch(`http://localhost:8080/api/users/${this.state.layout}/shows`)
                     fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
                         .then(response => response.json())
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         })).then(status =>
-                        // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
+                        // fetch(`http://localhost:8080/api/users/${this.state.layout}/groups`)
                         fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
                             .then(response => response.json())
                             .then(groups => this.setState({
@@ -79,15 +81,19 @@ export default class ProfileComponent extends React.Component {
                     .then(response => response.json())
                     .then(watchlist => this.setState({
                         watchlist: watchlist
-                    })).then(status =>
-                    // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
-                    fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/group`)
-                        .then(response => response.json())
-                        .then(groups => this.setState({
-                            groups: groups
-                        })).then(status => console.log(this.state.groups)
-                    )
-                ))
+                    }))
+                //TODO: come back to this
+                //     .then(status =>
+                //     // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
+                //     fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/group`)
+                //         .then(response => response.json())
+                //         .then(groups => this.setState({
+                //             groups: groups
+                //         })).then(status => console.log(this.state.groups)
+                //     )
+                // )
+
+                )
         }
 
     }
@@ -216,10 +222,10 @@ export default class ProfileComponent extends React.Component {
             {
                 this.state.layout === "group" &&
                 <span>
-                    <GroupsTabComponent
+                    {/* <GroupsTabComponent
                         {...this.props}
                         userId={this.state.userId}
-                        groups={this.state.groups}/>
+                        groups={this.state.groups}/> */}
                 </span>
             }
             {

@@ -25,6 +25,7 @@ export default class ProfileComponent extends React.Component {
     }
 
     componentDidMount() {
+        // fetch(`http://localhost:8080/api/users/${this.state.userId}`, {
         fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}`, {
             // fetch("http://localhost:8080/api/profile", {
             method: 'POST',

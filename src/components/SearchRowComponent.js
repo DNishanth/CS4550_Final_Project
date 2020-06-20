@@ -63,8 +63,6 @@ export default class SearchRowComponent extends React.Component {
         }).then(response => response.json());
         
         // this.createNewDiscussion();
-
-        console.log(this.state.watchlist);
     }
 
     render() {
