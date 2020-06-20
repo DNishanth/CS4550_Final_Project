@@ -43,7 +43,7 @@ export default class LoginComponent extends React.Component {
                     className="btn btn-primary">
                     Login
                 </button>
-                <Link to="/register">Sign up</Link>
+                <Link to="/registration">Sign up</Link>
             </div>
         )
     }
