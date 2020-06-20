@@ -51,8 +51,8 @@ export default class SearchRowComponent extends React.Component {
     }
 
     addShow = () => {
-        // fetch(`http://localhost:8080/api/users/${this.props.currentUser.id}/shows`, {
-        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.props.currentUser.id}/shows`, {
+        fetch(`http://localhost:8080/api/users/${this.props.currentUser.id}/shows`, {
+        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.props.currentUser.id}/shows`, {
             method: 'POST',
             body: JSON.stringify({
                 imdbId: this.props.show.ids.imdb

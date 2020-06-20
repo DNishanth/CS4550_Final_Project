@@ -33,19 +33,19 @@ export default class ProfileComponent extends React.Component {
             this.setState({
                 userId: this.state.layout,
             })
-            // fetch(`http://localhost:8080/api/users/${this.state.layout}`)
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
+            fetch(`http://localhost:8080/api/users/${this.state.layout}`)
+            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
                 .catch(e => console.log(e)).then(response => response.json())
                 .then(user => this.setState({username: user.username}))
                 .then(status =>
-                    // fetch(`http://localhost:8080/api/users/${this.state.layout}/shows`)
-                    fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
+                    fetch(`http://localhost:8080/api/users/${this.state.layout}/shows`)
+                    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
                         .then(response => response.json())
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         })).then(status =>
-                        // fetch(`http://localhost:8080/api/users/${this.state.layout}/groups`)
-                        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
+                        fetch(`http://localhost:8080/api/users/${this.state.layout}/groups`)
+                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
                             .then(response => response.json())
                             .then(groups => this.setState({
                                 groups: groups
@@ -53,8 +53,8 @@ export default class ProfileComponent extends React.Component {
                         )
                     ))
         } else {
-            fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-                // fetch("http://localhost:8080/api/profile", {
+            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
+                fetch("http://localhost:8080/api/profile", {
                 method: 'POST',
                 credentials: "include"
             })
@@ -76,8 +76,8 @@ export default class ProfileComponent extends React.Component {
                         })
                     }
                 }).then(status =>
-                // fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
-                fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
+                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
                     .then(response => response.json())
                     .then(watchlist => this.setState({
                         watchlist: watchlist
@@ -99,8 +99,8 @@ export default class ProfileComponent extends React.Component {
     }
 
     logout = () => {
-        // fetch("http://localhost:8080/api/logout", {
-        fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
+        fetch("http://localhost:8080/api/logout", {
+        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
             method: 'POST',
             credentials: "include"
         })

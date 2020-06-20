@@ -10,23 +10,28 @@ class DiscussionBoardComponent extends React.Component {
         this.discussionId = this.props.match.params.discId;
         this.state = {
             commentText: "",
-            posts: []
+            posts: [],
+            user: {id: 10}
         }
 
-        // this.getCurrentUser = this.getCurrentUser.bind(this);
+        this.getCurrentUser = this.getCurrentUser.bind(this);
 
         this.onCommentChange = this.onCommentChange.bind(this);
 
         this.findPosts = this.findPosts.bind(this);
 
-        // console.log("getting current user");
-        // this.getCurrentUser();
-        // console.log("done current user");
+        console.log("getting current user");
+        this.getCurrentUser();
+        console.log("done current user");
     }
 
-    // getCurrentUser = () => UserService.getCurrentUser().then(response => {
-    //     console.log(response);
-    // });
+    getCurrentUser = () => UserService.getCurrentUser().then(response => {
+        this.setState({
+            user: response
+        })
+        console.log("state user below");
+        console.log(this.state.user.id);
+    });
 
     onCommentChange = e => this.setState({ commentText: e.target.value });
 
@@ -38,21 +43,24 @@ class DiscussionBoardComponent extends React.Component {
 
     // onPost = e => alert(new Date());
 
-    onPost = e => createPost(this.discussionId, {
+    onPost = e => createPost(this.discussionId, this.state.user.id, {
         message: this.state.commentText,
         date: new Date()
     }).then(response => {
         this.findPosts();
     });
+    
+    // onPost = e => createPost(this.discussionId, {
+    //     message: this.state.commentText,
+    //     date: new Date(),
+    //     user: this.state.currentUser
+    // }).then(response => {
+    //     this.findPosts();
+    // });
 
 
     componentDidMount() {
         this.findPosts();
-        // findPostsForDiscussion(this.props.match.params.discId).then(discussion => {
-        //     this.setState({
-        //         posts: discussion
-        //     });
-        // })
     }
 
     render() {

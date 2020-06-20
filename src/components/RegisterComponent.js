@@ -11,8 +11,8 @@ export default class Register extends React.Component {
         email: ''
     }
     register = () => {
-        // fetch("http://localhost:8080/api/register", {
-        fetch("https://wbdv-team18-final-project.herokuapp.com/api/register", {
+        fetch("http://localhost:8080/api/register", {
+        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/register", {
             body: JSON.stringify({
                 username: this.state.username, password: this.state.password,
                 role: this.state.role, firstName: this.state.firstName,
