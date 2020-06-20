@@ -144,14 +144,6 @@ export default class ProfileComponent extends React.Component {
                                     layout={this.state.layout}
                                     shows={this.state.watchlist}/>
                                 }
-
-                                {this.state.layout === "wishlist" &&
-                                <ShowListComponent
-                                    {...this.props}
-                                    mobileView={false}
-                                    layout={this.state.layout}
-                                    shows={this.state.wishlist}/>
-                                }
                             </div>
                         </MediaQuery>
                         <MediaQuery query='(max-width: 1023px)'>
@@ -162,14 +154,6 @@ export default class ProfileComponent extends React.Component {
                                     mobileView={true}
                                     layout={this.state.layout}
                                     shows={this.state.watchlist}/>
-                                }
-
-                                {this.state.layout === "wishlist" &&
-                                <ShowListComponent
-                                    {...this.props}
-                                    mobileView={true}
-                                    layout={this.state.layout}
-                                    shows={this.state.wishlist}/>
                                 }
                             </div>
                         </MediaQuery>
