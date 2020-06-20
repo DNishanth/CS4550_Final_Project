@@ -174,7 +174,7 @@ export default class ProfileComponent extends React.Component {
                         </div>
             </div>
             {
-                this.state.layout === "groups" &&
+                this.state.layout === "group" &&
                 <span>
                     <GroupsTabComponent
                         {...this.props}

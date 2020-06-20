@@ -34,6 +34,14 @@ function App() {
           path={"/result/:imdb_id"}
           exact={true}
           component={ResultInfoComponent} />
+        {/*<Route*/}
+        {/*    path={"/profile/:profileId/:layout"}*/}
+        {/*    exact={true}*/}
+        {/*    component={ProfileComponent} />*/}
+        {/*<Route*/}
+        {/*    path={"/profile/:profileId/:layout/:showId"}*/}
+        {/*    exact={true}*/}
+        {/*    component={ProfileComponent} />*/}
         <Route
           path={"/profile/:layout"}
           exact={true}
@@ -58,7 +66,7 @@ function App() {
           path={"/discussions/:discId"}
           exact render={({ match }) => <DiscussionBoardComponent match={match} />} />
         <Route
-          path={"/groups/:groupId"}
+          path={"/group/:groupId"}
           exact={true}
           component={GroupComponent} />
       </div>

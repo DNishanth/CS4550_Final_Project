@@ -17,8 +17,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/groups" className="nav-link">
-                        Groups
+                    <Link to="/profile/group" className="nav-link">
+                        Group
                     </Link>
                 </li>
                 <li className="nav-item">
@@ -42,8 +42,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/groups" className="nav-link">
-                        Groups
+                    <Link to="/profile/group" className="nav-link">
+                        Group
                     </Link>
                 </li>
                 <li className="nav-item">
@@ -54,7 +54,7 @@ const ProfileTabsComponent = (props) =>
             </ul>
         }
         {
-            props.layout === "groups" &&
+            props.layout === "group" &&
             <ul className="nav nav-tabs flex-column flex-sm-row block">
                 <li className="nav-item">
                     <Link to="/profile/watchlist" className="nav-link">
@@ -67,8 +67,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/groups" className="nav-link active">
-                        Groups
+                    <Link to="/profile/group" className="nav-link active">
+                        Group
                     </Link>
                 </li>
                 <li className="nav-item">
@@ -92,8 +92,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/groups" className="nav-link">
-                        Groups
+                    <Link to="/profile/group" className="nav-link">
+                        Group
                     </Link>
                 </li>
                 <li className="nav-item">

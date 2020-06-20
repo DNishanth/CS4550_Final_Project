@@ -23,20 +23,18 @@ export default class SearchRowComponent extends React.Component {
             credentials: "include"
         })
             .then(response => {
-                console.log(response)
                 return response.json()
             })
             .catch(e => {
-                // alert(e)
-                // this.props.history.push("/")
             })
             .then(user => {
-                if (user) {
+                if (user != null) {
                     let showId = this.props.show.ids.imdb
                     let userId = user.id
                     this.setState({
                         userId: user.id,
-                        show: {imdbId: showId, userId: userId}
+                        show: {imdbId: showId, userId: userId},
+                        loggedOut: false
                     })
                 } else {
                     this.setState({
@@ -56,8 +54,6 @@ export default class SearchRowComponent extends React.Component {
         }).then(response => response.json());
         
         this.createNewDiscussion();
-
-        console.log(this.state.watchlist);
     }
 
     render() {

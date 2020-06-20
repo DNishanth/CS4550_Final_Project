@@ -1,6 +1,8 @@
 import React from "react";
 import GroupCardComponent from "./GroupCardComponent";
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 class GroupsTabComponent extends React.Component {
     constructor(props) {
@@ -9,7 +11,11 @@ class GroupsTabComponent extends React.Component {
             user: {},
             watchGroup: {},
             members: [],
+            groupLeaderId: '',
             hasGroup: false,
+            editingTitle: false,
+            title: '',
+            userQuery: ""
         }
     }
 
@@ -34,10 +40,9 @@ class GroupsTabComponent extends React.Component {
                             if (group != null) {
                             this.setState({
                                 watchGroup: group,
-                                hasGroup: true
+                                hasGroup: true,
+                                groupLeaderId: group.leaderId
                             })
-                            console.log(this.state.watchGroup)
-
                             fetch(`https://wbdv-team18-final-project.herokuapp.com/api/groups/${group.id}/users`)
                                 .then(response => response.json()).then(members => {
                                 this.setState({
@@ -55,7 +60,6 @@ class GroupsTabComponent extends React.Component {
             headers: {
                 'content-type': 'application/json'
             }}).then(response => response.json()).then(watchGroup => {
-                console.log(watchGroup)
                 fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/group`, {
                     method: 'PUT',
                     body: JSON.stringify(watchGroup),
@@ -63,11 +67,32 @@ class GroupsTabComponent extends React.Component {
                         'content-type': 'application/json'
                     }})
                     .then(response => response.json()).then(watchGroup => {
-                        console.log(watchGroup)
                         this.setState({
                             watchGroup: watchGroup,
-                            hasGroup: true
+                            hasGroup: true,
+                            groupLeaderId: userId
                         })
+            })
+        })
+    }
+
+    findUser(queryId) {
+        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/groups/${this.state.watchGroup.id}/users/${queryId}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            }}).then(response => response.json()).then(newUser => {
+            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${queryId}/group`, {
+                method: 'PUT',
+                body: JSON.stringify(this.state.watchGroup),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }).then(response => response.json()).then(watchGroup => {
+                this.setState({
+                    watchGroup: watchGroup,
+                })
+                this.forceUpdate()
             })
         })
     }
@@ -75,13 +100,69 @@ class GroupsTabComponent extends React.Component {
     render() {
         return (
             <div>
-                {console.log(this.state)}
-                {/*{console.log(this.state.watchGroup)}*/}
                 {
                     this.state.hasGroup &&
-                    <div>
-                        <h1>{this.state.watchGroup.name}</h1>
-                        <ul>{this.state.members.map(member => <li>{member.username}</li>)}</ul>
+                    <div className="row">
+                        {console.log(this.state)}
+                        <div className="col-6">
+                            <div className="float-left">
+                                <h4>{this.state.watchGroup.name}</h4>
+                            </div>
+                            <button
+                                className="btn ml-1">
+                                <i className="fa fa-pencil"/>
+                            </button>
+                        </div>
+                        <div className="input-group mb-3 col-6">
+                            <input
+                                className="form-control"
+                                type="form-control"
+                                placeholder="Enter User ID"
+                                value={this.state.userQuery}
+                                onChange={e => this.setState(
+                                    { userQuery: e.target.value })}
+                                onKeyPress={e => {
+                                    if (e.key === "Enter") {
+                                        this.findUser(this.state.userQuery)
+                                    }}
+                                }/>
+                            <div className="input-group-append">
+                                <button
+                                    onClick={() => this.findUser(this.state.userQuery)}
+                                    className="btn btn-outline-success">
+                                    Add Member
+                                </button>
+                            </div>
+                        </div>
+                        <div className="col-5">
+                            <h6>Group Members</h6>
+                            <ul className="list-group list-group-flush">
+                                {
+                                    this.state.members.map(member =>
+                                        <li className="list-group-item">
+                                            <Link
+                                                to={member.id === this.state.user.id ?
+                                                    `/profile/watchlist` : `/profile/${member.id}/watchlist`}>
+                                                    {
+                                                        member.id === this.state.user.id ?
+                                                        `(You) ${member.username}` : member.username
+                                                    }
+                                                {
+                                                    member.id === this.state.groupLeaderId ? ` Group Leader` : ` Member`
+                                                }
+                                            </Link>
+
+                                            <button className="btn btn-danger btn-sm float-right">
+                                                <i className="fa fa-user-times"/>
+                                            </button>
+                                        </li>
+                                    )
+                                }
+                            </ul>
+                        </div>
+                        <div className="col-7">
+                            <h6>Group Watchlist</h6>
+                        </div>
                     </div>
                 }
                 {
