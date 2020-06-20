@@ -25,7 +25,7 @@ export default class SearchTableComponent
                         {
                             this.props.shows.map(show =>
                                 <SearchRowComponent
-                                    key={show.ids.trakt} show={show}/>
+                                    key={show.ids.trakt} show={show} currentUser={this.props.currentUser}/>
                             )
                         }
                         </tbody>

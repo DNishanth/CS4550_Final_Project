@@ -1,15 +1,22 @@
 import React from "react";
 import PrototypeService from "../services/PrototypeService";
+import UserService from "../services/UserService";
 import SearchTableComponent from "./SearchTableComponent";
 import { Link } from "react-router-dom";
 
 export default class SearchComponent extends React.Component {
+    constructor(props) {
+        super(props);
 
-    state = {
-        search_query: "",
-        movies: [],
-        series: [],
-        shows: []
+        this.state = {
+            search_query: "",
+            movies: [],
+            series: [],
+            shows: [],
+            user: null
+        }
+
+        this.getCurrentUser = this.getCurrentUser.bind(this);
     }
 
     componentDidMount() {
@@ -19,7 +26,15 @@ export default class SearchComponent extends React.Component {
         else {
             this.findMovies("")
         }
+        this.getCurrentUser();
     }
+
+    getCurrentUser = () => UserService.getCurrentUser().then(user => {
+        this.setState({
+            user: user
+        });
+    });
+
 
     findMovies = (query) => {
         PrototypeService.findMovies(query)
@@ -56,7 +71,7 @@ export default class SearchComponent extends React.Component {
         console.log(this.state.shows)
     }
 
-    render() {
+    render() {     
         return (
             <div>
                 <div className="input-group mb-3">
@@ -68,6 +83,7 @@ export default class SearchComponent extends React.Component {
                         onChange={e => this.setState(
                             { search_query: e.target.value })}
                         onKeyPress={e => {
+                            console.log(e.key);
                             if (e.key === "Enter") {
                                 this.props.history.push(`/search/${this.state.search_query}`);
                                 this.findMovies(this.state.search_query)
@@ -86,7 +102,7 @@ export default class SearchComponent extends React.Component {
                     </Link>
                 </div>
 
-                <SearchTableComponent shows={this.state.shows} />
+                <SearchTableComponent shows={this.state.shows} currentUser={this.state.user}/>
             </div>
         )
     }
