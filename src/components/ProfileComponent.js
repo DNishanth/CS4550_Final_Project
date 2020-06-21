@@ -32,6 +32,7 @@ export default class ProfileComponent extends React.Component {
 
     componentDidMount() {
         console.log(this.state.visiting)
+        console.log(this.state.showId);
         if (this.state.visiting) {
             this.forceUpdate()
             this.setState({
@@ -184,12 +185,15 @@ export default class ProfileComponent extends React.Component {
                                         layout={this.state.layout}
                                         shows={this.state.watchlist} />
                                 }
-                                {this.state.visiting &&
+                                {!isNaN(this.state.layout) &&
                                     <ShowListComponent
                                         {...this.props}
                                         mobileView={true}
                                         layout={this.state.layout}
                                         shows={this.state.watchlist} />
+                                }
+                                {!isNaN(this.state.layout) &&
+                                    <PostListComponent userId={this.state.layout}/>
                                 }
                             </div>
                         </MediaQuery>
@@ -212,7 +216,7 @@ export default class ProfileComponent extends React.Component {
                             </div>
                         </MediaQuery>
                     </div>
-
+                            
                     <div className="col-lg-5">
                         {
                             this.state.showId &&
