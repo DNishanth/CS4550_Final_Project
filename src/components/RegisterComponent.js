@@ -33,22 +33,29 @@ export default class Register extends React.Component {
                 {/* add css padding */}
                 <h1>Register</h1>
 
-                <div className="form-group row">
+                <div className="form-group ">
+                    <label htmlFor="usernameInput">Username</label>
                     <input
+                        id="usernameInput"
                         placeholder="Username"
                         onChange={(e) => this.setState({ username: e.target.value })}
                         className="form-control" />
                 </div>
 
-                <div className="form-group row">
+                <div className="form-group ">
+                    <label htmlFor="passwordInput">Password</label>
                     <input
+                        id="passwordInput"
+                        type="password"
                         placeholder="Password"
                         onChange={(e) => this.setState({ password: e.target.value })}
                         className="form-control" />
                 </div>
 
-                <div className="form-group row">
+                <div className="form-group ">
+                    <label htmlFor="roleSelect">Role</label>
                     <select
+                        id="roleSelect"
                         onChange={(e) => this.setState({ role: e.target.value })}
                         defaultValue={`CHOOSE`}
                         className="custom-select custom-select">
@@ -58,22 +65,28 @@ export default class Register extends React.Component {
                     </select>
                 </div>
 
-                <div className="form-group row">
+                <div className="form-group ">
+                    <label htmlFor="firstNameInput">First Name</label>
                     <input
+                        id="firstNameInput"
                         placeholder="First Name"
                         onChange={(e) => this.setState({ firstName: e.target.value })}
                         className="form-control" />
                 </div>
 
-                <div className="form-group row">
+                <div className="form-group ">
+                    <label htmlFor="lastNameInput">Last Name</label>
                     <input
+                        id="lastNameInput"
                         placeholder="Last Name"
                         onChange={(e) => this.setState({ lastName: e.target.value })}
                         className="form-control" />
                 </div>
 
-                <div className="form-group row">
+                <div className="form-group ">
+                    <label htmlFor="emailInput">Email</label>
                     <input
+                        id="emailInput"
                         placeholder="Email"
                         onChange={(e) => this.setState({ email: e.target.value })}
                         className="form-control" />
