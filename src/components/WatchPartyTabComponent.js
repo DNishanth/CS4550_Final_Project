@@ -2,6 +2,8 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import UserService from "../services/UserService";
+import * as WatchPartyService from "../services/WatchPartyService";
 
 class WatchPartyTabComponent extends React.Component {
     constructor(props) {
@@ -12,43 +14,28 @@ class WatchPartyTabComponent extends React.Component {
             members: [],
             watchPartyLeaderId: '',
             hasGroup: false,
-            editingTitle: false,
-            title: '',
             userQuery: "",
             groupQuery: ""
         }
     }
 
     componentDidMount() {
-        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-        fetch("http://localhost:8080/api/profile", {
-            method: 'POST',
-            credentials: "include"
-        })
-            .then(response => {
-                console.log(response)
-                return response.json()
-            })
-            .catch(e => {
-            })
+        UserService.getCurrentUser().then()
             .then(user => {
                 if (user != null) {
                     this.setState({
                         user: user
                     })
-                    fetch(`http://localhost:8080/api/users/${user.id}/watch-party`)
-                    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${user.id}/watch-party`)
-                        .then(response => response.json()).catch(e=> {}).then(watchParty => {
+                    WatchPartyService.findUserWatchParty(user)
+                        .then(watchParty => {
                             if (watchParty != null) {
-                            this.setState({
-                                watchParty: watchParty,
-                                hasGroup: true,
-                                watchPartyLeaderId: watchParty.leaderId
-                            })
-                            fetch(`http://localhost:8080/api/watch-parties/${watchParty.id}/users`)
-                            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/users`)
-                                .then(response => response.json()).then(members => {
                                 this.setState({
+                                    watchParty: watchParty,
+                                    hasGroup: true,
+                                    watchPartyLeaderId: watchParty.leaderId
+                                })
+                                WatchPartyService.findWatchPartyMembers(watchParty)
+                                .then(members => {this.setState({
                                     members: members
                                 })})}
                     })
@@ -56,59 +43,35 @@ class WatchPartyTabComponent extends React.Component {
             })
     }
 
-    createGroup(userId, user) {
-        fetch(`http://localhost:8080/api/watch-parties`, {
-        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties`, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'content-type': 'application/json'
-            }}).then(response => response.json()).then(watchParty => {
-                fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
-                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
-                    method: 'PUT',
-                    body: JSON.stringify(watchParty),
-                    headers: {
-                        'content-type': 'application/json'
-                    }})
-                    .then(response => response.json()).then(watchParty => {
-                        this.setState({
-                            watchParty: watchParty,
-                            hasGroup: true,
-                            watchPartyLeaderId: userId
-                        })
+    createWatchParty(userId, user) {
+        WatchPartyService.createWatchParty(user)
+            .then(watchParty => {
+                this.addToGroup(userId, watchParty.id)
             })
-        })
     }
 
     addToGroup(userId, watchPartyId) {
-        console.log(`${userId} ${watchPartyId}`)
-        // fetch(`http://localhost:8080/api/watch-parties/${watchPartyId}/users/${userId}`, {
-        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchPartyId}/users/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            }}).then(response => response.json()).then(watchParty => {
-            fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
-            // console.log(watchParty)
-            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
-                method: 'PUT',
-                body: JSON.stringify(watchParty),
-                headers: {
-                    'content-type': 'application/json'
-                }
-            }).then(response => response.json()).then(watchParty => {
-                this.setState({
-                    watchParty: watchParty,
-                    userQuery: ""
-                })
-            }).finally(this.props.history.push("/profile/watch-party"))
-        })
+        WatchPartyService.findWatchPartyById(watchPartyId)
+            .then(watchParty =>
+                WatchPartyService.addPartyToUser(userId, watchParty)
+                .then(watchParty =>
+                    this.setState({
+                        watchParty: watchParty,
+                    })
+                ).then(status => UserService.findUser(userId)).then(user => window.location.reload(true)))
+    }
+
+    removeUser(userId, watchPartyId) {
+        WatchPartyService.removeUserFromParty(userId, watchPartyId)
+            .then(watchParty => WatchPartyService.removePartyFromUser(userId, watchParty.id))
+            .then(watchParty => {this.setState({watchParty: watchParty})
+                window.location.reload(true)})
     }
 
     render() {
         return (
             <div>
+                {/*{console.log(this.state)}*/}
                 {
                     this.state.hasGroup &&
                     <div className="row">
@@ -125,13 +88,11 @@ class WatchPartyTabComponent extends React.Component {
                                             {userQuery: e.target.value})
                                         }/>
                                     <div className="input-group-append">
-                                        <a href="/profile/watch-party">
                                             <button
                                                 onClick={() => this.addToGroup(this.state.userQuery, this.state.watchParty.id)}
                                                 className="btn btn-outline-success">
                                                 Add Member
                                             </button>
-                                        </a>
                                     </div>
                                 </div>
                             }
@@ -142,7 +103,9 @@ class WatchPartyTabComponent extends React.Component {
                             <ul className="list-group list-group-flush">
                                 {
                                     this.state.members.map(member =>
-                                        <li className="list-group-item">
+                                        <li
+                                            key={member.id}
+                                            className="list-group-item">
                                             <a
                                                 href={member.id === this.state.user.id ?
                                                     `/profile/watchlist` : `/profile/${member.id}`}>
@@ -156,7 +119,9 @@ class WatchPartyTabComponent extends React.Component {
                                             </a>
                                             {
                                                 this.state.watchPartyLeaderId === this.state.user.id &&
-                                                <button className="btn btn-danger btn-sm float-right">
+                                                <button
+                                                    onClick={()=> this.removeUser(member.id, this.state.watchParty.id)}
+                                                    className="btn btn-danger btn-sm float-right">
                                                     <i className="fa fa-user-times"/>
                                                 </button>
                                             }
@@ -174,7 +139,7 @@ class WatchPartyTabComponent extends React.Component {
                         {
                             this.state.user.role === "LEADER" &&
                             <button
-                            onClick={() => this.createGroup(
+                            onClick={() => this.createWatchParty(
                             this.props.userId, this.state.user)}
                             className="btn btn-secondary mb-2">Create Group
                             </button>

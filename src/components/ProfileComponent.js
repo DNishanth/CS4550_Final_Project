@@ -7,6 +7,7 @@ import MediaQuery from "react-responsive";
 import PostListComponent from "./PostListComponent";
 import WatchPartyTabComponent from "./WatchPartyTabComponent";
 import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -58,20 +59,8 @@ export default class ProfileComponent extends React.Component {
                         )
                     ))
         } else {
-            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-                fetch("http://localhost:8080/api/profile", {
-                method: 'POST',
-                credentials: "include"
-            })
-                .then(response => {
-                    console.log("profile comp response below")
-                    console.log(response)
-                    return response.json()
-                })
-                .catch(e => {
-                    this.props.history.push("/")
-                })
-                .then(user => {
+            UserService.getCurrentUser().then(user => {
+                console.log(user)
                     if (user) {
                         console.log("entered conditional")
                         this.setState({
@@ -81,7 +70,7 @@ export default class ProfileComponent extends React.Component {
                         })
                     }
                 }).then(status =>
-            {console.log(this.state.userId)
+            {
                 fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
                 // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
                     .then(response => response.json())
@@ -160,7 +149,7 @@ export default class ProfileComponent extends React.Component {
                         </div>
                         <p className="m-0">Top 5 Genres</p>
                         <div className="row pl-3">
-                            {this.state.favoriteGenres.map(genre => <GenreBadgesComponent genre={genre} />)}
+                            {this.state.favoriteGenres.map(genre => <GenreBadgesComponent key={genre} genre={genre} />)}
                         </div>
                     </div>
                 </div>
@@ -176,7 +165,6 @@ export default class ProfileComponent extends React.Component {
                         <br />
 
                         <MediaQuery query='(min-width: 1024px)'>
-                            {/*{console.log(this.state.watchlist)}*/}
                             <div>
                                 {this.state.layout === "watchlist" &&
                                     <ShowListComponent
@@ -216,7 +204,7 @@ export default class ProfileComponent extends React.Component {
                             </div>
                         </MediaQuery>
                     </div>
-                            
+
                     <div className="col-lg-5">
                         {
                             this.state.showId &&
@@ -232,9 +220,8 @@ export default class ProfileComponent extends React.Component {
                 this.state.layout === "watch-party" &&
                 <span>
                     <WatchPartyTabComponent
-                        {...this.props}
-                        userId={this.state.userId}
-                        groups={this.state.groups}/>
+                        key={this.state.userId}
+                        userId={this.state.userId}/>
                 </span>
             }
             {

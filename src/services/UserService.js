@@ -10,6 +10,7 @@ export const getCurrentUser = () => {
 };
 
 export const updateUser = (userId, updatedUser) =>
+    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}`, {
     fetch(`http://localhost:8080/api/users/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(updatedUser),
@@ -18,7 +19,13 @@ export const updateUser = (userId, updatedUser) =>
         }
     }).then(response => response.json());
 
+const findUser = (userId) =>
+    fetch(`http://localhost:8080/api/users/${userId}`)
+    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}`)
+        .then(response => response.json())
+
 export default {
     getCurrentUser,
+    findUser,
     updateUser
 }
