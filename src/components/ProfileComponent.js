@@ -167,7 +167,7 @@ export default class ProfileComponent extends React.Component {
 
                 <div className="row">
                     <div className="col-12 mt-3">
-                        <ProfileTabsComponent layout={this.state.layout} />
+                        <ProfileTabsComponent layout={this.state.layout}/>
                     </div>
                 </div>
 
