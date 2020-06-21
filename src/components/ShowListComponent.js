@@ -21,28 +21,19 @@ export default class ShowListComponent extends React.Component {
                     <h2 className="float-left">{this.capitalize(this.props.layout)}</h2>
                 </div>
 
-                {/*<div className="input-group mb-3">*/}
-                {/*    <input*/}
-                {/*        className="form-control"*/}
-                {/*        type="form-control"*/}
-                {/*        placeholder="Search watched shows"/>*/}
-                {/*    <div className="input-group-append">*/}
-                {/*        <button*/}
-                {/*            className="btn btn-outline-success">*/}
-                {/*            <i className="fa fa-search"/>*/}
-                {/*        </button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
                 <div className="row container ml-0 p-0">
-                    {/*{console.log(this.props.shows)}*/}
                     {
+                        this.props.shows.length !== 0 &&
                         this.props.shows.map(show =>
-                            <ShowPosterComponent
-                                mobileView={this.props.mobileView}
-                                layout={this.props.layout}
-                                key={show.imdbId}
-                                _id={show.imdbId} />)
+                        <ShowPosterComponent
+                        mobileView={this.props.mobileView}
+                        layout={this.props.layout}
+                        key={show.imdbId}
+                        _id={show.imdbId} />)
+                    }
+                    {
+                        this.props.shows.length === 0 &&
+                        <h4>Nothing's here!</h4>
                     }
                 </div>
             </div>
