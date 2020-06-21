@@ -5,7 +5,7 @@ export const findPostsForDiscussion = (showId) =>
 
 export const findPostsForUser = (userId) =>
   fetch(`http://localhost:8080/api/users/${userId}/posts`)
-    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/discussions/${showId}`)
+    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/posts`)
     .then(response => response.json())
 
 export const createPost = (showId, userId, post) =>
