@@ -33,25 +33,24 @@ export default class ProfileComponent extends React.Component {
 
     componentDidMount() {
         console.log(this.state.visiting)
-        console.log(this.state.showId);
         if (this.state.visiting) {
             this.forceUpdate()
             this.setState({
                 userId: this.state.layout,
             })
             fetch(`http://localhost:8080/api/users/${this.state.layout}`)
-            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
+                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}`)
                 .catch(e => console.log(e)).then(response => response.json())
-                .then(user => this.setState({ username: user.username }))
+                .then(user => this.setState({username: user.username}))
                 .then(status =>
                     fetch(`http://localhost:8080/api/users/${this.state.layout}/shows`)
-                    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
+                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/shows`)
                         .then(response => response.json())
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         })).then(status =>
                         fetch(`http://localhost:8080/api/users/${this.state.layout}/group`)
-                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
+                            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
                             .then(response => response.json())
                             .then(groups => this.setState({
                                 groups: groups
@@ -59,38 +58,27 @@ export default class ProfileComponent extends React.Component {
                         )
                     ))
         } else {
-            UserService.getCurrentUser().then(user => {
-                console.log(user)
-                    if (user) {
-                        console.log("entered conditional")
-                        this.setState({
-                            username: user.username,
-                            password: user.password,
-                            userId: user.id,
-                        })
-                    }
-                }).then(status =>
-            {
-                fetch(`http://localhost:8080/api/users/${this.state.userId}/shows`)
-                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
-                    .then(response => response.json())
-                    .then(watchlist => this.setState({
-                        watchlist: watchlist
-                    }))}
-                //TODO: come back to this
-                //     .then(status =>
-                //     // fetch(`http://localhost:8080/api/users/${this.state.userId}/groups`)
-                //     fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/group`)
-                //         .then(response => response.json())
-                //         .then(groups => this.setState({
-                //             groups: groups
-                //         })).then(status => console.log(this.state.groups)
-                //     )
-                // )
-
-                )
+            UserService.getCurrentUser()
+                .then(user => {
+                if (!user.status) {
+                    console.log("entered conditional")
+                    this.setState({
+                        username: user.username,
+                        password: user.password,
+                        userId: user.id,
+                    })
+                    fetch(`http://localhost:8080/api/users/${user.id}/shows`)
+                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                        .then(response => response.json())
+                        .then(watchlist => this.setState({
+                            watchlist: watchlist
+                        }))
+                } else {
+                    console.log("redirect")
+                    this.props.history.push("/")
+                }
+            })
         }
-
     }
 
     logout = () => {
