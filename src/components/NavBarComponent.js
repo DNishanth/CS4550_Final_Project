@@ -17,10 +17,10 @@ const NavBarComponent = () =>
                 </li>
 
                 <li className="nav-item">
-                    <Link to="/profile/watchlist" className="nav-link" role="button" aria-haspopup="true"
+                    <a href="/profile/watchlist" className="nav-link" role="button" aria-haspopup="true"
                         aria-expanded="false">
                         <i className="fa fa-user" />
-                    </Link>
+                    </a>
                 </li>
 
                 <li className="nav-item">

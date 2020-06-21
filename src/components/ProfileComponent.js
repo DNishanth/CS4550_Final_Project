@@ -32,9 +32,7 @@ export default class ProfileComponent extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.visiting)
         if (this.state.visiting) {
-            this.forceUpdate()
             this.setState({
                 userId: this.state.layout,
             })
