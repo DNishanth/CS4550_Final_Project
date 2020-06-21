@@ -19,7 +19,7 @@ class HomePageComponent extends React.Component {
     }
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
-        if (response.status !== 400) {
+        if (response.status !== 400 && response.status !== 500) {
             this.setState({
                 userId: response.id,
                 signedIn: true
