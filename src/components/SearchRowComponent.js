@@ -62,7 +62,7 @@ export default class SearchRowComponent extends React.Component {
         }).then(response => response.json());
     }
 
-    addShowToGroup(user) {
+    addShowToGroup = (user) => {
         WatchPartyService.findUserWatchParty(user)
             .then(watchParty => {
                 if (watchParty) {
@@ -76,6 +76,8 @@ export default class SearchRowComponent extends React.Component {
                             'content-type': 'application/json'
                         }
                     }).then(response => response.json())
+                } else {
+                    alert("This user isn't part of a group! Create or join one first.")
                 }
 
             })
