@@ -2,7 +2,6 @@ import React from "react";
 import ShowListComponent from "./ShowListComponent";
 import SummaryCardComponent from "./SummaryCardComponent";
 import ProfileTabsComponent from "./ProfileTabsComponent";
-import GenreBadgesComponent from "./GenreBadgesComponent";
 import MediaQuery from "react-responsive";
 import PostListComponent from "./PostListComponent";
 import WatchPartyTabComponent from "./WatchPartyTabComponent";
@@ -21,10 +20,9 @@ export default class ProfileComponent extends React.Component {
                 this.props.match.params.layout !== "posts" &&
                 this.props.match.params.layout !== "info",
 
-            favoriteGenres: ["action", "comedy", "fantasy", "sci-fi", "anime"],
             watchlist: [],
-            groups: [],
             posts: [],
+            watchParty: {},
 
             showId: this.props.match.params.showId,
             layout: this.props.match.params.layout
@@ -47,12 +45,12 @@ export default class ProfileComponent extends React.Component {
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         })).then(status =>
-                        fetch(`http://localhost:8080/api/users/${this.state.layout}/group`)
-                            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/group`)
+                        fetch(`http://localhost:8080/api/users/${this.state.layout}/watch-party`)
+                            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/watch-party`)
                             .then(response => response.json())
-                            .then(groups => this.setState({
-                                groups: groups
-                            })).then(status => console.log(this.state.groups)
+                            .then(watchParty => this.setState({
+                                watchParty: watchParty
+                            })).then(status => console.log(this.state.watchParty)
                         )
                     ))
         } else {
@@ -71,6 +69,13 @@ export default class ProfileComponent extends React.Component {
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         }))
+                    fetch(`http://localhost:8080/api/users/${user.id}/watch-party`)
+                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/watch-party`)
+                        .then(response => response.json())
+                        .catch(e=> {})
+                        .then(watchParty => this.setState({
+                            watchParty: watchParty
+                        })).then(status => console.log(this.state.watchParty))
                 } else {
                     console.log("redirect")
                     this.props.history.push("/")
@@ -133,9 +138,9 @@ export default class ProfileComponent extends React.Component {
                                 </button>
                             }
                         </div>
-                        <p className="m-0">Top 5 Genres</p>
                         <div className="row pl-3">
-                            {this.state.favoriteGenres.map(genre => <GenreBadgesComponent key={genre} genre={genre} />)}
+                            {this.state.watchParty && <h6>Watch Party ID: {this.state.watchParty.id}</h6>}
+                            {!this.state.watchParty && <h6>Join or Create a Watch Party!</h6>}
                         </div>
                     </div>
                 </div>
