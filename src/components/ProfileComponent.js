@@ -6,6 +6,7 @@ import GenreBadgesComponent from "./GenreBadgesComponent";
 import MediaQuery from "react-responsive";
 import PostListComponent from "./PostListComponent";
 import GroupsTabComponent from "./GroupsTabComponent";
+import { Link } from "react-router-dom";
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -136,12 +137,12 @@ export default class ProfileComponent extends React.Component {
                             {
                                 this.props.match.params.layout !== "info" &&
                                 !this.state.visiting &&
-                                <a href={`/profile/info`}>
+                                <Link to="/profile/info">
                                     <button
                                         className="btn btn-outline-info btn-sm w-auto ml-4 mt-2">
                                         Edit Profile
                                     </button>
-                                </a>
+                                </Link>
                             }
                             {
                                 !this.state.visiting &&
