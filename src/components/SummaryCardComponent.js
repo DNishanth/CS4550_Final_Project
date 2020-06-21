@@ -8,7 +8,6 @@ class SummaryCardComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            poster: "",
             title: "",
             description: "",
         }
@@ -26,13 +25,21 @@ class SummaryCardComponent extends React.Component {
     componentDidMount() {
         this.findDiscussionId();
         PrototypeService.getIMDBDetails(this.props._id)
-            .then(details =>
-                this.setState({
-                    poster: `https://image.tmdb.org/t/p/w200${details.movie_results[0].poster_path}`,
-                    title: details.movie_results[0].title,
-                    description: details.movie_results[0].overview
-                })
-            )
+            .then(details => {
+                console.log(details)
+                if (details.movie_results.length > 0) {
+                    this.setState({
+                        title: details.movie_results[0].title,
+                        description: details.movie_results[0].overview
+                    })
+                }
+                else {
+                    this.setState({
+                        title: details.tv_results[0].name,
+                        description: details.tv_results[0].overview
+                    })
+                }
+            })
     }
 
     render() {
