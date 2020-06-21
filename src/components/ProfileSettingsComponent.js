@@ -1,60 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
+
 
 class ProfileSettingsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: '',
-            role: '',
-            firstName: '',
-            lastName: '',
-            email: ''
+            user: {},
+            updatedUser: {
+                username: '',
+                password: '',
+                role: '',
+                firstName: '',
+                lastName: '',
+                email: ''
+            }
         }
+        this.getCurrentUser = this.getCurrentUser.bind(this);
+        this.updateUser = this.updateUser.bind(this);
     }
+
+    getCurrentUser = () => UserService.getCurrentUser().then(response => {
+        this.setState({
+            user: response
+        })
+    });
+
+    updateUser = () => UserService.updateUser(this.state.user.id, this.state.user).then(response => {
+        console.log("update called returned below")
+        console.log(response);
+    });
 
     componentDidMount() {
-        fetch("http://localhost:8080/api/profile", {
-            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-            method: 'POST',
-            credentials: "include"
-        })
-            .then(response => {
-                console.log(response)
-                return response.json()
-            })
-            .catch(e => {
-                this.props.history.push("/")
-            })
-            .then(user => {
-                if (user)
-                    this.setState({
-                        username: user.username, password: user.password,
-                        role: user.role, firstName: user.firstName,
-                        lastName: user.lastName, email: user.email
-                    })
-            })
-    }
-
-    update = () => {
-        fetch("http://localhost:8080/api/profile", {
-            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-            body: JSON.stringify({
-                username: this.state.username, password: this.state.password,
-                role: this.state.role, firstName: this.state.firstName, lastName:
-                    this.state.lastName, email: this.state.email
-            }),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'PUT',
-            credentials: "include"
-        })
-            .then(response => response.json())
-            .then(user => this.setState({
-                username: user.username, password: user.password
-            }))
+        this.getCurrentUser();
     }
 
     render() {
@@ -73,8 +52,7 @@ class ProfileSettingsComponent extends React.Component {
                                 type="text"
                                 readOnly
                                 className="form-control wbdv-field wbdv-username"
-                                placeholder={this.state.username}
-                                value={this.state.username} />
+                                defaultValue={this.state.user.username || ''} />
                         </div>
                     </div>
                 </div>
@@ -86,7 +64,10 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="password"
                                 type="password"
-                                value={this.state.password}
+                                onChange={e => this.setState({
+                                    user: {...this.state.user, password: e.target.value}
+                                })}
+                                defaultValue={this.state.user.password || ''}
                                 className="form-control wbdv-field wbdv-password" />
                         </div>
                     </div>
@@ -97,9 +78,14 @@ class ProfileSettingsComponent extends React.Component {
                         <label className="col-sm-2 col-form-label"
                             htmlFor="role"> Role </label>
                         <div className="col-sm-10">
-                            <select className="form-control wbdv-field wbdv-role" disabled={true} id="role">
-                                <option selected={this.state.role === "LEADER"} value="LEADER">Group Leader</option>
-                                <option selected={this.state.role === "MEMBER"} value="MEMBER">Member</option>
+                            <select className="form-control wbdv-field wbdv-role"
+                                    id="role"
+                                    defaultValue={this.state.user.role}
+                                    onChange={e => this.setState({
+                                        user: {...this.state.user, role: e.target.value}
+                                    })}>
+                                <option value="LEADER">Group Leader</option>
+                                <option value="MEMBER">Member</option>
                             </select>
                         </div>
                     </div>
@@ -112,7 +98,10 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="firstName"
                                 type="text"
-                                value={this.state.firstName}
+                                defaultValue={this.state.user.firstName || ''}
+                                onChange={e => this.setState({
+                                    user: {...this.state.user, firstName: e.target.value}
+                                })}
                                 className="form-control wbdv-field" />
                         </div>
                     </div>
@@ -125,7 +114,10 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="lastName"
                                 type="text"
-                                value={this.state.lastName}
+                                defaultValue={this.state.user.lastName || ''}
+                                onChange={e => this.setState({
+                                    user: {...this.state.user, lastName: e.target.value}
+                                })}
                                 className="form-control wbdv-field" />
                         </div>
                     </div>
@@ -138,7 +130,10 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="email"
                                 type="email"
-                                value={this.state.email}
+                                defaultValue={this.state.user.email || ''}
+                                onChange={e => this.setState({
+                                    user: {...this.state.user, email: e.target.value}
+                                })}
                                 className="form-control wbdv-field wbdv-email" />
                         </div>
                     </div>
@@ -151,7 +146,8 @@ class ProfileSettingsComponent extends React.Component {
                 </a>
                 {/*disabled if no changes*/}
                 <button
-                    onClick={this.update}
+                    onClick={this.updateUser}
+                    // onClick={() => console.log(this.state.user)}
                     className="btn btn-success float-right wbdv-button wbdv-update">
                     Update Profile
                 </button>

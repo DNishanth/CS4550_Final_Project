@@ -20,8 +20,8 @@ class WatchPartyTabComponent extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
-        // fetch("http://localhost:8080/api/profile", {
+        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/profile", {
+        fetch("http://localhost:8080/api/profile", {
             method: 'POST',
             credentials: "include"
         })
@@ -36,8 +36,8 @@ class WatchPartyTabComponent extends React.Component {
                     this.setState({
                         user: user
                     })
-                    // fetch(`http://localhost:8080/api/users/${user.id}/watch-party`)
-                    fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${user.id}/watch-party`)
+                    fetch(`http://localhost:8080/api/users/${user.id}/watch-party`)
+                    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${user.id}/watch-party`)
                         .then(response => response.json()).catch(e=> {}).then(watchParty => {
                             if (watchParty != null) {
                             this.setState({
@@ -45,8 +45,8 @@ class WatchPartyTabComponent extends React.Component {
                                 hasGroup: true,
                                 watchPartyLeaderId: watchParty.leaderId
                             })
-                            // fetch(`http://localhost:8080/api/watch-parties/${watchParty.id}/users`)
-                            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/users`)
+                            fetch(`http://localhost:8080/api/watch-parties/${watchParty.id}/users`)
+                            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/users`)
                                 .then(response => response.json()).then(members => {
                                 this.setState({
                                     members: members
@@ -57,15 +57,15 @@ class WatchPartyTabComponent extends React.Component {
     }
 
     createGroup(userId, user) {
-        // fetch(`http://localhost:8080/api/watch-parties`, {
-        fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties`, {
+        fetch(`http://localhost:8080/api/watch-parties`, {
+        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties`, {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
                 'content-type': 'application/json'
             }}).then(response => response.json()).then(watchParty => {
-                // fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
-                fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
+                fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
+                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
                     method: 'PUT',
                     body: JSON.stringify(watchParty),
                     headers: {
@@ -89,9 +89,9 @@ class WatchPartyTabComponent extends React.Component {
             headers: {
                 'content-type': 'application/json'
             }}).then(response => response.json()).then(watchParty => {
-            // fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
-            console.log(watchParty)
-            fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
+            fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
+            // console.log(watchParty)
+            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
                 method: 'PUT',
                 body: JSON.stringify(watchParty),
                 headers: {

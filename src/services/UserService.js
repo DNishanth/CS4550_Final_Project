@@ -1,4 +1,4 @@
-const getCurrentUser = () => {
+export const getCurrentUser = () => {
     return fetch('http://localhost:8080/api/profile', {
         // return fetch('https://wbdv-team18-final-project.herokuapp.com/api/profile', {
         credentials: 'include'
@@ -9,6 +9,16 @@ const getCurrentUser = () => {
     })
 };
 
+export const updateUser = (userId, updatedUser) =>
+    fetch(`http://localhost:8080/api/users/${userId}`, {
+        method: 'PUT',
+        body: JSON.stringify(updatedUser),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json());
+
 export default {
-    getCurrentUser
+    getCurrentUser,
+    updateUser
 }
