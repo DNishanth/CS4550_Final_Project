@@ -37,6 +37,11 @@ class HomePageComponent extends React.Component {
             <div>
                 <h1 className="text-center">What Are We Watching?</h1>
                 {
+                    !this.state.signedIn && <div>
+                        <h5 className="text-center mt-5"> Track movies and shows with your friends! Get started with the search icon above </h5>
+                    </div>
+                }
+                {
                     this.state.signedIn && <div>
                         <h3 className="text-center mt-5">Welcome back!</h3>
                         <h4 className="text-center mt-5">Your recent posts</h4>
