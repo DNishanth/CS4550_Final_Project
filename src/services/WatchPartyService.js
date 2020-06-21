@@ -50,7 +50,7 @@ export const findWatchPartyById = (watchPartyId) =>
 
 export const deleteWatchParty = (watchPartyId) =>
         fetch(`http://localhost:8080/api/watch-parties/${watchPartyId}`, {
-    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchPartyId}`) {
+    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchPartyId}`, {
             method: 'DELETE',
             headers: { 'content-type': 'application/json'}
         }).then(response => response.json())
