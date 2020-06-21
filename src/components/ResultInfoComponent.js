@@ -1,4 +1,5 @@
 import React from "react";
+import DiscussionBoardComponent from "./DiscussionBoardComponent";
 
 export default class ResultInfoComponent extends React.Component {
 
@@ -35,6 +36,8 @@ export default class ResultInfoComponent extends React.Component {
                 <p>
                     {this.state.result.overview}
                 </p>
+
+                <DiscussionBoardComponent movieID={this.props.match.params.imdb_id}/>
             </div>
         )
     }

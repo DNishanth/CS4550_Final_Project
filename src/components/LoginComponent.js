@@ -33,12 +33,27 @@ export default class LoginComponent extends React.Component {
         return (
             <div>
                 <h1>Login</h1>
-                <input
-                    onChange={(e) => this.setState({ username: e.target.value })}
-                    className="form-control" />
-                <input
-                    onChange={(e) => this.setState({ password: e.target.value })}
-                    className="form-control" />
+
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="usernameInput">Username</label>
+                        <input
+                            id="usernameInput"
+                            className="form-control"
+                            placeholder="Enter Username"
+                            onChange={(e) => this.setState({ username: e.target.value })} />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="passwordInput">Password</label>
+                        <input type="password"
+                            id="passwordInput"
+                            className="form-control"
+                            placeholder="Enter Password"
+                            onChange={(e) => this.setState({ password: e.target.value })} />
+                    </div>
+                </form>
+
                 <button
                     onClick={this.login}
                     className="btn btn-primary">

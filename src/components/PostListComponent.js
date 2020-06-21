@@ -2,29 +2,48 @@ import React from "react";
 import { findPostsForUser } from "../services/DiscussionService";
 import "./DiscussionBoard.css"
 import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
+
 
 class PostListComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: [],
+            user: {},
+            signedIn: true
         }
 
         this.findPostsForUser = this.findPostsForUser.bind(this);
+
+        this.getCurrentUser = this.getCurrentUser.bind(this);
+
     }
 
-    // todo check how this works when view other profiles
-    // user id needs to passed from the parent, either current user or from match params
     findPostsForUser = () => findPostsForUser(this.props.userId).then(response => {
-        console.log(response);
         this.setState({
             posts: response
         });
-        console.log(this.state.posts);
+    });
+
+
+
+    getCurrentUser = () => UserService.getCurrentUser().then(response => {
+        if (response.status !== 400) {
+            this.setState({
+                user: response
+            });
+        }
+        else {
+            this.setState({
+                signedIn: false
+            });
+        }
     });
 
     componentDidMount() {
         this.findPostsForUser();
+        this.getCurrentUser();
     }
 
     render() {
@@ -35,14 +54,18 @@ class PostListComponent extends React.Component {
                         <div key={post.id}>
                             <div className="card wbdv-post-card">
                                 <div className="card-header">
-                                    {post.user.firstName + " " + post.user.lastName}
+                                    {post.date}
                                 </div>
                                 <div className="card-body">
                                     <blockquote className="blockquote mb-0">
-                                        <Link to={`/discussions/${post.show.imdbId}`}>
-                                            <p> {post.message} </p>
-                                        </Link>
-                                        <footer className="blockquote-footer"> {post.date} </footer>
+                                        <p> {post.message} </p>
+                                        <footer className="blockquote-footer">
+                                            {this.state.signedIn ?
+                                                <Link to={`/discussions/${post.show.imdbId}`}>
+                                                    Join the discussion here!
+                                                </Link> : "You must sign in to access this discussion"}
+                                        </footer>
+
                                     </blockquote>
                                 </div>
                             </div>
