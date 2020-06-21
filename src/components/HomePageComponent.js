@@ -1,6 +1,6 @@
 import React from "react";
 import ShowPosterComponent from "./ShowPosterComponent";
-import PrototypeService from "../services/PrototypeService";
+import PrototypeService from "../services/APIService";
 
 class HomePageComponent extends React.Component {
     constructor(props) {
@@ -18,10 +18,10 @@ class HomePageComponent extends React.Component {
     render() {
         return (
             <div>
-                <h1>What Are We Watching?</h1>
-                <h3>Popular Movies</h3>
+                <h1 className="text-center">What Are We Watching?</h1>
+                <h3 className="text-center mt-5">Popular Movies</h3>
                 {console.log(this.state.shows)}
-                <div className="row container ml-0 p-0">
+                <div className="row container ml-0">
                     {
                         this.state.shows.map(show =>
                             <ShowPosterComponent

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createShowDiscussion } from "../services/DiscussionService";
-import PrototypeService from "../services/PrototypeService";
+import PrototypeService from "../services/APIService";
 
 export default class SearchRowComponent extends React.Component {
     constructor(props) {

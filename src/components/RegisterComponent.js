@@ -1,18 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default class Register extends React.Component {
     state = {
         username: '',
         password: '',
-        role: '',
+        role: 'LEADER',
         firstName: '',
         lastName: '',
         email: ''
     }
     register = () => {
-        fetch("http://localhost:8080/api/register", {
-            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/register", {
+        // fetch("http://localhost:8080/api/register", {
+        fetch("https://wbdv-team18-final-project.herokuapp.com/api/register", {
             body: JSON.stringify({
                 username: this.state.username, password: this.state.password,
                 role: this.state.role, firstName: this.state.firstName,

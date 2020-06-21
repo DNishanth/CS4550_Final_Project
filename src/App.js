@@ -10,9 +10,6 @@ import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import DiscussionBoardComponent from "./components/DiscussionBoardComponent";
 import HomePageComponent from "./components/HomePageComponent";
-import GroupComponent from "./components/GroupComponent";
-import VisitingProfileComponent from "./components/VisitingProfileComponent";
-
 
 function App() {
   return (
@@ -58,10 +55,6 @@ function App() {
         <Route
           path={"/discussions/:discId"}
           exact render={({ match }) => <DiscussionBoardComponent match={match} />} />
-        <Route
-          path={"/group/:groupId"}
-          exact={true}
-          component={GroupComponent} />
       </div>
     </Router>
   );

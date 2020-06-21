@@ -1,5 +1,5 @@
 import React from "react";
-import PrototypeService from "../services/PrototypeService";
+import PrototypeService from "../services/APIService";
 import UserService from "../services/UserService";
 import SearchTableComponent from "./SearchTableComponent";
 import { Link } from "react-router-dom";

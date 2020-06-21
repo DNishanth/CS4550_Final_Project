@@ -12,8 +12,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/group" className="nav-link">
-                        Group
+                    <Link to="/profile/watch-party" className="nav-link">
+                        Watch Party
                     </Link>
                 </li>
                 <li className="nav-item">
@@ -24,7 +24,7 @@ const ProfileTabsComponent = (props) =>
             </ul>
         }
         {
-            props.layout === "group" &&
+            props.layout === "watch-party" &&
             <ul className="nav nav-tabs flex-column flex-sm-row block">
                 <li className="nav-item">
                     <Link to="/profile/watchlist" className="nav-link">
@@ -32,8 +32,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/group" className="nav-link active">
-                        Group
+                    <Link to="/profile/watch-party" className="nav-link active">
+                        Watch Party
                     </Link>
                 </li>
                 <li className="nav-item">
@@ -52,8 +52,8 @@ const ProfileTabsComponent = (props) =>
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/profile/group" className="nav-link">
-                        Group
+                    <Link to="/profile/watch-party" className="nav-link">
+                        Watch Party
                     </Link>
                 </li>
                 <li className="nav-item">

@@ -9,7 +9,8 @@ export default class ShowListComponent extends React.Component {
 
     capitalize = (s) => {
         if (typeof s !== 'string') return ''
-        if (s !== "watchlist" || s !== "group" || s !== "posts") return "Watchlist"
+        console.log(s)
+        if (s !== "watchlist" && s !== "watch-party" && s !== "posts") return `Watchlist ID#${this.props.match.params.layout}`
         return s.charAt(0).toUpperCase() + s.slice(1)
     }
 

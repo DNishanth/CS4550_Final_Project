@@ -1,5 +1,5 @@
 import React from "react";
-import PrototypeService from "../services/PrototypeService";
+import PrototypeService from "../services/APIService";
 
 class ShowPosterComponent extends React.Component {
     constructor(props) {

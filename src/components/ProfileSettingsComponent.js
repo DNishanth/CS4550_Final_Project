@@ -97,7 +97,7 @@ class ProfileSettingsComponent extends React.Component {
                         <label className="col-sm-2 col-form-label"
                             htmlFor="role"> Role </label>
                         <div className="col-sm-10">
-                            <select className="form-control wbdv-field wbdv-role" disabled="true" id="role">
+                            <select className="form-control wbdv-field wbdv-role" disabled={true} id="role">
                                 <option selected={this.state.role === "LEADER"} value="LEADER">Group Leader</option>
                                 <option selected={this.state.role === "MEMBER"} value="MEMBER">Member</option>
                             </select>

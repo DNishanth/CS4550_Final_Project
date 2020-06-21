@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressComponent from "./ProgressComponent";
-import PrototypeService from "../services/PrototypeService";
+import PrototypeService from "../services/APIService";
 import { findShowByImdb } from "../services/DiscussionService";
 import { Link } from "react-router-dom";
 
