@@ -1,14 +1,31 @@
 import React from "react";
 import ShowPosterComponent from "./ShowPosterComponent";
 import PrototypeService from "../services/APIService";
+import UserService from "../services/UserService";
+import PostListComponent from "./PostListComponent";
+
 
 class HomePageComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            shows: []
+            shows: [],
+            signedIn: false,
+            userId: 0
         }
+
+        this.getCurrentUser = this.getCurrentUser.bind(this);
+        this.getCurrentUser();
     }
+
+    getCurrentUser = () => UserService.getCurrentUser().then(response => {
+        if (response.status !== 400) {
+            this.setState({
+                userId: response.id,
+                signedIn: true
+            });
+        }
+    });
 
     componentDidMount() {
         PrototypeService.findMovies("").then(movies =>
@@ -19,8 +36,15 @@ class HomePageComponent extends React.Component {
         return (
             <div>
                 <h1 className="text-center">What Are We Watching?</h1>
+                {
+                    this.state.signedIn && <div>
+                        <h3 className="text-center mt-5">Welcome back!</h3>
+                        <h4 className="text-center mt-5">Your recent posts</h4>
+                        <PostListComponent userId={this.state.userId} />
+                    </div>
+                }
+
                 <h3 className="text-center mt-5">Popular Movies</h3>
-                {console.log(this.state.shows)}
                 <div className="row container ml-0">
                     {
                         this.state.shows.map(show =>
