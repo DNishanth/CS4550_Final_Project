@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import UserService from "../services/UserService";
 import * as WatchPartyService from "../services/WatchPartyService";
+import ShowListComponent from "./ShowListComponent";
+import ShowPosterComponent from "./ShowPosterComponent";
+import MediaQuery from "react-responsive";
 
 class WatchPartyTabComponent extends React.Component {
     constructor(props) {
@@ -12,10 +15,12 @@ class WatchPartyTabComponent extends React.Component {
             user: {},
             watchParty: {},
             members: [],
+            watchlist: [],
             watchPartyLeaderId: '',
             hasGroup: false,
             userQuery: "",
-            groupQuery: ""
+            groupQuery: "",
+            editingRole: false
         }
     }
 
@@ -35,9 +40,14 @@ class WatchPartyTabComponent extends React.Component {
                                     watchPartyLeaderId: watchParty.leaderId
                                 })
                                 WatchPartyService.findWatchPartyMembers(watchParty)
-                                .then(members => {this.setState({
-                                    members: members
-                                })})}
+                                    .then(members => {this.setState({
+                                        members: members
+                                    })})
+                                WatchPartyService.findWatchPartyWatchlist(watchParty)
+                                    .then(watchlist => {this.setState({
+                                        watchlist: watchlist
+                                    })})
+                            }
                     })
                 }
             })
@@ -97,6 +107,19 @@ class WatchPartyTabComponent extends React.Component {
                                 </div>
                             }
                             <h6>Group Watchlist</h6>
+                            <div className="row">
+                                {
+                                    this.state.watchlist.map(show =>
+                                       <ShowPosterComponent mobileView={true}
+                                                   layout={this.props.layout}
+                                                   key={show.imdbId}
+                                                   _id={show.imdbId}/>
+
+                                    )
+
+                                }
+                                {console.log(this.state.watchlist)}
+                            </div>
                         </div>
                         <div className="col-5">
                             <h6>Group Members</h6>
@@ -119,13 +142,32 @@ class WatchPartyTabComponent extends React.Component {
                                             </a>
                                             {
                                                 this.state.watchPartyLeaderId === this.state.user.id &&
-                                                <button
-                                                    onClick={()=> this.removeUser(member.id, this.state.watchParty.id)}
-                                                    className="btn btn-danger btn-sm float-right">
-                                                    <i className="fa fa-user-times"/>
-                                                </button>
-                                            }
-
+                                                    <span>
+                                                        {
+                                                            !this.state.editingRole &&
+                                                            <button
+                                                                onClick={() => this.setState({editingRole: true})}
+                                                                className="btn btn-warning btn-sm float-right">
+                                                                <i className="fa fa-pencil"/>
+                                                            </button>
+                                                        }
+                                                        {
+                                                            this.state.editingRole &&
+                                                            <span>
+                                                                <button
+                                                                    onClick={()=> this.setState({editingRole: false})}
+                                                                    className="btn btn-success btn-sm float-right">
+                                                                        <i className="fa fa-save"/>
+                                                                </button>
+                                                                <button
+                                                                    onClick={()=> this.removeUser(member.id, this.state.watchParty.id)}
+                                                                    className="btn btn-danger btn-sm float-right">
+                                                                        <i className="fa fa-user-times"/>
+                                                                </button>
+                                                            </span>
+                                                        }
+                                                    </span>
+                                                }
                                         </li>
                                     )
                                 }

@@ -1,3 +1,8 @@
+export const findWatchPartyWatchlist = (watchParty) =>
+    fetch(`http://localhost:8080/api/watch-parties/${watchParty.id}/shows`)
+        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/shows`)
+        .then(response => response.json())
+
 export const addPartyToUser = (userId, watchParty) =>
     fetch(`http://localhost:8080/api/users/${userId}/watch-party`, {
     // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${userId}/watch-party`, {
