@@ -52,6 +52,7 @@ class ProfileSettingsComponent extends React.Component {
                                 type="text"
                                 readOnly
                                 className="form-control wbdv-field wbdv-username"
+                                placeholder="Edit Username"
                                 defaultValue={this.state.user.username || ''} />
                         </div>
                     </div>
@@ -68,6 +69,7 @@ class ProfileSettingsComponent extends React.Component {
                                     user: {...this.state.user, password: e.target.value}
                                 })}
                                 defaultValue={this.state.user.password || ''}
+                                placeholder="Edit Password"
                                 className="form-control wbdv-field wbdv-password" />
                         </div>
                     </div>
@@ -98,6 +100,7 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="firstName"
                                 type="text"
+                                placeholder="Edit First Name"
                                 defaultValue={this.state.user.firstName || ''}
                                 onChange={e => this.setState({
                                     user: {...this.state.user, firstName: e.target.value}
@@ -114,6 +117,7 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="lastName"
                                 type="text"
+                                placeholder="Edit Last Name"
                                 defaultValue={this.state.user.lastName || ''}
                                 onChange={e => this.setState({
                                     user: {...this.state.user, lastName: e.target.value}
@@ -130,6 +134,7 @@ class ProfileSettingsComponent extends React.Component {
                         <div className="col-sm-10">
                             <input id="email"
                                 type="email"
+                                placeholder="Edit Email"
                                 defaultValue={this.state.user.email || ''}
                                 onChange={e => this.setState({
                                     user: {...this.state.user, email: e.target.value}
