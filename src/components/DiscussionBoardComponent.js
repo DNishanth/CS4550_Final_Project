@@ -10,7 +10,7 @@ class DiscussionBoardComponent extends React.Component {
         super(props);
         this.discussionId = this.props.movieID ? this.props.movieID : this.props.match.params.discId;
         this.state = {
-            commentText: "",
+            postText: "",
             posts: [],
             user: {
                 id: 10
@@ -21,7 +21,7 @@ class DiscussionBoardComponent extends React.Component {
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
 
-        this.onCommentChange = this.onCommentChange.bind(this);
+        this.onPostChange = this.onPostChange.bind(this);
 
         this.findPosts = this.findPosts.bind(this);
 
@@ -37,7 +37,7 @@ class DiscussionBoardComponent extends React.Component {
         }
     });
 
-    onCommentChange = e => this.setState({ commentText: e.target.value });
+    onPostChange = e => this.setState({ postText: e.target.value });
 
     findPosts = () => findPostsForDiscussion(this.discussionId).then(discussion => {
         if (discussion.status !== 400 && discussion.status !== 500) {
@@ -49,7 +49,7 @@ class DiscussionBoardComponent extends React.Component {
     });
 
     onPost = e => createPost(this.discussionId, this.state.user.id, {
-        message: this.state.commentText,
+        message: this.state.postText,
         date: new Date()
     }).then(response => {
         this.findPosts();
@@ -70,8 +70,8 @@ class DiscussionBoardComponent extends React.Component {
                             <div className="card">
                                 <div className="card-body">
                                     <textarea className="form-control"
-                                        value={this.state.commentText}
-                                        onChange={this.onCommentChange}
+                                        value={this.state.postText}
+                                        onChange={this.onPostChange}
                                         placeholder="Discuss Here!">
                                         Discuss!
                                     </textarea>
