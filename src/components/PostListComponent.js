@@ -25,7 +25,7 @@ class PostListComponent extends React.Component {
     }
 
     // findPostsForUser = () => findPostsForUser(this.props.userId).then(response => {
-    findPostsForUser = () => findPostsForUser(this.props.userId ? this.props.userId : this.currentUserId)
+    findPostsForUser = () => findPostsForUser(this.props.userId ? this.props.userId : this.state.currentUserId)
         .then(response => {
             this.setState({
                 posts: response
