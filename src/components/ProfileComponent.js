@@ -48,7 +48,9 @@ export default class ProfileComponent extends React.Component {
                         fetch(`http://localhost:8080/api/users/${this.state.layout}/watch-party`)
                             // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/watch-party`)
                             .then(response => response.json())
-                            .then(watchParty => this.setState({
+                            .catch(e => {})
+                            .then(watchParty =>
+                                this.setState({
                                 watchParty: watchParty
                             })).then(status => console.log(this.state.watchParty)
                         )
@@ -117,7 +119,7 @@ export default class ProfileComponent extends React.Component {
                     </div>
 
                     <div className="col-lg-10 col-md-10 col-sm-10">
-                        <div className="d-flex {/*justify-content-between*/}">
+                        <div className="d-flex">
                             <h2>{this.state.username}</h2>
                             {
                                 this.props.match.params.layout !== "info" &&
@@ -139,6 +141,7 @@ export default class ProfileComponent extends React.Component {
                             }
                         </div>
                         <div className="row pl-3">
+                            {console.log(this.state.watchParty)}
                             {this.state.watchParty && <h6>Watch Party ID: {this.state.watchParty.id}</h6>}
                             {!this.state.watchParty && <h6>Join or Create a Watch Party!</h6>}
                         </div>

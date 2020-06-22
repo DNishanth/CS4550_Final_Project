@@ -38,6 +38,7 @@ export default class LoginComponent extends React.Component {
                     <div className="form-group">
                         <label htmlFor="usernameInput">Username</label>
                         <input
+                            required
                             id="usernameInput"
                             className="form-control"
                             placeholder="Enter Username"
@@ -46,7 +47,9 @@ export default class LoginComponent extends React.Component {
 
                     <div className="form-group">
                         <label htmlFor="passwordInput">Password</label>
-                        <input type="password"
+                        <input
+                            type="password"
+                            required
                             id="passwordInput"
                             className="form-control"
                             placeholder="Enter Password"
