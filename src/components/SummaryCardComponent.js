@@ -19,7 +19,6 @@ class SummaryCardComponent extends React.Component {
         this.setState({
             discussionId: show.id
         });
-        // alert(this.props._id);
     });
 
     componentDidMount() {
@@ -60,10 +59,8 @@ class SummaryCardComponent extends React.Component {
                             Go to Discussion Board
                         </button>
                     </Link>
-                    {/* <a href={`/discussions/${this.props._id}`}
-                        className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a> */}
 
-                    {this.props.layout === "watchlist" && <ProgressComponent />}
+                    {this.props.layout === "watchlist" && <ProgressComponent {...this.props}/>}
 
                     {
                         this.props.layout === "wishlist" &&
