@@ -43,15 +43,18 @@ class PostListComponent extends React.Component {
         }
     })
 
-    onDelete = () => deletePost(this.state.editingPostObj.id).then(response =>
-        this.findPostsForUser())
+    onDelete = () => deletePost(this.state.editingPostObj.id).then(response => {
+        this.setState({
+            editingPost: false,
+            editingPostObj: {}
+        }, this.findPostsForUser)
+    })
 
     onUpdate = () => updatePost(this.state.editingPostObj).then(response => {
         this.setState({
             editingPost: false,
             editingPostObj: {}
-        }, this.findPostsForUser);
-        // this.findPostsForUser()
+        }, this.findPostsForUser)
     })
 
     componentDidMount() {
