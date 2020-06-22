@@ -43,4 +43,14 @@ export const deletePost = (postId) =>
       'content-type': 'application/json'
     }
   })
-    // .then(response => response.json())
+
+export const updatePost = (post) =>
+  fetch(`http://localhost:8080/api/posts`, {
+    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/posts`, {
+    method: 'PUT',
+    body: JSON.stringify(post),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())

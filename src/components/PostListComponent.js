@@ -1,5 +1,5 @@
 import React from "react";
-import { findPostsForUser, deletePost } from "../services/DiscussionService";
+import { findPostsForUser, deletePost, updatePost } from "../services/DiscussionService";
 import "./DiscussionBoard.css"
 import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
@@ -20,19 +20,17 @@ class PostListComponent extends React.Component {
         this.getCurrentUser = this.getCurrentUser.bind(this);
         this.findPostsForUser = this.findPostsForUser.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
 
     }
 
     // findPostsForUser = () => findPostsForUser(this.props.userId).then(response => {
     findPostsForUser = () => findPostsForUser(this.props.userId ? this.props.userId : this.currentUserId)
         .then(response => {
-            console.log("in findpostfor user");
             this.setState({
                 posts: response
             });
         });
-
-
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
         if (response.status !== 400 && response.status != 500) {
@@ -45,14 +43,19 @@ class PostListComponent extends React.Component {
         }
     })
 
-    onDelete = () => deletePost(this.state.editingPostObj.id).then(response => {
-        this.findPostsForUser();
-    });
+    onDelete = () => deletePost(this.state.editingPostObj.id).then(response =>
+        this.findPostsForUser())
+
+    onUpdate = () => updatePost(this.state.editingPostObj).then(response => {
+        this.setState({
+            editingPost: false,
+            editingPostObj: {}
+        }, this.findPostsForUser);
+        // this.findPostsForUser()
+    })
 
     componentDidMount() {
         this.getCurrentUser().then(resp => this.findPostsForUser());
-        // console.log("about to call findposts");
-        // this.findPostsForUser();
     }
 
     render() {
@@ -67,7 +70,7 @@ class PostListComponent extends React.Component {
                                 </div>
                                 <div className="card-body">
                                     <blockquote className="blockquote mb-0">
-                                        <p> {!this.state.editingPost && post.message} </p>
+                                        <p> {this.state.editingPostObj.id !== post.id && post.message} </p>
 
                                         {
                                             this.state.signedIn && (this.testVariable === post.user.userId) &&
@@ -84,18 +87,34 @@ class PostListComponent extends React.Component {
                                                     </button>
                                                 }
                                                 {
-                                                    this.state.editingPost &&
+                                                    this.state.editingPost && (this.state.editingPostObj.id === post.id) &&
                                                     <span>
-                                                        <input></input>
+                                                        <input
+                                                            placeholder={post.message}
+                                                            onChange={e => this.setState({
+                                                                editingPostObj: { ...this.state.editingPostObj, message: e.target.value }
+                                                            })}>
+
+                                                        </input>
                                                         <button
-                                                            onClick={() => this.setState({ editingPost: false })}
+                                                            onClick={() => this.setState({
+                                                                editingPost: false,
+                                                                editingPostObj: {}
+                                                            })}
+                                                            className="btn btn-secondary btn-sm float-right">
+                                                            <i className="fa fa-close" />
+                                                        </button>
+
+                                                        <button
+                                                            onClick={this.onUpdate}
                                                             className="btn btn-success btn-sm float-right">
                                                             <i className="fa fa-save" />
                                                         </button>
+
                                                         <button
                                                             onClick={this.onDelete}
                                                             className="btn btn-danger btn-sm float-right">
-                                                            <i className="fa fa-user-times" />
+                                                            <i className="fa fa-trash" />
                                                         </button>
                                                     </span>
                                                 }
