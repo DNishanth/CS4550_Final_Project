@@ -15,43 +15,44 @@ class PostListComponent extends React.Component {
             editingPost: false,
             editingPostObj: {}
         }
-
-        this.findPostsForUser = this.findPostsForUser.bind(this);
+        this.currentUserId = 0;
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
-
+        this.findPostsForUser = this.findPostsForUser.bind(this);
         this.onDelete = this.onDelete.bind(this);
 
     }
 
-    findPostsForUser = () => findPostsForUser(this.props.userId).then(response => {
-        this.setState({
-            posts: response
+    // findPostsForUser = () => findPostsForUser(this.props.userId).then(response => {
+    findPostsForUser = () => findPostsForUser(this.props.userId ? this.props.userId : this.currentUserId)
+        .then(response => {
+            console.log("in findpostfor user");
+            this.setState({
+                posts: response
+            });
         });
-    });
 
 
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
-        if (response.status !== 400) {
-            this.setState({
-                user: response
-            });
+        if (response.status !== 400 && response.status != 500) {
+            this.currentUserId = response.id;
         }
         else {
             this.setState({
                 signedIn: false
             });
         }
-    });
+    })
 
-    onDelete = (id) => deletePost(id).then(response => {
+    onDelete = () => deletePost(this.state.editingPostObj.id).then(response => {
         this.findPostsForUser();
     });
 
     componentDidMount() {
-        this.findPostsForUser();
-        this.getCurrentUser();
+        this.getCurrentUser().then(resp => this.findPostsForUser());
+        // console.log("about to call findposts");
+        // this.findPostsForUser();
     }
 
     render() {
@@ -69,34 +70,37 @@ class PostListComponent extends React.Component {
                                         <p> {!this.state.editingPost && post.message} </p>
 
                                         {
-                                                this.state.signedIn && this.state.user.userId === post.user.userId &&
+                                            this.state.signedIn && (this.testVariable === post.user.userId) &&
+                                            <span>
+                                                {
+                                                    !this.state.editingPost &&
+                                                    <button
+                                                        onClick={() => this.setState({
+                                                            editingPost: true,
+                                                            editingPostObj: post
+                                                        })}
+                                                        className="btn btn-warning btn-sm float-right">
+                                                        <i className="fa fa-pencil" />
+                                                    </button>
+                                                }
+                                                {
+                                                    this.state.editingPost &&
                                                     <span>
-                                                        {
-                                                            !this.state.editingPost &&
-                                                            <button
-                                                                onClick={() => this.setState({editingPost: true})}
-                                                                className="btn btn-warning btn-sm float-right">
-                                                                <i className="fa fa-pencil"/>
-                                                            </button>
-                                                        }
-                                                        {
-                                                            this.state.editingPost &&
-                                                            <span>
-                                                                <input></input>
-                                                                <button
-                                                                    onClick={() => this.setState({editingPost: false})}
-                                                                    className="btn btn-success btn-sm float-right">
-                                                                        <i className="fa fa-save"/>
-                                                                </button>
-                                                                <button
-                                                                    // onClick={this.onDelete(post.id)}
-                                                                    className="btn btn-danger btn-sm float-right">
-                                                                        <i className="fa fa-user-times"/>
-                                                                </button>
-                                                            </span>
-                                                        }
+                                                        <input></input>
+                                                        <button
+                                                            onClick={() => this.setState({ editingPost: false })}
+                                                            className="btn btn-success btn-sm float-right">
+                                                            <i className="fa fa-save" />
+                                                        </button>
+                                                        <button
+                                                            onClick={this.onDelete}
+                                                            className="btn btn-danger btn-sm float-right">
+                                                            <i className="fa fa-user-times" />
+                                                        </button>
                                                     </span>
                                                 }
+                                            </span>
+                                        }
 
 
 
