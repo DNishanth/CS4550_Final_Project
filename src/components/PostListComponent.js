@@ -13,9 +13,9 @@ class PostListComponent extends React.Component {
             user: {},
             signedIn: true,
             editingPost: false,
-            editingPostObj: {}
+            editingPostObj: {},
+            currentUserId: 0
         }
-        this.currentUserId = 0;
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
         this.findPostsForUser = this.findPostsForUser.bind(this);
@@ -34,7 +34,9 @@ class PostListComponent extends React.Component {
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
         if (response.status !== 400 && response.status != 500) {
-            this.currentUserId = response.id;
+            this.setState({
+                currentUserId: response.id
+            });
         }
         else {
             this.setState({
@@ -76,7 +78,7 @@ class PostListComponent extends React.Component {
                                         <p> {this.state.editingPostObj.id !== post.id && post.message} </p>
 
                                         {
-                                            this.state.signedIn && (this.testVariable === post.user.userId) &&
+                                            this.state.signedIn && (this.state.currentUserId === post.user.id) &&
                                             <span>
                                                 {
                                                     !this.state.editingPost &&
