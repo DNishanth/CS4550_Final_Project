@@ -195,6 +195,9 @@ export default class ProfileComponent extends React.Component {
                                         layout={this.state.layout}
                                         shows={this.state.watchlist} />
                                 }
+                                {!isNaN(this.state.layout) &&
+                                    <PostListComponent userId={this.state.layout}/>
+                                }
                             </div>
                         </MediaQuery>
                     </div>
