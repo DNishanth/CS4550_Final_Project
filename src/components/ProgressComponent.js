@@ -1,4 +1,21 @@
 import React from "react";
+import UserService from "../services/UserService";
+
+export const removeShow = function (showId, props) {
+    UserService.getCurrentUser().then(user =>
+        fetch(`http://localhost:8080/api/users/${user.id}/shows`)
+            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+            .then(response => response.json())
+            .then(watchlist =>
+            {
+                let selectedShow = watchlist.find(show => show.imdbId === showId)
+                console.log(selectedShow)
+                fetch(`http://localhost:8080/api/shows/${selectedShow.id}`, {
+                    method: 'DELETE'
+                }).catch(e => {}).then(response => (props.history.push("/profile/watchlist")))
+            })
+    )
+}
 
 const ProgressComponent = (props) =>
     <div>
@@ -20,7 +37,11 @@ const ProgressComponent = (props) =>
 
         <div>
             <button className="mt-3 btn btn-sm btn-outline-success float-left">Update Progress</button>
-            <button className="mt-3 btn btn-sm btn-outline-danger float-right">Remove Show</button>
+            <button
+                onClick={() => removeShow(props.match.params.showId, props)}
+                className="mt-3 btn btn-sm btn-outline-danger float-right">
+                Remove Show
+            </button>
         </div>
     </div>
 

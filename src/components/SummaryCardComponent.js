@@ -1,8 +1,8 @@
 import React from "react";
-import ProgressComponent from "./ProgressComponent";
 import PrototypeService from "../services/APIService";
 import { findShowByImdb } from "../services/DiscussionService";
 import { Link } from "react-router-dom";
+import UserService from "../services/UserService";
 
 class SummaryCardComponent extends React.Component {
     constructor(props) {
@@ -19,7 +19,6 @@ class SummaryCardComponent extends React.Component {
         this.setState({
             discussionId: show.id
         });
-        // alert(this.props._id);
     });
 
     componentDidMount() {
@@ -42,6 +41,22 @@ class SummaryCardComponent extends React.Component {
             })
     }
 
+    removeShow(showId) {
+        UserService.getCurrentUser().then(user =>
+            fetch(`http://localhost:8080/api/users/${user.id}/shows`)
+                // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                .then(response => response.json())
+                .then(watchlist =>
+                {
+                    let selectedShow = watchlist.find(show => show.imdbId === showId)
+                    console.log(selectedShow)
+                    fetch(`http://localhost:8080/api/shows/${selectedShow.id}`, {
+                        method: 'DELETE'
+                    }).catch(e => {}).then(response => (this.props.history.push("/profile/watchlist")))
+                })
+        )
+    }
+
     render() {
         return (
             <div className="card position-fixed w-25 ml-5">
@@ -60,10 +75,13 @@ class SummaryCardComponent extends React.Component {
                             Go to Discussion Board
                         </button>
                     </Link>
-                    {/* <a href={`/discussions/${this.props._id}`}
-                        className="card-link btn btn-primary btn-block mt-2 mb-3">{`Go to Discussion Board`}</a> */}
 
-                    {this.props.layout === "watchlist" && <ProgressComponent />}
+                    <button
+                        onClick={() => this.removeShow(this.props.match.params.showId)}
+                        className="mt-3 btn btn-sm btn-outline-danger float-right">
+                        Remove Show
+                    </button>
+                    {/*{this.props.layout === "watchlist" && <ProgressComponent {...this.props}/>}*/}
 
                     {
                         this.props.layout === "wishlist" &&
