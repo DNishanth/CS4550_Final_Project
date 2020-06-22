@@ -36,7 +36,7 @@ export default class ResultInfoComponent extends React.Component {
             <div>
                 <h1>
                     {this.state.result.title}
-                    {" (" + this.state.result.release_date ? this.state.result.release_date : this.state.result.release_date + ")"}
+                    {" (" + (this.state.result.release_date ? this.state.result.release_date : this.state.result.release_date) + ")"}
                 </h1>
                 <img src={this.state.poster_path} alt="Poster" />
                 <h4>
