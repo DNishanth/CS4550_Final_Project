@@ -126,9 +126,6 @@ class PostListComponent extends React.Component {
                                             </span>
                                         }
 
-
-
-
                                         <footer className="blockquote-footer">
                                             {this.state.signedIn ?
                                                 <Link to={`/discussions/${post.show.imdbId}`}>

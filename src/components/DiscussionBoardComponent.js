@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-import { findPostsForDiscussion, createPost } from "../services/DiscussionService";
+import { findPostsForDiscussion, createPost, deletePost, updatePost } from "../services/DiscussionService";
 import "./DiscussionBoard.css"
 import UserService from "../services/UserService";
 
@@ -12,28 +12,45 @@ class DiscussionBoardComponent extends React.Component {
         this.state = {
             postText: "",
             posts: [],
-            user: {
-                id: 10
-            },
+            currentUserId: 0,
             showPosts: false,
-            loggedIn: false
+            loggedIn: true,
+            editingPost: false,
+            editingPostObj: {},
         }
 
         this.getCurrentUser = this.getCurrentUser.bind(this);
-
         this.onPostChange = this.onPostChange.bind(this);
-
         this.findPosts = this.findPosts.bind(this);
 
-        this.getCurrentUser();
+        this.onDelete = this.onDelete.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
     }
+
+    onDelete = () => deletePost(this.state.editingPostObj.id).then(response => {
+        this.setState({
+            editingPost: false,
+            editingPostObj: {}
+        }, this.findPostsForUser)
+    })
+
+    onUpdate = () => updatePost(this.state.editingPostObj).then(response => {
+        this.setState({
+            editingPost: false,
+            editingPostObj: {}
+        }, this.findPostsForUser)
+    })
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
         if (response.status !== 400 && response.status !== 500) {
             this.setState({
-                user: response,
-                loggedIn: true
+                currentUserId: response.id
             });
+        }
+        else {
+            this.setState({
+                loggedIn: false
+            })
         }
     });
 
@@ -48,7 +65,7 @@ class DiscussionBoardComponent extends React.Component {
         }
     });
 
-    onPost = e => createPost(this.discussionId, this.state.user.id, {
+    onPost = e => createPost(this.discussionId, this.state.currentUserId, {
         message: this.state.postText,
         date: new Date()
     }).then(response => {
@@ -56,7 +73,7 @@ class DiscussionBoardComponent extends React.Component {
     });
 
     componentDidMount() {
-        this.findPosts();
+        this.getCurrentUser().then(resp => this.findPosts())
     }
 
     render() {
@@ -93,7 +110,57 @@ class DiscussionBoardComponent extends React.Component {
                                         </div>
                                         <div className="card-body">
                                             <blockquote className="blockquote mb-0">
-                                                <p> {post.message} </p>
+                                                <p> {this.state.editingPostObj.id !== post.id && post.message} </p>
+
+                                                {
+                                                    this.state.loggedIn && (this.state.currentUserId === post.user.id) &&
+                                                    <span>
+                                                        {
+                                                            !this.state.editingPost &&
+                                                            <button
+                                                                onClick={() => this.setState({
+                                                                    editingPost: true,
+                                                                    editingPostObj: post
+                                                                })}
+                                                                className="btn btn-warning btn-sm float-right">
+                                                                <i className="fa fa-pencil" />
+                                                            </button>
+                                                        }
+                                                        {
+                                                            this.state.editingPost && (this.state.editingPostObj.id === post.id) &&
+                                                            <span>
+                                                                <input
+                                                                    placeholder={post.message}
+                                                                    onChange={e => this.setState({
+                                                                        editingPostObj: { ...this.state.editingPostObj, message: e.target.value }
+                                                                    })}>
+
+                                                                </input>
+                                                                <button
+                                                                    onClick={() => this.setState({
+                                                                        editingPost: false,
+                                                                        editingPostObj: {}
+                                                                    })}
+                                                                    className="btn btn-secondary btn-sm float-right">
+                                                                    <i className="fa fa-close" />
+                                                                </button>
+
+                                                                <button
+                                                                    onClick={this.onUpdate}
+                                                                    className="btn btn-success btn-sm float-right">
+                                                                    <i className="fa fa-save" />
+                                                                </button>
+
+                                                                <button
+                                                                    onClick={this.onDelete}
+                                                                    className="btn btn-danger btn-sm float-right">
+                                                                    <i className="fa fa-trash" />
+                                                                </button>
+                                                            </span>
+                                                        }
+                                                    </span>
+                                                }
+
                                                 <footer className="blockquote-footer"> {post.date} </footer>
                                             </blockquote>
                                         </div>
