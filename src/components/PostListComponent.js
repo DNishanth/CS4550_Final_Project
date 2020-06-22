@@ -33,7 +33,7 @@ class PostListComponent extends React.Component {
         });
 
     getCurrentUser = () => UserService.getCurrentUser().then(response => {
-        if (response.status !== 400 && response.status != 500) {
+        if (response.status !== 400 && response.status !== 500) {
             this.setState({
                 currentUserId: response.id
             });
