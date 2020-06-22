@@ -198,12 +198,10 @@ class WatchPartyTabComponent extends React.Component {
                                         {groupQuery: e.target.value})
                                     }/>
                                 <div className="input-group-append">
-                                    <a href="/profile/watch-party">
-                                        <button
-                                            onClick={() => this.addToGroup(this.props.userId, this.state.groupQuery)}
-                                            className="btn btn-secondary mb-2">Join Group
-                                        </button>
-                                    </a>
+                                    <button
+                                        onClick={() => this.addToGroup(this.props.userId, this.state.groupQuery)}
+                                        className="btn btn-secondary mb-2">Join Group
+                                    </button>
                                 </div>
                             </div>
                         }

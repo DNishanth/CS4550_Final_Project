@@ -30,9 +30,11 @@ export default class SearchComponent extends React.Component {
     }
 
     getCurrentUser = () => UserService.getCurrentUser().then(user => {
-        this.setState({
-            user: user
-        });
+        if (!user.status) {
+            this.setState({
+                user: user
+            });
+        }
     });
 
 

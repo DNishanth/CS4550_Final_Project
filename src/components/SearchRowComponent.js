@@ -10,7 +10,9 @@ export default class SearchRowComponent extends React.Component {
         this.state = {
             userId: '',
             show: { imdbId: '', userId: '' },
-            loggedOut: true
+            loggedOut: true,
+            hasWatchParty: false,
+            watchParty: {}
         }
 
         this.createNewDiscussion = this.createNewDiscussion.bind(this);
@@ -21,32 +23,21 @@ export default class SearchRowComponent extends React.Component {
     });
 
     componentDidMount() {
-        // fetch("http://localhost:8080/api/profile", {
-        //     method: 'POST',
-        //     credentials: "include"
-        // })
-        //     .then(response => {
-        //         console.log(response)
-        //         return response.json()
-        //     })
-        //     .catch(e => {
-        //         // alert(e)
-        //         // this.props.history.push("/")
-        //     })
-        //     .then(user => {
-        //         if (user) {
-        //             let showId = this.props.show.ids.imdb
-        //             let userId = user.id
-        //             this.setState({
-        //                 userId: user.id,
-        //                 show: {imdbId: showId, userId: userId}
-        //             })
-        //         } else {
-        //             this.setState({
-        //                 loggedOut: true
-        //             })
-        //         }
-        //     })
+        if (this.props.currentUser) {
+            WatchPartyService.findUserWatchParty(this.props.currentUser).then(
+                watchParty => {
+                    this.setState({
+                            watchParty: watchParty,
+                            hasWatchParty:
+                                typeof watchParty !== "undefined" &&
+                                this.props.currentUser.role === "LEADER"
+                    })
+                })
+        } else {
+            this.setState({
+                hasWatchParty: false
+            })
+        }
     }
 
     addShow = () => {
@@ -62,28 +53,26 @@ export default class SearchRowComponent extends React.Component {
         }).then(response => response.json());
     }
 
-    addShowToGroup(user) {
-        WatchPartyService.findUserWatchParty(user)
-            .then(watchParty => {
-                if (watchParty) {
-                    fetch(`http://localhost:8080/api/watch-parties/${watchParty.id}/shows`, {
-                    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/shows`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            imdbId: this.props.show.ids.imdb
-                        }),
-                        headers: {
-                            'content-type': 'application/json'
-                        }
-                    }).then(response => response.json())
+    addShowToGroup = (user) => {
+        if (this.state.watchParty) {
+            fetch(`http://localhost:8080/api/watch-parties/${this.state.watchParty.id}/shows`, {
+            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/shows`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    imdbId: this.props.show.ids.imdb
+                }),
+                headers: {
+                    'content-type': 'application/json'
                 }
-
-            })
+            }).then(response => response.json())
+        }
     }
 
     render() {
         return (
             <tr key={this.props.show.key}>
+                {console.log(this.props.currentUser)}
+                {console.log(this.state.watchParty)}
                 <td className="text-md-left">
                     <Link to={`/result/${this.props.show.ids.imdb}`}>
                         {this.props.show.title}
@@ -97,7 +86,7 @@ export default class SearchRowComponent extends React.Component {
                                 className="btn btn-outline-primary" type="button">Add Show
                             </button>
                             {
-                                this.props.currentUser.role === "LEADER" &&
+                                this.state.hasWatchParty &&
                                 <button
                                     onClick={() => this.addShowToGroup(this.props.currentUser)}
                                     className="btn btn-outline-primary" type="button">Add Show To Group
