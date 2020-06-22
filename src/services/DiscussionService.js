@@ -34,3 +34,13 @@ export const findShowByImdb = (imdb) =>
   fetch(`http://localhost:8080/api/shows/${imdb}`)
     // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/shows/${imdb}`)
     .then(response => response.json())
+
+export const deletePost = (postId) =>
+  fetch(`http://localhost:8080/api/posts/${postId}`, {
+    // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    // .then(response => response.json())
