@@ -58,7 +58,7 @@ export default class ProfileComponent extends React.Component {
         } else {
             UserService.getCurrentUser()
                 .then(user => {
-                if (!user.status) {
+                if (user && !user.status) {
                     console.log("entered conditional")
                     this.setState({
                         username: user.username,
@@ -170,7 +170,7 @@ export default class ProfileComponent extends React.Component {
                                 {!isNaN(this.state.layout) &&
                                     <ShowListComponent
                                         {...this.props}
-                                        mobileView={true}
+                                        mobileView={false}
                                         layout={this.state.layout}
                                         shows={this.state.watchlist} />
                                 }
@@ -202,16 +202,18 @@ export default class ProfileComponent extends React.Component {
                         </MediaQuery>
                     </div>
 
-                    <div className="col-lg-5">
-                        {
-                            this.state.showId &&
-                            <SummaryCardComponent
-                                {...this.props}
-                                layout={this.state.layout}
-                                _id={this.state.showId}
-                                key={this.state.showId} />
-                        }
+                    <MediaQuery query='(min-width: 1024px)'>
+                        <div className="col-lg-5">
+                            {
+                                this.state.showId &&
+                                <SummaryCardComponent
+                                    {...this.props}
+                                    layout={this.state.layout}
+                                    _id={this.state.showId}
+                                    key={this.state.showId} />
+                            }
                         </div>
+                    </MediaQuery>
             </div>
             {
                 this.state.layout === "watch-party" &&
