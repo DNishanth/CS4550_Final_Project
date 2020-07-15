@@ -57,7 +57,7 @@ class WatchPartyListComponent extends React.Component {
             <div>
                 <h1>Watch Parties</h1>
                 {/*{console.log(this.state.user)}*/}
-                {console.log(this.state.watchParties)}
+                {/*{console.log(this.state.watchParties)}*/}
                 <div className="row">
                 {
                     this.state.watchParties.map(watchParty =>
