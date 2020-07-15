@@ -7,6 +7,8 @@ import PostListComponent from "./PostListComponent";
 import WatchPartyTabComponent from "./WatchPartyTabComponent";
 import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
+import * as WatchPartyService from "../services/WatchPartyService";
+import WatchPartyListComponent from "./WatchPartyListComponent";
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -22,7 +24,7 @@ export default class ProfileComponent extends React.Component {
 
             watchlist: [],
             posts: [],
-            watchParty: {},
+            watchParties: [],
 
             showId: this.props.match.params.showId,
             layout: this.props.match.params.layout
@@ -45,14 +47,16 @@ export default class ProfileComponent extends React.Component {
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         })).then(status =>
-                        fetch(`http://localhost:8080/api/users/${this.state.layout}/watch-party`)
+
+                        // WatchPartyService.findUsersWatchParties user vs user.id
+                        fetch(`http://localhost:8080/api/users/${this.state.layout}/watch-parties`)
                             // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/watch-party`)
                             .then(response => response.json())
                             .catch(e => {})
-                            .then(watchParty =>
+                            .then(watchParties =>
                                 this.setState({
-                                watchParty: watchParty
-                            })).then(status => console.log(this.state.watchParty)
+                                watchParties: watchParties
+                            })).then(status => console.log(this.state.watchParties)
                         )
                     ))
         } else {
@@ -71,13 +75,10 @@ export default class ProfileComponent extends React.Component {
                         .then(watchlist => this.setState({
                             watchlist: watchlist
                         }))
-                    fetch(`http://localhost:8080/api/users/${user.id}/watch-party`)
-                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/watch-party`)
-                        .then(response => response.json())
-                        .catch(e=> {})
-                        .then(watchParty => this.setState({
-                            watchParty: watchParty
-                        })).then(status => console.log(this.state.watchParty))
+                    WatchPartyService.findUsersWatchParties(user)
+                        .then(watchParties => this.setState({
+                            watchParties: watchParties
+                        })).then(status => console.log(this.state.watchParties))
                 } else {
                     console.log("redirect")
                     this.props.history.push("/")
@@ -139,11 +140,6 @@ export default class ProfileComponent extends React.Component {
                                     Logout
                                 </button>
                             }
-                        </div>
-                        <div className="row pl-3">
-                            {console.log(this.state.watchParty)}
-                            {this.state.watchParty && <h6>Watch Party ID: {this.state.watchParty.id}</h6>}
-                            {!this.state.watchParty && <h6>Join or Create a Watch Party!</h6>}
                         </div>
                     </div>
                 </div>
@@ -218,7 +214,7 @@ export default class ProfileComponent extends React.Component {
             {
                 this.state.layout === "watch-party" &&
                 <span>
-                    <WatchPartyTabComponent
+                    <WatchPartyListComponent
                         key={this.state.userId}
                         userId={this.state.userId}/>
                 </span>

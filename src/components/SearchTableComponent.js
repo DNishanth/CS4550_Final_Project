@@ -1,9 +1,35 @@
 import React from "react";
 import SearchRowComponent from "./SearchRowComponent";
+import * as WatchPartyService from "../services/WatchPartyService";
 
 
-export default class SearchTableComponent
-    extends React.Component {
+export default class SearchTableComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hasWatchParty: false,
+            watchParties: []
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.currentUser) {
+            WatchPartyService.findUsersWatchParties(this.props.currentUser).then(
+                watchParties => {
+                    this.setState({
+                        watchParties: watchParties,
+                        hasWatchParty:
+                            typeof watchParties !== "undefined" &&
+                            this.props.currentUser.role === "LEADER"
+                    })
+                })
+        } else {
+            this.setState({
+                hasWatchParty: false
+            })
+        }
+    }
+
     render() {
         return (
             <div /*className="row"*/>
@@ -25,7 +51,10 @@ export default class SearchTableComponent
                             {
                                 this.props.shows.map(show =>
                                     <SearchRowComponent
-                                        key={show.ids.trakt} show={show} currentUser={this.props.currentUser} />
+                                        key={show.ids.trakt} show={show}
+                                        hasWatchParty={this.state.hasWatchParty}
+                                        watchParties={this.state.watchParties}
+                                        currentUser={this.props.currentUser} />
                                 )
                             }
                         </tbody>

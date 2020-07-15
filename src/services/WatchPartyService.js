@@ -1,3 +1,8 @@
+export const findWatchParties = () =>
+    fetch(`http://localhost:8080/api/watch-parties`)
+        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/shows`)
+        .then(response => response.json())
+
 export const findWatchPartyWatchlist = (watchParty) =>
     fetch(`http://localhost:8080/api/watch-parties/${watchParty.id}/shows`)
         // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchParty.id}/shows`)
@@ -38,8 +43,8 @@ export const createWatchParty = (user) =>
             'content-type': 'application/json'
         }}).then(response => response.json())
 
-export const findUserWatchParty = (user) =>
-        fetch(`http://localhost:8080/api/users/${user.id}/watch-party`)
+export const findUsersWatchParties = (user) =>
+        fetch(`http://localhost:8080/api/users/${user.id}/watch-parties`)
     // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${user.id}/watch-party`)
         .then(response => response.json()).catch(e => {})
 

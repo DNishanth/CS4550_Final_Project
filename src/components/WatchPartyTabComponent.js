@@ -31,7 +31,7 @@ class WatchPartyTabComponent extends React.Component {
                     this.setState({
                         user: user
                     })
-                    WatchPartyService.findUserWatchParty(user)
+                    WatchPartyService.findUsersWatchParties(user)
                         .then(watchParty => {
                             if (watchParty != null) {
                                 this.setState({

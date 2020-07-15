@@ -10,6 +10,7 @@ import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import DiscussionBoardComponent from "./components/DiscussionBoardComponent";
 import HomePageComponent from "./components/HomePageComponent";
+import WatchPartyComponent from "./components/WatchPartyComponent";
 
 function App() {
   return (
@@ -55,6 +56,10 @@ function App() {
         <Route
           path={"/discussions/:discId"}
           exact render={({ match }) => <DiscussionBoardComponent match={match} />} />
+      <Route
+          path={"/watch-party/:watchPartyId"}
+          exact={true}
+          component={WatchPartyComponent}/>
       </div>
     </Router>
   );
