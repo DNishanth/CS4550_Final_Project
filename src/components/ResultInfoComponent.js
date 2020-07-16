@@ -16,8 +16,7 @@ export default class ResultInfoComponent extends React.Component {
                         result: result.movie_results[0],
                         poster_path: tmdb_img_path + result.movie_results[0].poster_path
                     })
-                }
-                else {
+                } else {
                     this.setState({
                         result: result.tv_results[0],
                         poster_path: tmdb_img_path + result.tv_results[0].poster_path
@@ -38,7 +37,7 @@ export default class ResultInfoComponent extends React.Component {
                     {this.state.result.title}
                     {" (" + (this.state.result.release_date ? this.state.result.release_date : this.state.result.release_date) + ")"}
                 </h1>
-                <img src={this.state.poster_path} alt="Poster" />
+                <img src={this.state.poster_path} alt="Poster"/>
                 <h4>
                     {this.state.result.vote_average}
                 </h4>
@@ -46,7 +45,7 @@ export default class ResultInfoComponent extends React.Component {
                     {this.state.result.overview}
                 </p>
 
-                <DiscussionBoardComponent movieID={this.props.match.params.imdb_id} />
+                <DiscussionBoardComponent movieID={this.props.match.params.imdb_id}/>
             </div>
         )
     }

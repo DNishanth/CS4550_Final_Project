@@ -1,7 +1,7 @@
 import React from "react";
 import PrototypeService from "../services/APIService";
-import { findShowByImdb } from "../services/DiscussionService";
-import { Link } from "react-router-dom";
+import {findShowByImdb} from "../services/DiscussionService";
+import {Link} from "react-router-dom";
 import UserService from "../services/UserService";
 
 class SummaryCardComponent extends React.Component {
@@ -31,8 +31,7 @@ class SummaryCardComponent extends React.Component {
                         title: details.movie_results[0].title,
                         description: details.movie_results[0].overview
                     })
-                }
-                else {
+                } else {
                     this.setState({
                         title: details.tv_results[0].name,
                         description: details.tv_results[0].overview
@@ -46,13 +45,13 @@ class SummaryCardComponent extends React.Component {
             fetch(`http://localhost:8080/api/users/${user.id}/shows`)
                 // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
                 .then(response => response.json())
-                .then(watchlist =>
-                {
+                .then(watchlist => {
                     let selectedShow = watchlist.find(show => show.imdbId === showId)
                     console.log(selectedShow)
                     fetch(`http://localhost:8080/api/shows/${selectedShow.id}`, {
                         method: 'DELETE'
-                    }).catch(e => {}).then(response => (this.props.history.push("/profile/watchlist")))
+                    }).catch(e => {
+                    }).then(response => (this.props.history.push("/profile/watchlist")))
                 })
         )
     }
@@ -65,7 +64,7 @@ class SummaryCardComponent extends React.Component {
                     <div className="d-flex justify-content-between">
                         <h5 className="card-title">{this.state.title}</h5>
                         <Link to={`/profile/${this.props.layout}`}>
-                            <i className={"fa fa-times text-danger"} />
+                            <i className={"fa fa-times text-danger"}/>
                         </Link>
                     </div>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default class Register extends React.Component {
     constructor() {
@@ -47,14 +47,14 @@ export default class Register extends React.Component {
         this.setState({
             shouldUpdate: false,
             validation: {
-                    validUsername: this.state.username !== "",
-                    validPassword: this.state.password !== "",
-                    validRole: this.state.role !== "",
-                    validFirstName: this.state.firstName !== "",
-                    validLastName: this.state.lastName !== "",
-                    validEmail: this.state.email !== "",
-                }
-            }, () => {
+                validUsername: this.state.username !== "",
+                validPassword: this.state.password !== "",
+                validRole: this.state.role !== "",
+                validFirstName: this.state.firstName !== "",
+                validLastName: this.state.lastName !== "",
+                validEmail: this.state.email !== "",
+            }
+        }, () => {
             if (this.state.validation.validUsername && this.state.validation.validPassword &&
                 this.state.validation.validRole && this.state.validation.validFirstName &&
                 this.state.validation.validLastName && this.state.validation.validEmail) {
@@ -75,8 +75,8 @@ export default class Register extends React.Component {
                             <input
                                 id="usernameInput"
                                 placeholder="Username"
-                                onChange={(e) => this.setState({ username: e.target.value })}
-                                className="form-control" />
+                                onChange={(e) => this.setState({username: e.target.value})}
+                                className="form-control"/>
                         </div>
                     }
                     {
@@ -86,8 +86,8 @@ export default class Register extends React.Component {
                             <input
                                 id="usernameInput"
                                 placeholder="Username"
-                                onChange={(e) => this.setState({ username: e.target.value })}
-                                className="form-control is-invalid" />
+                                onChange={(e) => this.setState({username: e.target.value})}
+                                className="form-control is-invalid"/>
                             <p className="invalid-feedback">Please choose a username</p>
                         </div>
                     }
@@ -122,12 +122,12 @@ export default class Register extends React.Component {
                             <label htmlFor="roleSelect">Role</label>
                             <select
                                 id="roleSelect"
-                                onChange={(e) => this.setState({ role: e.target.value })}
+                                onChange={(e) => this.setState({role: e.target.value})}
                                 defaultValue={`CHOOSE`}
                                 className="custom-select custom-select">
                                 <option disabled value="CHOOSE"> Choose User Role</option>
-                                <option value="LEADER"> Group Leader </option>
-                                <option value="MEMBER"> Member </option>
+                                <option value="LEADER"> Group Leader</option>
+                                <option value="MEMBER"> Member</option>
                             </select>
                         </div>
                     }
@@ -137,12 +137,12 @@ export default class Register extends React.Component {
                             <label htmlFor="roleSelect">Role</label>
                             <select
                                 id="roleSelect"
-                                onChange={(e) => this.setState({ role: e.target.value })}
+                                onChange={(e) => this.setState({role: e.target.value})}
                                 defaultValue={`CHOOSE`}
                                 className="custom-select custom-select is-invalid">
                                 <option disabled value="CHOOSE"> Choose User Role</option>
-                                <option value="LEADER"> Group Leader </option>
-                                <option value="MEMBER"> Member </option>
+                                <option value="LEADER"> Group Leader</option>
+                                <option value="MEMBER"> Member</option>
                             </select>
                             <p className="invalid-feedback">Please choose a role</p>
                         </div>
@@ -154,8 +154,8 @@ export default class Register extends React.Component {
                             <input
                                 id="firstNameInput"
                                 placeholder="First Name"
-                                onChange={(e) => this.setState({ firstName: e.target.value })}
-                                className="form-control" />
+                                onChange={(e) => this.setState({firstName: e.target.value})}
+                                className="form-control"/>
                         </div>
                     }
                     {
@@ -165,8 +165,8 @@ export default class Register extends React.Component {
                             <input
                                 id="firstNameInput"
                                 placeholder="First Name"
-                                onChange={(e) => this.setState({ firstName: e.target.value })}
-                                className="form-control is-invalid" />
+                                onChange={(e) => this.setState({firstName: e.target.value})}
+                                className="form-control is-invalid"/>
                             <p className="invalid-feedback">Please provide your first name</p>
                         </div>
                     }
@@ -177,8 +177,8 @@ export default class Register extends React.Component {
                             <input
                                 id="lastNameInput"
                                 placeholder="Last Name"
-                                onChange={(e) => this.setState({ lastName: e.target.value })}
-                                className="form-control" />
+                                onChange={(e) => this.setState({lastName: e.target.value})}
+                                className="form-control"/>
                         </div>
                     }
                     {
@@ -188,8 +188,8 @@ export default class Register extends React.Component {
                             <input
                                 id="lastNameInput"
                                 placeholder="Last Name"
-                                onChange={(e) => this.setState({ lastName: e.target.value })}
-                                className="form-control is-invalid" />
+                                onChange={(e) => this.setState({lastName: e.target.value})}
+                                className="form-control is-invalid"/>
                             <p className="invalid-feedback">Please provide your last name</p>
                         </div>
                     }
@@ -200,8 +200,8 @@ export default class Register extends React.Component {
                             <input
                                 id="emailInput"
                                 placeholder="Email"
-                                onChange={(e) => this.setState({ email: e.target.value })}
-                                className="form-control" />
+                                onChange={(e) => this.setState({email: e.target.value})}
+                                className="form-control"/>
                         </div>
                     }
                     {
@@ -211,8 +211,8 @@ export default class Register extends React.Component {
                             <input
                                 id="emailInput"
                                 placeholder="Email"
-                                onChange={(e) => this.setState({ email: e.target.value })}
-                                className="form-control is-invalid" />
+                                onChange={(e) => this.setState({email: e.target.value})}
+                                className="form-control is-invalid"/>
                             <p className="invalid-feedback">Please provide your email</p>
                         </div>
                     }

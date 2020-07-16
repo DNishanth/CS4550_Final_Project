@@ -4,8 +4,7 @@ import SummaryCardComponent from "./SummaryCardComponent";
 import ProfileTabsComponent from "./ProfileTabsComponent";
 import MediaQuery from "react-responsive";
 import PostListComponent from "./PostListComponent";
-import WatchPartyTabComponent from "./WatchPartyTabComponent";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import UserService from "../services/UserService";
 import * as WatchPartyService from "../services/WatchPartyService";
 import WatchPartyListComponent from "./WatchPartyListComponent";
@@ -52,44 +51,45 @@ export default class ProfileComponent extends React.Component {
                         fetch(`http://localhost:8080/api/users/${this.state.layout}/watch-parties`)
                             // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.layout}/watch-party`)
                             .then(response => response.json())
-                            .catch(e => {})
+                            .catch(e => {
+                            })
                             .then(watchParties =>
                                 this.setState({
-                                watchParties: watchParties
-                            })).then(status => console.log(this.state.watchParties)
+                                    watchParties: watchParties
+                                })).then(status => console.log(this.state.watchParties)
                         )
                     ))
         } else {
             UserService.getCurrentUser()
                 .then(user => {
-                if (user && !user.status) {
-                    console.log("entered conditional")
-                    this.setState({
-                        username: user.username,
-                        password: user.password,
-                        userId: user.id,
-                    })
-                    fetch(`http://localhost:8080/api/users/${user.id}/shows`)
-                        // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
-                        .then(response => response.json())
-                        .then(watchlist => this.setState({
-                            watchlist: watchlist
-                        }))
-                    WatchPartyService.findUsersWatchParties(user)
-                        .then(watchParties => this.setState({
-                            watchParties: watchParties
-                        })).then(status => console.log(this.state.watchParties))
-                } else {
-                    console.log("redirect")
-                    this.props.history.push("/")
-                }
-            })
+                    if (user && !user.status) {
+                        console.log("entered conditional")
+                        this.setState({
+                            username: user.username,
+                            password: user.password,
+                            userId: user.id,
+                        })
+                        fetch(`http://localhost:8080/api/users/${user.id}/shows`)
+                            // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
+                            .then(response => response.json())
+                            .then(watchlist => this.setState({
+                                watchlist: watchlist
+                            }))
+                        WatchPartyService.findUsersWatchParties(user)
+                            .then(watchParties => this.setState({
+                                watchParties: watchParties
+                            })).then(status => console.log(this.state.watchParties))
+                    } else {
+                        console.log("redirect")
+                        this.props.history.push("/")
+                    }
+                })
         }
     }
 
     logout = () => {
         fetch("http://localhost:8080/api/logout", {
-        // fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
+            // fetch("https://wbdv-team18-final-project.herokuapp.com/api/logout", {
             method: 'POST',
             credentials: "include"
         })
@@ -116,7 +116,7 @@ export default class ProfileComponent extends React.Component {
                 <div className="row">
 
                     <div className="col-lg-2 col-md-2 col-sm-2">
-                        <i className="fa fa-user-circle-o mt-2" style={{ fontSize: 80 }} />
+                        <i className="fa fa-user-circle-o mt-2" style={{fontSize: 80}}/>
                     </div>
 
                     <div className="col-lg-10 col-md-10 col-sm-10">
@@ -152,47 +152,47 @@ export default class ProfileComponent extends React.Component {
 
                 <div className="row">
                     <div className="col-lg-7">
-                        <br />
+                        <br/>
 
                         <MediaQuery query='(min-width: 1024px)'>
                             <div>
                                 {this.state.layout === "watchlist" &&
-                                    <ShowListComponent
-                                        {...this.props}
-                                        mobileView={false}
-                                        layout={this.state.layout}
-                                        shows={this.state.watchlist} />
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={false}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
                                 }
                                 {!isNaN(this.state.layout) &&
-                                    <ShowListComponent
-                                        {...this.props}
-                                        mobileView={false}
-                                        layout={this.state.layout}
-                                        shows={this.state.watchlist} />
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={false}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
                                 }
                                 {!isNaN(this.state.layout) &&
-                                    <PostListComponent userId={this.state.layout}/>
+                                <PostListComponent userId={this.state.layout}/>
                                 }
                             </div>
                         </MediaQuery>
                         <MediaQuery query='(max-width: 1023px)'>
                             <div>
                                 {this.state.layout === "watchlist" &&
-                                    <ShowListComponent
-                                        {...this.props}
-                                        mobileView={true}
-                                        layout={this.state.layout}
-                                        shows={this.state.watchlist} />
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={true}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
                                 }
                                 {this.state.visiting &&
-                                    <ShowListComponent
-                                        {...this.props}
-                                        mobileView={true}
-                                        layout={this.state.layout}
-                                        shows={this.state.watchlist} />
+                                <ShowListComponent
+                                    {...this.props}
+                                    mobileView={true}
+                                    layout={this.state.layout}
+                                    shows={this.state.watchlist}/>
                                 }
                                 {!isNaN(this.state.layout) &&
-                                    <PostListComponent userId={this.state.layout}/>
+                                <PostListComponent userId={this.state.layout}/>
                                 }
                             </div>
                         </MediaQuery>
@@ -206,25 +206,25 @@ export default class ProfileComponent extends React.Component {
                                     {...this.props}
                                     layout={this.state.layout}
                                     _id={this.state.showId}
-                                    key={this.state.showId} />
+                                    key={this.state.showId}/>
                             }
                         </div>
                     </MediaQuery>
-            </div>
-            {
-                this.state.layout === "watch-party" &&
-                <span>
+                </div>
+                {
+                    this.state.layout === "watch-party" &&
+                    <span>
                     <WatchPartyListComponent
                         key={this.state.userId}
                         userId={this.state.userId}/>
                 </span>
-            }
-            {
-                this.state.layout === "posts" &&
-                <span>
+                }
+                {
+                    this.state.layout === "posts" &&
+                    <span>
                     <PostListComponent userId={this.state.userId}/>
                 </span>
-            }
+                }
             </div>
         );
     }

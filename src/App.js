@@ -58,8 +58,7 @@ function App() {
           exact render={({ match }) => <DiscussionBoardComponent match={match} />} />
       <Route
           path={"/watch-party/:watchPartyId"}
-          exact={true}
-          component={WatchPartyComponent}/>
+          exact render={({ match }) => <WatchPartyComponent match={match} />} />
       </div>
     </Router>
   );

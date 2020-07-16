@@ -1,19 +1,14 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import UserService from "../services/UserService";
 import * as WatchPartyService from "../services/WatchPartyService";
-import ShowListComponent from "./ShowListComponent";
-import ShowPosterComponent from "./ShowPosterComponent";
-import MediaQuery from "react-responsive";
 import WatchPartyCardComponent from "./WatchPartyCardComponent";
 
 class WatchPartyListComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            watchParties: []
+            watchParties: [],
+            groupQuery: ""
         }
     }
 
@@ -49,7 +44,9 @@ class WatchPartyListComponent extends React.Component {
 
     addToGroup(user, watchPartyId) {
         WatchPartyService.addUserToParty(user, watchPartyId)
-            .then(status => this.findWatchParties(user)/*window.location.reload(true)*/)
+            .then(status => {
+                this.findWatchParties(user)
+            })
     }
 
     render() {
@@ -58,14 +55,6 @@ class WatchPartyListComponent extends React.Component {
                 <h1>Watch Parties</h1>
                 {/*{console.log(this.state.user)}*/}
                 {/*{console.log(this.state.watchParties)}*/}
-                <div className="row">
-                {
-                    this.state.watchParties.map(watchParty =>
-                        <WatchPartyCardComponent watchParty={watchParty}/>
-                        // <h2>{watchParty.name}</h2>
-                    )
-                }
-                </div>
                 {
                     <button
                         onClick={() => this.createWatchParty(
@@ -73,6 +62,32 @@ class WatchPartyListComponent extends React.Component {
                         className="btn btn-secondary mb-2">Create Group
                     </button>
                 }
+                {
+                    <div className="input-group mb-3">
+                        <input
+                            className="form-control"
+                            type="form-control"
+                            placeholder="Enter Group ID"
+                            value={this.state.groupQuery}
+                            onChange={e => this.setState(
+                                {groupQuery: e.target.value})
+                            }/>
+                        <div className="input-group-append">
+                            <button
+                                onClick={() => this.addToGroup(this.state.user, this.state.groupQuery)}
+                                className="btn btn-secondary mb-2">Join Group
+                            </button>
+                        </div>
+                    </div>
+                }
+                <div className="row">
+                    {
+                        this.state.watchParties.map(watchParty =>
+                            <WatchPartyCardComponent isLeader={this.props.userId === watchParty.leaderId}
+                                                     watchParty={watchParty}/>
+                        )
+                    }
+                </div>
             </div>
         )
     }

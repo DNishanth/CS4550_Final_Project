@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
 
 
@@ -46,14 +45,14 @@ class ProfileSettingsComponent extends React.Component {
                 <div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"
-                            htmlFor="username"> Username </label>
+                               htmlFor="username"> Username </label>
                         <div className="col-sm-10">
                             <input id="username"
-                                type="text"
-                                readOnly
-                                className="form-control wbdv-field wbdv-username"
-                                placeholder="Edit Username"
-                                defaultValue={this.state.user.username || ''} />
+                                   type="text"
+                                   readOnly
+                                   className="form-control wbdv-field wbdv-username"
+                                   placeholder="Edit Username"
+                                   defaultValue={this.state.user.username || ''}/>
                         </div>
                     </div>
                 </div>
@@ -61,16 +60,16 @@ class ProfileSettingsComponent extends React.Component {
                 <div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"
-                            htmlFor="password"> Password </label>
+                               htmlFor="password"> Password </label>
                         <div className="col-sm-10">
                             <input id="password"
-                                type="password"
-                                onChange={e => this.setState({
-                                    user: {...this.state.user, password: e.target.value}
-                                })}
-                                defaultValue={this.state.user.password || ''}
-                                placeholder="Edit Password"
-                                className="form-control wbdv-field wbdv-password" />
+                                   type="password"
+                                   onChange={e => this.setState({
+                                       user: {...this.state.user, password: e.target.value}
+                                   })}
+                                   defaultValue={this.state.user.password || ''}
+                                   placeholder="Edit Password"
+                                   className="form-control wbdv-field wbdv-password"/>
                         </div>
                     </div>
                 </div>
@@ -78,7 +77,7 @@ class ProfileSettingsComponent extends React.Component {
                 <div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"
-                            htmlFor="role"> Role </label>
+                               htmlFor="role"> Role </label>
                         <div className="col-sm-10">
                             <select className="form-control wbdv-field wbdv-role"
                                     id="role"
@@ -96,16 +95,16 @@ class ProfileSettingsComponent extends React.Component {
                 <div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"
-                            htmlFor="firstName"> First Name </label>
+                               htmlFor="firstName"> First Name </label>
                         <div className="col-sm-10">
                             <input id="firstName"
-                                type="text"
-                                placeholder="Edit First Name"
-                                defaultValue={this.state.user.firstName || ''}
-                                onChange={e => this.setState({
-                                    user: {...this.state.user, firstName: e.target.value}
-                                })}
-                                className="form-control wbdv-field" />
+                                   type="text"
+                                   placeholder="Edit First Name"
+                                   defaultValue={this.state.user.firstName || ''}
+                                   onChange={e => this.setState({
+                                       user: {...this.state.user, firstName: e.target.value}
+                                   })}
+                                   className="form-control wbdv-field"/>
                         </div>
                     </div>
                 </div>
@@ -113,16 +112,16 @@ class ProfileSettingsComponent extends React.Component {
                 <div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"
-                            htmlFor="lastName"> Last Name </label>
+                               htmlFor="lastName"> Last Name </label>
                         <div className="col-sm-10">
                             <input id="lastName"
-                                type="text"
-                                placeholder="Edit Last Name"
-                                defaultValue={this.state.user.lastName || ''}
-                                onChange={e => this.setState({
-                                    user: {...this.state.user, lastName: e.target.value}
-                                })}
-                                className="form-control wbdv-field" />
+                                   type="text"
+                                   placeholder="Edit Last Name"
+                                   defaultValue={this.state.user.lastName || ''}
+                                   onChange={e => this.setState({
+                                       user: {...this.state.user, lastName: e.target.value}
+                                   })}
+                                   className="form-control wbdv-field"/>
                         </div>
                     </div>
                 </div>
@@ -130,21 +129,21 @@ class ProfileSettingsComponent extends React.Component {
                 <div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label"
-                            htmlFor="email"> Email </label>
+                               htmlFor="email"> Email </label>
                         <div className="col-sm-10">
                             <input id="email"
-                                type="email"
-                                placeholder="Edit Email"
-                                defaultValue={this.state.user.email || ''}
-                                onChange={e => this.setState({
-                                    user: {...this.state.user, email: e.target.value}
-                                })}
-                                className="form-control wbdv-field wbdv-email" />
+                                   type="email"
+                                   placeholder="Edit Email"
+                                   defaultValue={this.state.user.email || ''}
+                                   onChange={e => this.setState({
+                                       user: {...this.state.user, email: e.target.value}
+                                   })}
+                                   className="form-control wbdv-field wbdv-email"/>
                         </div>
                     </div>
                 </div>
 
-                <br />
+                <br/>
 
                 <a className="btn btn-danger wbdv-button wbdv-update" href="/profile/watchlist">
                     Back To Profile

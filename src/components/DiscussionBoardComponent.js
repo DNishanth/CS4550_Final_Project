@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-import { findPostsForDiscussion, createPost, deletePost, updatePost } from "../services/DiscussionService";
+import {createPost, deletePost, findPostsForDiscussion, updatePost} from "../services/DiscussionService";
 import "./DiscussionBoard.css"
 import UserService from "../services/UserService";
 
@@ -46,15 +46,14 @@ class DiscussionBoardComponent extends React.Component {
             this.setState({
                 currentUserId: response.id
             });
-        }
-        else {
+        } else {
             this.setState({
                 loggedIn: false
             })
         }
     });
 
-    onPostChange = e => this.setState({ postText: e.target.value });
+    onPostChange = e => this.setState({postText: e.target.value});
 
     findPosts = () => findPostsForDiscussion(this.discussionId).then(discussion => {
         if (discussion.status !== 400 && discussion.status !== 500) {
@@ -79,7 +78,7 @@ class DiscussionBoardComponent extends React.Component {
     render() {
         return (
             <div>
-                <h1 className="text-center mt-5" >Discussion</h1>
+                <h1 className="text-center mt-5">Discussion</h1>
                 {this.state.showPosts ?
                     <div>
                         {
@@ -87,9 +86,9 @@ class DiscussionBoardComponent extends React.Component {
                             <div className="card">
                                 <div className="card-body">
                                     <textarea className="form-control"
-                                        value={this.state.postText}
-                                        onChange={this.onPostChange}
-                                        placeholder="Discuss Here!">
+                                              value={this.state.postText}
+                                              onChange={this.onPostChange}
+                                              placeholder="Discuss Here!">
                                         Discuss!
                                     </textarea>
                                     <button className="btn btn-success" onClick={this.onPost}>
@@ -123,7 +122,7 @@ class DiscussionBoardComponent extends React.Component {
                                                                     editingPostObj: post
                                                                 })}
                                                                 className="btn btn-warning btn-sm float-right">
-                                                                <i className="fa fa-pencil" />
+                                                                <i className="fa fa-pencil"/>
                                                             </button>
                                                         }
                                                         {
@@ -132,7 +131,10 @@ class DiscussionBoardComponent extends React.Component {
                                                                 <input
                                                                     placeholder={post.message}
                                                                     onChange={e => this.setState({
-                                                                        editingPostObj: { ...this.state.editingPostObj, message: e.target.value }
+                                                                        editingPostObj: {
+                                                                            ...this.state.editingPostObj,
+                                                                            message: e.target.value
+                                                                        }
                                                                     })}>
 
                                                                 </input>
@@ -142,19 +144,19 @@ class DiscussionBoardComponent extends React.Component {
                                                                         editingPostObj: {}
                                                                     })}
                                                                     className="btn btn-secondary btn-sm float-right">
-                                                                    <i className="fa fa-close" />
+                                                                    <i className="fa fa-close"/>
                                                                 </button>
 
                                                                 <button
                                                                     onClick={this.onUpdate}
                                                                     className="btn btn-success btn-sm float-right">
-                                                                    <i className="fa fa-save" />
+                                                                    <i className="fa fa-save"/>
                                                                 </button>
 
                                                                 <button
                                                                     onClick={this.onDelete}
                                                                     className="btn btn-danger btn-sm float-right">
-                                                                    <i className="fa fa-trash" />
+                                                                    <i className="fa fa-trash"/>
                                                                 </button>
                                                             </span>
                                                         }

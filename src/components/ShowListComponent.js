@@ -24,11 +24,11 @@ export default class ShowListComponent extends React.Component {
                     {
                         this.props.shows.length !== 0 &&
                         this.props.shows.map(show =>
-                        <ShowPosterComponent
-                        mobileView={this.props.mobileView}
-                        layout={this.props.layout}
-                        key={show.imdbId}
-                        _id={show.imdbId} />)
+                            <ShowPosterComponent
+                                mobileView={this.props.mobileView}
+                                layout={this.props.layout}
+                                key={show.imdbId}
+                                _id={show.imdbId}/>)
                     }
                     {
                         this.props.shows.length === 0 &&

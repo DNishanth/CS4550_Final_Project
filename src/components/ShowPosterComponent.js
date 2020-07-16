@@ -13,22 +13,21 @@ class ShowPosterComponent extends React.Component {
     componentDidMount() {
         {
             this.props._id != null &&
-                PrototypeService.getIMDBDetails(this.props._id)
-                    .then(details => {
+            PrototypeService.getIMDBDetails(this.props._id)
+                .then(details => {
                         if (details.movie_results.length > 0) {
                             this.setState({
                                 title: details.movie_results[0].title,
                                 poster: `https://image.tmdb.org/t/p/w200${details.movie_results[0].poster_path}`
                             })
-                        }
-                        else {
+                        } else {
                             this.setState({
                                 title: details.tv_results[0].title,
                                 poster: `https://image.tmdb.org/t/p/w200${details.tv_results[0].poster_path}`
                             })
                         }
                     }
-                    )
+                )
         }
     }
 
@@ -43,14 +42,14 @@ class ShowPosterComponent extends React.Component {
     render() {
         return (
             <div className="card p-1 m-0 col-4 col-sm-4 col-md-3 col-lg-3"
-                id="foundShowContainer"
-                style={{ width: 135, marginRight: 10, marginBottom: 10 }}>
+                 id="foundShowContainer"
+                 style={{width: 135, marginRight: 10, marginBottom: 10}}>
 
                 <a href={this.props.mobileView ? `/result/${this.props._id}` : `/profile/${this.props.layout}/${this.props._id}`}>
                     <img src={this.state.poster}
-                        className="img-fluid img-responsive image"
-                        alt={this.state.title}
-                        onClick={() => this.setSelected()} />
+                         className="img-fluid img-responsive image"
+                         alt={this.state.title}
+                         onClick={() => this.setSelected()}/>
                 </a>
             </div>
         )

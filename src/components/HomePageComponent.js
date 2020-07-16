@@ -29,7 +29,7 @@ class HomePageComponent extends React.Component {
 
     componentDidMount() {
         PrototypeService.findMovies("").then(movies =>
-            this.setState({ shows: movies }));
+            this.setState({shows: movies}));
     }
 
     render() {
@@ -38,14 +38,15 @@ class HomePageComponent extends React.Component {
                 <h1 className="text-center">What Are We Watching?</h1>
                 {
                     !this.state.signedIn && <div>
-                        <h5 className="text-center mt-5"> Track movies and shows with your friends! Get started with the search icon above </h5>
+                        <h5 className="text-center mt-5"> Track movies and shows with your friends! Get started with the
+                            search icon above </h5>
                     </div>
                 }
                 {
                     this.state.signedIn && <div>
                         <h3 className="text-center mt-5">Welcome back!</h3>
                         <h4 className="text-center mt-5">Your recent posts</h4>
-                        <PostListComponent userId={this.state.userId} />
+                        <PostListComponent userId={this.state.userId}/>
                     </div>
                 }
 
@@ -57,7 +58,7 @@ class HomePageComponent extends React.Component {
                                 mobileView={true}
                                 layout={""}
                                 key={show.movie.ids.imdb}
-                                _id={show.movie.ids.imdb} />)
+                                _id={show.movie.ids.imdb}/>)
                     }
                 </div>
             </div>

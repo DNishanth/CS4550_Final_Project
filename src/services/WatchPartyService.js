@@ -26,7 +26,7 @@ export const removePartyFromUser = (userId, watchPartyId) =>
         }}).then(response => response.json()).catch(e => {})
 
 export const addUserToParty = (user, watchPartyId) =>
-    fetch(`http://localhost:8080/api/watch-parties/${watchPartyId}/users/${user.id}`, {
+    fetch(`http://localhost:8080/api/watch-parties/${watchPartyId}/users`, {
     // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/watch-parties/${watchPartyId}/users`, {
         method: 'PUT',
         body: JSON.stringify(user),

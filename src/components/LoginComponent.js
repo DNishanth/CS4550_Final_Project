@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default class LoginComponent extends React.Component {
     constructor() {
@@ -47,7 +47,7 @@ export default class LoginComponent extends React.Component {
         }, () => {
             if (this.state.validUsername && this.state.validPassword)
                 this.login()
-            })
+        })
     }
 
     render() {
@@ -68,7 +68,7 @@ export default class LoginComponent extends React.Component {
                                 id="usernameInput"
                                 className="form-control"
                                 placeholder="Enter Username"
-                                onChange={(e) => this.setState({ username: e.target.value })} />
+                                onChange={(e) => this.setState({username: e.target.value})}/>
                         </div>
                     }
                     {
@@ -79,7 +79,7 @@ export default class LoginComponent extends React.Component {
                                 id="usernameInput"
                                 className="form-control is-invalid"
                                 placeholder="Enter Username"
-                                onChange={(e) => this.setState({ username: e.target.value })} />
+                                onChange={(e) => this.setState({username: e.target.value})}/>
                             <p className="invalid-feedback">Invalid Username</p>
                         </div>
                     }
@@ -93,7 +93,7 @@ export default class LoginComponent extends React.Component {
                                 id="passwordInput"
                                 className="form-control"
                                 placeholder="Enter Password"
-                                onChange={(e) => this.setState({ password: e.target.value })} />
+                                onChange={(e) => this.setState({password: e.target.value})}/>
                         </div>
                     }
                     {
@@ -106,18 +106,18 @@ export default class LoginComponent extends React.Component {
                                 id="passwordInput"
                                 className="form-control is-invalid"
                                 placeholder="Enter Password"
-                                onChange={(e) => this.setState({ password: e.target.value })} />
+                                onChange={(e) => this.setState({password: e.target.value})}/>
                             <p className="invalid-feedback">Invalid Password</p>
                         </div>
                     }
                 </form>
 
                 <div className="float-left">
-                <button
-                    onClick={this.validate}
-                    className="btn btn-primary">
-                    Login
-                </button>
+                    <button
+                        onClick={this.validate}
+                        className="btn btn-primary">
+                        Login
+                    </button>
                 </div>
                 <div className="float-right">
                     <Link to="/registration">Sign up</Link>

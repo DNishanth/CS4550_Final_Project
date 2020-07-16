@@ -1,7 +1,7 @@
 import React from "react";
-import { findPostsForUser, deletePost, updatePost } from "../services/DiscussionService";
+import {deletePost, findPostsForUser, updatePost} from "../services/DiscussionService";
 import "./DiscussionBoard.css"
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import UserService from "../services/UserService";
 
 
@@ -37,8 +37,7 @@ class PostListComponent extends React.Component {
             this.setState({
                 currentUserId: response.id
             });
-        }
-        else {
+        } else {
             this.setState({
                 signedIn: false
             });
@@ -88,7 +87,7 @@ class PostListComponent extends React.Component {
                                                             editingPostObj: post
                                                         })}
                                                         className="btn btn-warning btn-sm float-right">
-                                                        <i className="fa fa-pencil" />
+                                                        <i className="fa fa-pencil"/>
                                                     </button>
                                                 }
                                                 {
@@ -97,7 +96,10 @@ class PostListComponent extends React.Component {
                                                         <input
                                                             placeholder={post.message}
                                                             onChange={e => this.setState({
-                                                                editingPostObj: { ...this.state.editingPostObj, message: e.target.value }
+                                                                editingPostObj: {
+                                                                    ...this.state.editingPostObj,
+                                                                    message: e.target.value
+                                                                }
                                                             })}>
 
                                                         </input>
@@ -107,19 +109,19 @@ class PostListComponent extends React.Component {
                                                                 editingPostObj: {}
                                                             })}
                                                             className="btn btn-secondary btn-sm float-right">
-                                                            <i className="fa fa-close" />
+                                                            <i className="fa fa-close"/>
                                                         </button>
 
                                                         <button
                                                             onClick={this.onUpdate}
                                                             className="btn btn-success btn-sm float-right">
-                                                            <i className="fa fa-save" />
+                                                            <i className="fa fa-save"/>
                                                         </button>
 
                                                         <button
                                                             onClick={this.onDelete}
                                                             className="btn btn-danger btn-sm float-right">
-                                                            <i className="fa fa-trash" />
+                                                            <i className="fa fa-trash"/>
                                                         </button>
                                                     </span>
                                                 }

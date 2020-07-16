@@ -6,13 +6,13 @@ export const removeShow = function (showId, props) {
         fetch(`http://localhost:8080/api/users/${user.id}/shows`)
             // fetch(`https://wbdv-team18-final-project.herokuapp.com/api/users/${this.state.userId}/shows`)
             .then(response => response.json())
-            .then(watchlist =>
-            {
+            .then(watchlist => {
                 let selectedShow = watchlist.find(show => show.imdbId === showId)
                 console.log(selectedShow)
                 fetch(`http://localhost:8080/api/shows/${selectedShow.id}`, {
                     method: 'DELETE'
-                }).catch(e => {}).then(response => (props.history.push("/profile/watchlist")))
+                }).catch(e => {
+                }).then(response => (props.history.push("/profile/watchlist")))
             })
     )
 }
@@ -28,10 +28,10 @@ const ProgressComponent = (props) =>
             </div>
         </div>
         <div className="progress"
-            style={{ height: 25 }}>
+             style={{height: 25}}>
             <div className="progress-bar progress-bar-striped bg-info progress-bar-animated w-25"
-                role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                <h6 style={{ marginTop: 5 }}>Episode 32</h6>
+                 role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <h6 style={{marginTop: 5}}>Episode 32</h6>
             </div>
         </div>
 
